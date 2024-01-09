@@ -2,7 +2,6 @@
 import { Button } from '@/shadcn/ui/button'
 import Link from 'next/link'
 import { ModeToggle } from './ModeToggle'
-import { useRouter } from 'next/router'
 import { usePathname } from 'next/navigation'
 import { useTheme } from 'next-themes'
 
@@ -50,7 +49,9 @@ const Menu = () => {
             </Button>
           ))}
         </div>
-        <div>{/* <ModeToggle /> */}</div>
+        <div>
+          <ModeToggle />
+        </div>
       </header>
       <br />
       <br />

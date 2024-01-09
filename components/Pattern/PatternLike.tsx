@@ -6,7 +6,7 @@ import colors from 'tailwindcss/colors'
 const PatternLike = () => {
   const [liked, setLiked] = React.useState(false)
   const [className, setClassName] = React.useState(
-    cn('cursor-pointer transition-all active:scale-75'),
+    cn('cursor-pointer transition-all active:animate-pulse active:scale-125'),
   )
 
   const handleLike = () => {

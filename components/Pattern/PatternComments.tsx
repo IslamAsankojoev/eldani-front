@@ -8,6 +8,7 @@ import { Button } from '@/shadcn/ui/button'
 import { Input } from '@/shadcn/ui/input'
 import { Separator } from '@/shadcn/ui/separator'
 import { ScrollArea } from '@/shadcn/ui/scroll-area'
+import { Avatar, AvatarFallback, AvatarImage } from '@/shadcn/ui/avatar'
 
 import {
   Drawer,
@@ -23,6 +24,8 @@ import { MessageCircle, X } from 'lucide-react'
 import PatternComment from './PatternComment'
 import { LoremIpsum } from 'lorem-ipsum'
 import { redirect, useParams, usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useTheme } from 'next-themes'
+import colors from 'tailwindcss/colors'
 
 const comments = [
   {
@@ -130,6 +133,7 @@ const comments = [
 ]
 
 const PatternComments = () => {
+  const { theme } = useTheme()
   const closeRef = React.useRef<null | HTMLButtonElement>(null)
   const [open, setOpen] = React.useState(false)
   const searchParams = useSearchParams()
@@ -178,8 +182,11 @@ const PatternComments = () => {
             <div className="relative flex justify-center align-middle">
               <DrawerTitle>Comments</DrawerTitle>
               <DrawerClose asChild>
-                <Button ref={closeRef} className="absolute right-3 p-0 m-0 h-auto bg-transparent">
-                  <X className="" />
+                <Button
+                  ref={closeRef}
+                  className="absolute right-3 p-0 m-0 h-auto hover:bg-transparent bg-transparent"
+                >
+                  <X color={theme === 'dark' ? colors.stone[200] : colors.stone[500]} />
                 </Button>
               </DrawerClose>
             </div>
@@ -193,7 +200,16 @@ const PatternComments = () => {
             </div>
           </ScrollArea>
           <DrawerFooter>
-            <Input placeholder="Write a comment..." inputMode="text" />
+            <div className="flex align-middle p-2 px-4 gap-4 bg-stone-100 dark:bg-stone-800">
+              <Avatar>
+                <AvatarImage
+                  src={avatar1.src}
+                  className="rounded-full border-[1px] border-stone-300"
+                />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+              <Input placeholder="Write a comment..." inputMode="text" className="" />
+            </div>
           </DrawerFooter>
         </div>
       </DrawerContent>
