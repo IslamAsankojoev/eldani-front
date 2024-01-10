@@ -11,82 +11,85 @@ import image9 from '/public/images/hoodie3.jpg'
 
 import PatternCard from '@/components/Pattern/PatternCard'
 import { cn } from '@/lib/utils'
-import { Lemon } from 'next/font/google'
 import _ from 'lodash'
+import { signal } from '@preact/signals'
+import { useEffect } from 'react'
 
 const patterns = _.shuffle([
   {
     id: '1',
     name: 'Джинсовые штаны',
     description: 'летние',
-    image: image1,
+    images: [image1, image2, image3],
     price: 1000,
   },
   {
     id: '2',
     name: 'Джинсовые штаны',
     description: 'летние',
-    image: image2,
+    images: [image2, image3, image1],
     price: 1100,
   },
   {
     id: '3',
     name: 'Джинсовые штаны',
     description: 'летние',
-    image: image3,
+    images: [image3, image1, image2],
     price: 1200,
   },
   {
     id: '4',
     name: 'Легкий Кардиган',
     description: 'летний',
-    image: image4,
+    images: [image4, image5, image6],
     price: 2100,
   },
   {
     id: '5',
     name: 'Легкий Кардиган',
     description: 'летний',
-    image: image5,
+    images: [image5, image6, image4],
     price: 2200,
   },
   {
     id: '6',
     name: 'Легкий Кардиган',
     description: 'летний',
-    image: image6,
+    images: [image6, image4, image5],
     price: 2300,
   },
   {
     id: '7',
     name: 'Худи оверсайз',
     description: 'летний',
-    image: image7,
+    images: [image7, image8, image9],
     price: 3100,
   },
   {
     id: '8',
     name: 'Худи оверсайз',
     description: 'летний',
-    image: image8,
+    images: [image8, image9, image7],
     price: 3200,
   },
   {
     id: '9',
     name: 'Худи оверсайз',
     description: 'летний',
-    image: image9,
+    images: [image9, image7, image8],
     price: 3300,
   },
 ])
 
-const lemon = Lemon({
-  subsets: ['latin'],
-  display: 'swap',
-  weight: ['400'],
-})
+export const clickedElement = signal<MouseEvent | null>(null)
 
 export default function Home() {
+  useEffect(() => {
+    document.addEventListener('click', (e) => {
+      clickedElement.value = e as MouseEvent
+    })
+  }, [])
+
   return (
     <section>
       <h1 className={cn('text-center text-2xl font-extrabold mt-4')}>Eldani patterns collection</h1>
@@ -97,7 +100,7 @@ export default function Home() {
             id={pattern.id}
             name={pattern.name}
             description={pattern.description}
-            image={pattern.image}
+            images={pattern.images}
             price={pattern.price}
           />
         ))}

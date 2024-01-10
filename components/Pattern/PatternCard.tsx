@@ -10,12 +10,13 @@ import { Star } from 'lucide-react'
 import colors from 'tailwindcss/colors'
 import PatternComments from './PatternComments'
 import PatternLike from './PatternLike'
+import PatternCarousel from './PatternCarousel'
 
 type PatternCardProps = React.HTMLAttributes<HTMLDivElement> & {
   id: string
   name: string
   description: string
-  image: any
+  images: any[]
   price: number
 }
 
@@ -24,7 +25,7 @@ const PatternCard = ({
   id,
   name,
   description,
-  image,
+  images,
   price,
   ...props
 }: PatternCardProps) => {
@@ -43,13 +44,7 @@ const PatternCard = ({
             boxShadow: theme === 'dark' ? 'none' : '0 0 0.5rem 0.25rem rgba(0, 0, 0, 0.05)',
           }}
         >
-          <Image
-            src={image}
-            width={300}
-            height={300}
-            alt="Image"
-            className="object-cover w-[300px] h-[300px]"
-          />
+          <PatternCarousel images={images} />
         </Card>
 
         <div className="flex flex-col space-y-1.5 p-2">

@@ -23,10 +23,10 @@ import {
 import { MessageCircle, X } from 'lucide-react'
 import PatternComment from './PatternComment'
 import { LoremIpsum } from 'lorem-ipsum'
-import { redirect, useParams, usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useTheme } from 'next-themes'
 import colors from 'tailwindcss/colors'
-import { userAgent } from 'next/server'
+import CommentInput from './CommentInput'
 
 const comments = [
   {
@@ -134,6 +134,12 @@ const comments = [
 ]
 
 const PatternComments = () => {
+  const navigator = typeof window !== 'undefined' && (window.navigator as Navigator)
+
+  const dismissible =
+    typeof window !== 'undefined' && navigator
+      ? !(navigator as Navigator).userAgent.toLowerCase().includes('android')
+      : false
   const { theme } = useTheme()
   const closeRef = React.useRef<null | HTMLButtonElement>(null)
   const [open, setOpen] = React.useState(false)
@@ -156,21 +162,26 @@ const PatternComments = () => {
   }
 
   React.useEffect(() => {
-    if (!searchParams.get('modal')) {
+    if (searchParams.get('modal') !== 'comments') {
       closeRef.current && closeRef.current.click()
     }
   }, [searchParams])
 
   return (
     <Drawer
-      dismissible={typeof window !== 'undefined' ? false : !window.navigator.userAgent.toLowerCase().includes('android')}
+      dismissible={dismissible}
       onOpenChange={(open) => {
         setOpen(open)
       }}
       onClose={handleRemoveModal}
     >
       <DrawerTrigger asChild>
-        <MessageCircle size={23} strokeWidth={1.25} absoluteStrokeWidth />
+        <Button
+          variant="ghost"
+          className="h-auto w-auto p-0 m-0 bg-transparent hover:bg-transparent"
+        >
+          <MessageCircle size={23} strokeWidth={1.25} absoluteStrokeWidth />
+        </Button>
       </DrawerTrigger>
       <DrawerOverlay
         onClick={() => {
@@ -193,7 +204,7 @@ const PatternComments = () => {
             </div>
           </DrawerHeader>
           <Separator />
-          <ScrollArea className="h-[500px]">
+          <ScrollArea className="h-[490px] max-h-[80%]">
             <div className="flex px-4 py-3 flex-col gap-4">
               {comments.map((comment) => (
                 <PatternComment key={comment.id} {...comment} />
@@ -201,16 +212,7 @@ const PatternComments = () => {
             </div>
           </ScrollArea>
           <DrawerFooter>
-            <div className="flex align-middle p-2 px-4 gap-4 bg-stone-100 dark:bg-stone-800">
-              <Avatar>
-                <AvatarImage
-                  src={avatar1.src}
-                  className="rounded-full border-[1px] border-stone-300"
-                />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-              <Input type='text' placeholder="Write a comment..." className="" />
-            </div>
+            <CommentInput />
           </DrawerFooter>
         </div>
       </DrawerContent>

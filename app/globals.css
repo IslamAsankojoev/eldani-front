@@ -64,6 +64,6 @@ main {
   flex-direction: column;
   justify-content: space-between;
 }
-nextjs-portal{
+nextjs-portal {
   display: none;
 }
