@@ -15,8 +15,9 @@ const Menu = () => {
   const pathname = usePathname()
   const { theme } = useTheme()
   return (
-    <>
-      <header
+    <header>
+      <br className='hidden md:block'/>
+      <div
         className="
       dark:bg-[#262322]
       bg-white
@@ -52,11 +53,11 @@ const Menu = () => {
         <div>
           <ModeToggle />
         </div>
-      </header>
-      <br />
-      <br />
-      <br />
-    </>
+      </div>
+      <br className='md:hidden'/>
+      <br className='md:hidden'/>
+      <br className='md:hidden'/>
+    </header>
   )
 }
 

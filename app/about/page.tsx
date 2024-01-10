@@ -9,8 +9,7 @@ const playfair = Playfair({
 
 const Page = () => {
   return (
-    <div className="h-dvh">
-      <div className={cn('flex flex-col h-full', playfair.className)}>
+      <div className={cn('flex flex-col')}>
         <h1 className="text-3xl font-bold">Eldani</h1>
         <p className="text-base font-bold text-balance">
           В тихом провинциальном городке Элиза проживала с таинственным взглядом и даром видеть
@@ -36,7 +35,6 @@ const Page = () => {
           делать мир красочнее благодаря своей индивидуальности.
         </p>
       </div>
-    </div>
   )
 }
 

@@ -6,7 +6,7 @@ import colors from 'tailwindcss/colors'
 const PatternLike = () => {
   const [liked, setLiked] = React.useState(false)
   const [className, setClassName] = React.useState(
-    cn('cursor-pointer transition-all active:animate-pulse active:scale-125'),
+    cn('cursor-pointer transition active:animate-pulse active:scale-125'),
   )
 
   const handleLike = () => {
@@ -26,7 +26,9 @@ const PatternLike = () => {
         strokeWidth={1.25}
         fill={liked ? colors.rose[500] : 'none'}
         absoluteStrokeWidth
-        className={className}
+        className={cn(
+          className
+        )}
         onClick={handleLike}
       />
     </>

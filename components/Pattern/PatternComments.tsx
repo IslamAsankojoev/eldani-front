@@ -26,6 +26,7 @@ import { LoremIpsum } from 'lorem-ipsum'
 import { redirect, useParams, usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useTheme } from 'next-themes'
 import colors from 'tailwindcss/colors'
+import { userAgent } from 'next/server'
 
 const comments = [
   {
@@ -162,7 +163,7 @@ const PatternComments = () => {
 
   return (
     <Drawer
-      dismissible={false}
+      dismissible={typeof window !== 'undefined' ? false : !window.navigator.userAgent.toLowerCase().includes('android')}
       onOpenChange={(open) => {
         setOpen(open)
       }}
@@ -179,12 +180,12 @@ const PatternComments = () => {
       <DrawerContent>
         <div className="w-full">
           <DrawerHeader>
-            <div className="relative flex justify-center align-middle">
+            <div className="relative flex justify-center items-center">
               <DrawerTitle>Comments</DrawerTitle>
               <DrawerClose asChild>
                 <Button
                   ref={closeRef}
-                  className="absolute right-3 p-0 m-0 h-auto hover:bg-transparent bg-transparent"
+                  className="absolute right-2 p-0 m-0 h-auto hover:bg-transparent bg-transparent"
                 >
                   <X color={theme === 'dark' ? colors.stone[200] : colors.stone[500]} />
                 </Button>
@@ -208,7 +209,7 @@ const PatternComments = () => {
                 />
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
-              <Input placeholder="Write a comment..." inputMode="text" className="" />
+              <Input type='text' placeholder="Write a comment..." className="" />
             </div>
           </DrawerFooter>
         </div>
