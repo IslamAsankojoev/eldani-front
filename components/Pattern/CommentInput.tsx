@@ -4,15 +4,11 @@ import avatar1 from '/public/images/avatar1.jpg'
 import { Button } from '@/shadcn/ui/button'
 import { SendHorizonal } from 'lucide-react'
 import { cn } from '@/lib/utils'
-
-// const rowsHeight = {
-//   '2'
-// }
+import TextareaAutosize from 'react-textarea-autosize'
 
 const CommentInput = () => {
   const ref = useRef<HTMLTextAreaElement>(null)
   const [comment, setComment] = useState('')
-  const [rows, setRows] = useState(1)
 
   const handleType = (e: any) => {
     setComment(e.target.value)
@@ -25,22 +21,21 @@ const CommentInput = () => {
   }
   return (
     <div className="flex items-center p-2 gap-2 bg-stone-100 dark:bg-stone-800">
-      <Avatar className="mx-2">
+      <Avatar className="mx-2 self-start">
         <AvatarImage src={avatar1.src} className="rounded-full border-[1px] border-stone-300" />
         <AvatarFallback>CN</AvatarFallback>
       </Avatar>
       <form className="flex items-center gap-2 justify-between w-full" onSubmit={handleSend}>
-        <textarea
-          rows={rows}
+        <TextareaAutosize
           ref={ref}
           placeholder="Write a comment..."
           value={comment}
           onChange={handleType}
           className={cn(
-            "flex-1 bg-transparent outline-none focus:outline-none dark:placeholder-stone-400 dark:bg-stone-800 resize-none text-nowrap",
+            'flex-1 bg-transparent outline-none focus:outline-none dark:placeholder-stone-400 dark:bg-stone-800 resize-none',
           )}
         />
-        <Button variant="ghost" type="submit">
+        <Button variant="ghost" className="self-end" type="submit">
           <SendHorizonal size={25} />
         </Button>
       </form>
