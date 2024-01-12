@@ -49,7 +49,7 @@ const CarouselDemo = ({ images }: { images: any[] }) => {
                 fill
                 priority
                 alt={`Pattern ${image}`}
-                className="object-cover "
+                className="object-cover rounded-lg"
               />
             </div>
           </CarouselItem>

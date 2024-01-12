@@ -1,14 +1,14 @@
 'use client'
 import { Button } from '@/shadcn/ui/button'
 import Link from 'next/link'
-import { ModeToggle } from './ModeToggle'
+import { ModeToggle } from '../ModeToggle'
 import { usePathname } from 'next/navigation'
 import { useTheme } from 'next-themes'
 
 const navigationList = [
   { name: 'Home', href: '/' },
   { name: 'About', href: '/about' },
-  { name: 'Contact', href: '/contact' },
+  { name: 'Contacts', href: '/contacts' },
 ]
 
 const Menu = () => {
@@ -35,6 +35,7 @@ const Menu = () => {
       md:p-2
       p-3 
       px-4
+      gap-2
       md:rounded-xl"
         style={{
           boxShadow:
@@ -54,6 +55,7 @@ const Menu = () => {
           <ModeToggle />
         </div>
       </div>
+      {/* <br className='md:hidden'/> */}
       <br className='md:hidden'/>
       <br className='md:hidden'/>
       <br className='md:hidden'/>

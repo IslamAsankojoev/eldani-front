@@ -5,8 +5,11 @@ import { Button } from '@/shadcn/ui/button'
 import { SendHorizonal } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import TextareaAutosize from 'react-textarea-autosize'
+import { useTheme } from 'next-themes'
+import colors from 'tailwindcss/colors'
 
 const CommentInput = () => {
+  const {theme} = useTheme()
   const ref = useRef<HTMLTextAreaElement>(null)
   const [comment, setComment] = useState('')
 
@@ -36,7 +39,14 @@ const CommentInput = () => {
           )}
         />
         <Button variant="ghost" className="self-end" type="submit">
-          <SendHorizonal size={25} />
+          <SendHorizonal 
+            size={25} 
+            color={
+              theme === 'dark' ? 
+              colors.stone[200] : 
+              colors.stone[500]
+            }
+          />
         </Button>
       </form>
     </div>

@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { ThemeProvider } from '@/providers/theme-provider'
-import Menu from '@/components/Menu'
-import Footer from '@/components/Footer'
+import Menu from '@/components/Header/Menu'
+import Footer from '@/components/Footer/Footer'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -33,7 +33,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           >
             <main>
               <Menu />
-              {typeof window !== 'undefined' ? null : <div className="container">{children}</div>}
+              {typeof window !== 'undefined' ? null : <div className="container flex-grow">{children}</div>}
               <Footer />
             </main>
           </ThemeProvider>

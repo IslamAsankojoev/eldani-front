@@ -1,15 +1,6 @@
-import React from 'react'
-import { Playfair } from 'next/font/google'
-import { cn } from '@/lib/utils'
-
-const playfair = Playfair({
-  weight: ['300', '400', '500', '600', '700', '800', '900'],
-  subsets: ['cyrillic', 'cyrillic-ext', 'latin', 'latin-ext', 'vietnamese'],
-})
-
 const Page = () => {
   return (
-      <div className={cn('flex flex-col')}>
+      <div className='flex flex-col justify-center min-h-[500px] mt-20'>
         <h1 className="text-3xl font-bold">Eldani</h1>
         <p className="text-base font-bold text-balance">
           В тихом провинциальном городке Элиза проживала с таинственным взглядом и даром видеть
