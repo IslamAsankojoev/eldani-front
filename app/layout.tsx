@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     width: 'device-width',
     initialScale: 1,
     maximumScale: 1,
-    userScalable: false,
+    userScalable: true,
   },
 }
 
@@ -22,7 +22,7 @@ export interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <>
-      <html lang="en" suppressHydrationWarning>
+      <html lang="en" suppressHydrationWarning translate="no">
         <head />
         <body className="dark:bg-stone-900 bg-slate-100">
           <ThemeProvider

@@ -41,13 +41,14 @@ const DrawerContent = React.forwardRef<
     <DrawerPrimitive.Content
       style={{
         transition: 'transform .2s cubic-bezier(.32,.72,0,1)',
-        height: 'auto',
-        bottom: 0,
+        // height: 'auto',
+        // bottom: 0,
       }}
       ref={ref}
       className={cn(
         'drawer fixed inset-x-0 bottom-0 z-50 mt-24 flex !h-auto flex-col rounded-t-[10px] bg-white dark:bg-stone-900 outline-none focus:outline-none',
-        'after:hidden !bottom-0',
+        'after:hidden',
+        // '!bottom-0',
         className,
       )}
       {...props}

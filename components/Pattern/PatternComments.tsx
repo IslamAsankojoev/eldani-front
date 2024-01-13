@@ -160,7 +160,6 @@ const PatternComments = () => {
       scroll: false,
     })
   }
-
   React.useEffect(() => {
     if (searchParams.get('modal') !== 'comments') {
       closeRef.current && closeRef.current.click()
@@ -169,7 +168,7 @@ const PatternComments = () => {
 
   return (
     <Drawer
-      dismissible={dismissible}
+      dismissible={true}
       onOpenChange={(open) => {
         setOpen(open)
       }}
@@ -178,7 +177,7 @@ const PatternComments = () => {
       <DrawerTrigger asChild>
         <Button
           variant="ghost"
-          className="h-auto w-auto p-0 m-0 bg-transparent hover:bg-transparent"
+          className="h-auto w-auto p-0 m-0 bg-transparent hover:bg-transparent border-none focus:border-none outline-none focus:outline-none active:scale-110 transition"
         >
           <MessageCircle size={23} strokeWidth={1.25} absoluteStrokeWidth />
         </Button>
@@ -189,32 +188,32 @@ const PatternComments = () => {
         }}
       />
       <DrawerContent>
-        <div className="w-full">
-          <DrawerHeader>
-            <div className="relative flex justify-center items-center">
-              <DrawerTitle>Comments</DrawerTitle>
-              <DrawerClose asChild>
-                <Button
-                  ref={closeRef}
-                  className="absolute right-2 p-0 m-0 h-auto hover:bg-transparent bg-transparent"
-                >
-                  <X color={theme === 'dark' ? colors.stone[200] : colors.stone[500]} />
-                </Button>
-              </DrawerClose>
-            </div>
-          </DrawerHeader>
-          <Separator />
-          <ScrollArea className="h-[490px] max-h-[80%]">
-            <div className="flex px-4 py-3 flex-col gap-4">
-              {comments.map((comment) => (
-                <PatternComment key={comment.id} {...comment} />
-              ))}
-            </div>
-          </ScrollArea>
-          <DrawerFooter>
-            <CommentInput />
-          </DrawerFooter>
-        </div>
+        {/* <div className="w-full"> */}
+        <DrawerHeader>
+          <div className="relative flex justify-center items-center">
+            <DrawerTitle>Comments</DrawerTitle>
+            <DrawerClose asChild>
+              <Button
+                ref={closeRef}
+                className="absolute right-2 p-0 m-0 h-auto hover:bg-transparent bg-transparent"
+              >
+                <X color={theme === 'dark' ? colors.stone[200] : colors.stone[500]} />
+              </Button>
+            </DrawerClose>
+          </div>
+        </DrawerHeader>
+        <Separator />
+        <ScrollArea className="h-[600px] !max-h-[60vh]">
+          <div className="flex px-4 py-3 flex-col gap-4">
+            {comments.map((comment) => (
+              <PatternComment key={comment.id} {...comment} />
+            ))}
+          </div>
+        </ScrollArea>
+        <DrawerFooter>
+          <CommentInput />
+        </DrawerFooter>
+        {/* </div> */}
       </DrawerContent>
     </Drawer>
   )

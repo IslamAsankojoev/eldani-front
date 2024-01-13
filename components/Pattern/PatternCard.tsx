@@ -39,7 +39,7 @@ const PatternCard = ({
         }}
       >
         <Card
-          className={cn('overflow-hidden border-none relative border-2', className)}
+          className={cn('overflow-hidden border-none relative border-2 rounded-lg', className)}
           style={{
             boxShadow: theme === 'dark' ? 'none' : '0 0 0.5rem 0.25rem rgba(0, 0, 0, 0.05)',
           }}
