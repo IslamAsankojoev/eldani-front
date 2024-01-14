@@ -8,8 +8,14 @@ import TextareaAutosize from 'react-textarea-autosize'
 import { useTheme } from 'next-themes'
 import colors from 'tailwindcss/colors'
 
-const CommentInput = () => {
-  const {theme} = useTheme()
+const CommentInput = ({
+  handleSendComment,
+  avatar,
+}: {
+  handleSendComment: any
+  avatar: string
+}) => {
+  const { theme } = useTheme()
   const ref = useRef<HTMLTextAreaElement>(null)
   const [comment, setComment] = useState('')
 
@@ -19,13 +25,16 @@ const CommentInput = () => {
 
   const handleSend = (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
     e.preventDefault()
-    setComment('')
-    ref.current?.focus()
+    handleSendComment(comment).then(() => {
+      setComment('')
+      ref.current?.focus()
+    })
   }
+  console.log(avatar)
   return (
     <div className="flex items-center p-2 gap-2 bg-stone-100 dark:bg-stone-800">
       <Avatar className="mx-2 self-start">
-        <AvatarImage src={avatar1.src} className="rounded-full border-[1px] border-stone-300" />
+        <AvatarImage src={avatar} className="rounded-full border-[1px] border-stone-300" />
         <AvatarFallback>CN</AvatarFallback>
       </Avatar>
       <form className="flex items-center gap-2 justify-between w-full" onSubmit={handleSend}>
@@ -39,13 +48,9 @@ const CommentInput = () => {
           )}
         />
         <Button variant="ghost" className="self-end" type="submit">
-          <SendHorizonal 
-            size={25} 
-            color={
-              theme === 'dark' ? 
-              colors.stone[200] : 
-              colors.stone[500]
-            }
+          <SendHorizonal
+            size={25}
+            color={theme === 'dark' ? colors.stone[200] : colors.stone[500]}
           />
         </Button>
       </form>

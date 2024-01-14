@@ -1,14 +1,7 @@
 'use client'
-import avatar1 from '/public/images/avatar1.jpg'
-import avatar2 from '/public/images/avatar2.jpg'
-import avatar3 from '/public/images/avatar3.jpg'
-
-import * as React from 'react'
 import { Button } from '@/shadcn/ui/button'
-import { Input } from '@/shadcn/ui/input'
 import { Separator } from '@/shadcn/ui/separator'
 import { ScrollArea } from '@/shadcn/ui/scroll-area'
-import { Avatar, AvatarFallback, AvatarImage } from '@/shadcn/ui/avatar'
 
 import {
   Drawer,
@@ -22,145 +15,74 @@ import {
 } from '@/shadcn/ui/drawer'
 import { MessageCircle, X } from 'lucide-react'
 import PatternComment from './PatternComment'
-import { LoremIpsum } from 'lorem-ipsum'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useTheme } from 'next-themes'
 import colors from 'tailwindcss/colors'
 import CommentInput from './CommentInput'
+import { CommentService } from '@/service/comment.service'
+import { useMutation, useQuery } from 'react-query'
+import { useEffect, useRef, useState } from 'react'
+import _ from 'lodash'
 
-const comments = [
-  {
-    id: 1,
-    name: 'John Doe',
-    createdAt: '2021-08-03T12:00:00.000Z',
-    avatar: avatar1,
-    comment: new LoremIpsum().generateWords(10) + ' 😂😂',
-  },
-  {
-    id: 2,
-    name: 'James Cameron',
-    createdAt: '2021-08-02T12:00:00.000Z',
-    avatar: avatar2,
-    comment: new LoremIpsum().generateWords(5),
-  },
-  {
-    id: 3,
-    name: 'Michael Bay',
-    createdAt: '2021-08-01T12:00:00.000Z',
-    avatar: avatar1,
-    comment: new LoremIpsum().generateWords(15) + ' 😳😍',
-  },
-  {
-    id: 4,
-    name: 'Michael Bay',
-    createdAt: '2021-08-01T12:00:00.000Z',
-    avatar: avatar2,
-    comment: new LoremIpsum().generateWords(20),
-  },
-  {
-    id: 5,
-    name: 'Michael Bay',
-    createdAt: '2023-08-01T12:00:00.000Z',
-    avatar: avatar1,
-    comment: new LoremIpsum().generateWords(10) + ' 😍😍',
-  },
-
-  {
-    id: 6,
-    name: 'Michael Bay',
-    createdAt: '2024-01-01T12:00:00.000Z',
-    avatar: avatar3,
-    comment: new LoremIpsum().generateWords(10),
-  },
-
-  {
-    id: 7,
-    name: 'Michael Bay',
-    createdAt: '2024-01-04T12:00:00.000Z',
-    avatar: avatar1,
-    comment: new LoremIpsum().generateWords(13),
-  },
-  {
-    id: 8,
-    name: 'John Doe',
-    createdAt: '2021-08-03T12:00:00.000Z',
-    avatar: avatar1,
-    comment: new LoremIpsum().generateWords(10) + ' 😂😂',
-  },
-  {
-    id: 9,
-    name: 'James Cameron',
-    createdAt: '2021-08-02T12:00:00.000Z',
-    avatar: avatar2,
-    comment: new LoremIpsum().generateWords(5),
-  },
-  {
-    id: 10,
-    name: 'Michael Bay',
-    createdAt: '2021-08-01T12:00:00.000Z',
-    avatar: avatar1,
-    comment: new LoremIpsum().generateWords(15) + ' 😳😍',
-  },
-  {
-    id: 11,
-    name: 'Michael Bay',
-    createdAt: '2021-08-01T12:00:00.000Z',
-    avatar: avatar2,
-    comment: new LoremIpsum().generateWords(20),
-  },
-  {
-    id: 12,
-    name: 'Michael Bay',
-    createdAt: '2023-08-01T12:00:00.000Z',
-    avatar: avatar1,
-    comment: new LoremIpsum().generateWords(10) + ' 😍😍',
-  },
-
-  {
-    id: 13,
-    name: 'Michael Bay',
-    createdAt: '2024-01-01T12:00:00.000Z',
-    avatar: avatar3,
-    comment: new LoremIpsum().generateWords(10),
-  },
-
-  {
-    id: 14,
-    name: 'Michael Bay',
-    createdAt: '2024-01-04T12:00:00.000Z',
-    avatar: avatar1,
-    comment: new LoremIpsum().generateWords(13),
-  },
-]
-
-const PatternComments = () => {
+const PatternComments = ({ id }: { id: number }) => {
+  const { data, refetch } = useQuery([CommentService.entity, id], () => CommentService.getAll(id), {
+    cacheTime: 0,
+    staleTime: 0,
+    refetchOnMount: true,
+  })
+  const { mutateAsync } = useMutation((comment: CommentPost) => CommentService.create(id, comment))
   const navigator = typeof window !== 'undefined' && (window.navigator as Navigator)
-
   const dismissible =
     typeof window !== 'undefined' && navigator
       ? !(navigator as Navigator).userAgent.toLowerCase().includes('android')
       : false
   const { theme } = useTheme()
-  const closeRef = React.useRef<null | HTMLButtonElement>(null)
-  const [open, setOpen] = React.useState(false)
+  const closeRef = useRef<null | HTMLButtonElement>(null)
+  const [open, setOpen] = useState(false)
   const searchParams = useSearchParams()
   const router = useRouter()
   const pathname = usePathname()
+  const my_avatar = _.shuffle([
+    'https://loremflickr.com/320/240/boy',
+    'https://loremflickr.com/320/240/girl',
+    'https://loremflickr.com/320/240/dog',
+  ]).pop() as string
 
-  React.useEffect(() => {
-    if (open) {
-      router.push(`${pathname}?modal=comments`, {
-        scroll: false,
-      })
-    }
-  }, [open, router, pathname])
+  const handleSendComment = async (content: string) => {
+    return mutateAsync(
+      {
+        author: {
+          id: 1,
+          name: 'Kama',
+          email: 'kama@mail.ru',
+          avatar: my_avatar,
+        },
+        content: content,
+      },
+      {
+        onSuccess: () => {
+          refetch()
+        },
+      },
+    )
+  }
 
   const handleRemoveModal = () => {
     router.replace(pathname, {
       scroll: false,
     })
   }
-  React.useEffect(() => {
+
+  useEffect(() => {
+    if (open) {
+      router.push(`${pathname}?modal=comments`, {
+        scroll: false,
+      })
+      refetch()
+    }
+  }, [open, router, pathname])
+
+  useEffect(() => {
     if (searchParams.get('modal') !== 'comments') {
       closeRef.current && closeRef.current.click()
     }
@@ -168,7 +90,7 @@ const PatternComments = () => {
 
   return (
     <Drawer
-      dismissible={true}
+      dismissible={dismissible}
       onOpenChange={(open) => {
         setOpen(open)
       }}
@@ -188,32 +110,34 @@ const PatternComments = () => {
         }}
       />
       <DrawerContent>
-        {/* <div className="w-full"> */}
-        <DrawerHeader>
-          <div className="relative flex justify-center items-center">
-            <DrawerTitle>Comments</DrawerTitle>
-            <DrawerClose asChild>
-              <Button
-                ref={closeRef}
-                className="absolute right-2 p-0 m-0 h-auto hover:bg-transparent bg-transparent"
-              >
-                <X color={theme === 'dark' ? colors.stone[200] : colors.stone[500]} />
-              </Button>
-            </DrawerClose>
-          </div>
-        </DrawerHeader>
-        <Separator />
-        <ScrollArea className="h-[600px] !max-h-[60vh]">
-          <div className="flex px-4 py-3 flex-col gap-4">
-            {comments.map((comment) => (
-              <PatternComment key={comment.id} {...comment} />
-            ))}
-          </div>
-        </ScrollArea>
-        <DrawerFooter>
-          <CommentInput />
-        </DrawerFooter>
-        {/* </div> */}
+        <div className="w-full">
+          <DrawerHeader>
+            <div className="relative flex justify-center items-center">
+              <DrawerTitle>Comments</DrawerTitle>
+              <DrawerClose asChild>
+                <Button
+                  ref={closeRef}
+                  className="absolute right-2 p-0 m-0 h-auto hover:bg-transparent bg-transparent"
+                >
+                  <X color={theme === 'dark' ? colors.stone[200] : colors.stone[500]} />
+                </Button>
+              </DrawerClose>
+            </div>
+          </DrawerHeader>
+          <Separator />
+          <ScrollArea className="h-[600px] !max-h-[40vh]">
+            <div className="flex px-4 py-3 flex-col gap-4">
+              {data?.length ? (
+                data?.map((comment) => <PatternComment key={comment.id} {...comment} />)
+              ) : (
+                <p className="text-center text-base text-muted-foreground py-10">No comments yet</p>
+              )}
+            </div>
+          </ScrollArea>
+          <DrawerFooter>
+            <CommentInput handleSendComment={handleSendComment} avatar={my_avatar} />
+          </DrawerFooter>
+        </div>
       </DrawerContent>
     </Drawer>
   )

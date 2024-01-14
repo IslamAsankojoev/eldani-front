@@ -3,6 +3,7 @@ import './globals.css'
 import { ThemeProvider } from '@/providers/theme-provider'
 import Menu from '@/components/Header/Menu'
 import Footer from '@/components/Footer/Footer'
+import { QueryClientProvider } from '@/providers/QueryClientProvider'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -31,11 +32,15 @@ export default function RootLayout({ children }: RootLayoutProps) {
             enableSystem
             disableTransitionOnChange
           >
-            <main>
-              <Menu />
-              {typeof window !== 'undefined' ? null : <div className="container flex-grow">{children}</div>}
-              <Footer />
-            </main>
+            <QueryClientProvider>
+              <main>
+                <Menu />
+                {typeof window !== 'undefined' ? null : (
+                  <div className="container flex-grow">{children}</div>
+                )}
+                <Footer />
+              </main>
+            </QueryClientProvider>
           </ThemeProvider>
         </body>
       </html>

@@ -12,11 +12,14 @@ function dayLater(inputDate: string) {
   const secondsPassed = Math.floor(timeDifference)
 
   if (secondsPassed < 60) {
+    // менее 60 секунд
     return 'Только что'
   } else if (secondsPassed < 3600) {
+    // менее 60 минут
     const minutesPassed = Math.floor(secondsPassed / 60)
     return `${minutesPassed} мин. `
   } else if (secondsPassed < 86400) {
+    // менее 24 часов
     const hoursPassed = Math.floor(secondsPassed / 3600)
     return `${hoursPassed} часа `
   } else if (secondsPassed < 2592000) {
@@ -28,6 +31,7 @@ function dayLater(inputDate: string) {
     const monthsPassed = Math.floor(secondsPassed / 2592000)
     return `${monthsPassed} м.`
   } else {
+    // более 365 дней
     const yearsPassed = Math.floor(secondsPassed / 31536000)
     return `${yearsPassed} г.`
   }

@@ -9,16 +9,20 @@ import {
 import { useEffect, useState } from 'react'
 import { type CarouselApi } from '@/shadcn/ui/carousel'
 import { useInView } from 'react-intersection-observer'
+import { cn } from '@/lib/utils'
 
-const CarouselDemo = ({ images }: { images: any[] }) => {
+type CarouselDemoProps = {
+  thumbnails: Media[]
+}
+
+const CarouselDemo = ({ thumbnails }: CarouselDemoProps) => {
   const [api, setApi] = useState<CarouselApi>()
-  const [current, setCurrent] = useState(0)
   const { ref, inView, entry } = useInView({
-    /* Optional options */
     threshold: 0,
     trackVisibility: true,
     delay: 100,
   })
+  const [active, setActive] = useState(0)
 
   useEffect(() => {
     if (!inView) {
@@ -31,21 +35,21 @@ const CarouselDemo = ({ images }: { images: any[] }) => {
       return
     }
 
-    setCurrent(api.selectedScrollSnap() + 1)
+    setActive(api.selectedScrollSnap() + 1)
     api.on('select', () => {
-      setCurrent(api.selectedScrollSnap() + 1)
+      setActive(api.selectedScrollSnap() + 1)
     })
   }, [api])
 
   return (
     <Carousel className="w-full max-w-xs" setApi={setApi} ref={ref}>
       <CarouselContent>
-        {images.map((image, index) => (
-          <CarouselItem key={index}>
-            <div className="w-[300px] h-[300px] relative">
+        {thumbnails?.map((image) => (
+          <CarouselItem key={image.id}>
+            <div className="w-[300px] h-[auto] min-h-[300px] relative">
               <Image
-                src={image}
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                src={process.env.API_URL + image.url}
+                sizes="100vw"
                 fill
                 priority
                 alt={`Pattern ${image}`}
@@ -55,6 +59,14 @@ const CarouselDemo = ({ images }: { images: any[] }) => {
           </CarouselItem>
         ))}
       </CarouselContent>
+      <div className="absolute bottom-2 left-1/2 z-10 flex gap-2 -translate-x-1/2">
+        {thumbnails?.map((image, index) => (
+          <div
+            key={image.id}
+            className={cn('w-1 h-1 bg-white/55 rounded-full', active === index + 1 && 'bg-white')}
+          />
+        ))}
+      </div>
       <CarouselPrevious />
       <CarouselNext />
     </Carousel>
