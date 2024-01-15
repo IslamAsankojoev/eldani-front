@@ -1,1 +1,1 @@
-export { kyInstance as ky } from './axios.config'
+export { kyInstance as ky } from './ky.config'

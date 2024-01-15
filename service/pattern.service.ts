@@ -1,28 +1,32 @@
-const entity = '/products'
+import { ky } from "@/config"
+import { SearchParamsOption } from "ky"
 
 export const ProductService = {
-  entity,
-  async getAll() {
-    const data = await fetch(process.env.API_URL + '/api' + entity + '?populate=*').then((res) =>
-      res.json(),
-    )
+  entity: 'products',
+  async find(searchParams?: SearchParamsOption) {
+    const data = await ky.get(this.entity, {
+      searchParams,
+    }).json()
     return data as Pattern[]
   },
-  // async get(id: number) {
-  //   const data = await fetch(`${entity}/${id}`).then((res) => res.json())
-  //   return data as Pattern
-  // },
-  // async create(data: Pattern) {
-  //   return await ky.post(entity, {
-  //     body: JSON.stringify(data),
-  //   })
-  // },
-  // async update(id: number, data: Pattern) {
-  //   return await ky.put(`${entity}/${id}`, {
-  //     body: JSON.stringify(data),
-  //   })
-  // },
-  // async delete(id: number) {
-  //   return await ky.delete(`${entity}/${id}`)
-  // },
+  async findOne(id: number) {
+    const data = await ky.get(`${this.entity}/${id}`).json()
+    return data as Pattern
+  },
+  async create(data: Pattern) {
+    const response = await ky.post(this.entity, {
+      json: data,
+    })
+    return response
+  },
+  async update(id: number, data: Pattern) {
+    const response = await ky.put(`${this.entity}/${id}`, {
+      json: data,
+    })
+    return response
+  },
+  async delete(id: number) {
+    const response = await ky.delete(`${this.entity}/${id}`)
+    return response
+  },
 }

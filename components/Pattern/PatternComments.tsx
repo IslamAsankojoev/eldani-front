@@ -80,7 +80,7 @@ const PatternComments = ({ id }: { id: number }) => {
       })
       refetch()
     }
-  }, [open, router, pathname])
+  }, [open, router, pathname, refetch])
 
   useEffect(() => {
     if (searchParams.get('modal') !== 'comments') {

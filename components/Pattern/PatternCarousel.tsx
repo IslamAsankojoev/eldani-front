@@ -28,7 +28,7 @@ const CarouselDemo = ({ thumbnails }: CarouselDemoProps) => {
     if (!inView) {
       api?.scrollTo(0)
     }
-  }, [inView])
+  }, [inView, api])
 
   useEffect(() => {
     if (!api) {

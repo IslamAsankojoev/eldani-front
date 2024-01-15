@@ -1,6 +1,5 @@
 'use client'
-import * as React from 'react'
-import { ChevronRight, Moon, Sun } from 'lucide-react'
+import { Moon, Sun } from 'lucide-react'
 import { useTheme } from 'next-themes'
 
 import { Button } from '@/shadcn/ui/button'
@@ -12,18 +11,17 @@ export function ModeToggle() {
     setTheme(theme)
   }
 
-  return (
+  return theme ? (
     <Button
-      className="dark:bg-stone-900"
-      variant="secondary"
+      variant="ghost"
       size="icon"
       onClick={() => handleClick(theme === 'dark' ? 'light' : 'dark')}
     >
       {theme === 'dark' ? (
-        <Sun className="w-6 h-6" strokeWidth={1} />
+        <Sun className="w-6 h-6" strokeWidth={1.6} />
       ) : (
-        <Moon className="w-6 h-6" strokeWidth={1} />
+        <Moon className="w-6 h-6" strokeWidth={1.4} />
       )}
     </Button>
-  )
+  ) : null
 }
