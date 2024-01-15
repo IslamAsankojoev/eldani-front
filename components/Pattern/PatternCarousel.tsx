@@ -46,13 +46,13 @@ const CarouselDemo = ({ thumbnails }: CarouselDemoProps) => {
       <CarouselContent>
         {thumbnails?.map((image) => (
           <CarouselItem key={image.id}>
-            <div className="w-[300px] h-[auto] min-h-[300px] relative">
+            <div className="h-[60vw] md:h-[40vh] relative">
               <Image
                 src={process.env.API_URL + image.url}
                 sizes="100vw"
                 fill
                 priority
-                alt={`Pattern ${image}`}
+                alt={`Pattern ${image.name}`}
                 className="object-cover rounded-lg"
               />
             </div>
@@ -62,8 +62,12 @@ const CarouselDemo = ({ thumbnails }: CarouselDemoProps) => {
       <div className="absolute bottom-2 left-1/2 z-10 flex gap-2 -translate-x-1/2">
         {thumbnails?.map((image, index) => (
           <div
+            onClick={() => api?.scrollTo(index)}
             key={image.id}
-            className={cn('w-1 h-1 bg-white/55 rounded-full', active === index + 1 && 'bg-white')}
+            className={cn(
+              'w-1 h-1 bg-white/55 rounded-full cursor-pointer hover:scale-125 transition',
+              active === index + 1 && 'bg-white scale-125',
+            )}
           />
         ))}
       </div>

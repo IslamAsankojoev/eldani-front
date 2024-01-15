@@ -23,13 +23,18 @@ import { CommentService } from '@/service/comment.service'
 import { useMutation, useQuery } from 'react-query'
 import { useEffect, useRef, useState } from 'react'
 import _ from 'lodash'
+import CommentSkeleton from './CommentSkeleton'
 
 const PatternComments = ({ id }: { id: number }) => {
-  const { data, refetch } = useQuery([CommentService.entity, id], () => CommentService.getAll(id), {
-    cacheTime: 0,
-    staleTime: 0,
-    refetchOnMount: true,
-  })
+  const { data, refetch, isLoading } = useQuery(
+    [CommentService.entity, id],
+    () => CommentService.getAll(id),
+    {
+      cacheTime: 0,
+      staleTime: 0,
+      refetchOnMount: true,
+    },
+  )
   const { mutateAsync } = useMutation((comment: CommentPost) => CommentService.create(id, comment))
   const navigator = typeof window !== 'undefined' && (window.navigator as Navigator)
   const dismissible =
@@ -127,10 +132,23 @@ const PatternComments = ({ id }: { id: number }) => {
           <Separator />
           <ScrollArea className="h-[600px] !max-h-[40vh]">
             <div className="flex px-4 py-3 flex-col gap-4">
-              {data?.length ? (
-                data?.map((comment) => <PatternComment key={comment.id} {...comment} />)
+              {isLoading ? (
+                <>
+                  {Array.from({ length: 7 }).map((_, index) => (
+                    <CommentSkeleton key={index} />
+                  ))}
+                </>
               ) : (
-                <p className="text-center text-base text-muted-foreground py-10">No comments yet</p>
+                <>
+                  {data?.length ? (
+                    data?.map((comment) => <PatternComment key={comment.id} {...comment} />)
+                  ) : (
+                    <p className="text-center text-base text-muted-foreground py-10">
+                      No comments yet
+                    </p>
+                  )}
+                  {/* <CommentSkeleton /> */}
+                </>
               )}
             </div>
           </ScrollArea>

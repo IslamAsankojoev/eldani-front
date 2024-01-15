@@ -31,7 +31,7 @@ const PatternCard = ({ id, name, description, price, thumbnails }: PatternCardPr
         <div className="flex flex-col space-y-1.5 p-2">
           <div className="flex justify-between">
             <p className="text-xl capitalize font-extrabold">{price + 'c'}</p>
-            <div className="flex gap-4 items-center">
+            <div className="flex gap-3 items-center">
               <PatternComments id={id} />
               <PatternLike />
             </div>

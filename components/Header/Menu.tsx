@@ -17,7 +17,7 @@ const Menu = () => {
   const { theme } = useTheme()
   return (
     <header>
-      <br className='hidden md:block'/>
+      <br className="hidden md:block" />
       <Card
         className="
       dark:bg-[#252221]
@@ -39,13 +39,15 @@ const Menu = () => {
       gap-2
       md:rounded-xl
       rounded-none
+      dark:border-[#303030]
+      border-[.7px]
       "
         style={{
           boxShadow:
             theme === 'dark'
               ? '0 0 2rem -14px rgba(255, 255, 255, 0.25)'
               : '0 0 0.5rem 0.25rem rgba(0, 0, 0, 0.05)',
-          border: theme === 'dark' ? '0.5px solid rgb(49 49 49)' : '1px solid #eaeaea',
+          // border: theme === 'dark' ? '0.5px solid rgb(49 49 49)' : '1px solid #eaeaea',
         }}
       >
         <div className="flex justify-between items-center gap-2">
@@ -60,9 +62,9 @@ const Menu = () => {
         </div>
       </Card>
       {/* <br className='md:hidden'/> */}
-      <br className='md:hidden'/>
-      <br className='md:hidden'/>
-      <br className='md:hidden'/>
+      <br className="md:hidden" />
+      <br className="md:hidden" />
+      <br className="md:hidden" />
     </header>
   )
 }
