@@ -19,8 +19,8 @@ export default function Home() {
 
   return (
     <section>
-      <h1 className={cn('text-center text-2xl font-extrabold mt-4')}>Eldani patterns collection</h1>
-      <div className="grid mt-4 gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-5 masonry">
+      <h1 className={cn('text-center text-2xl font-extrabold my-6 md:my-10')}>Eldani patterns collection</h1>
+      <div className="grid mt-4 gap-3 grid-cols-2 md:grid-cols-3 lg:grid-cols-5 masonry">
         {isLoading ? (
           <>
             {_.times(5, (i) => (
@@ -37,6 +37,7 @@ export default function Home() {
                 description={pattern.description}
                 thumbnails={pattern.thumbnails}
                 price={pattern.price}
+                slug={pattern.slug}
               />
             ))}
           </>

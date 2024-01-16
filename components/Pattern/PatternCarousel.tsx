@@ -1,3 +1,4 @@
+'use client'
 import Image from 'next/image'
 import {
   Carousel,
@@ -10,6 +11,7 @@ import { useEffect, useState } from 'react'
 import { type CarouselApi } from '@/shadcn/ui/carousel'
 import { useInView } from 'react-intersection-observer'
 import { cn } from '@/lib/utils'
+import { Card } from '@/shadcn/ui/card'
 
 type CarouselDemoProps = {
   thumbnails: Media[]
@@ -46,16 +48,16 @@ const CarouselDemo = ({ thumbnails }: CarouselDemoProps) => {
       <CarouselContent>
         {thumbnails?.map((image) => (
           <CarouselItem key={image.id}>
-            <div className="h-[60vw] md:h-[40vh] relative">
+            <Card className="h-[60vw] md:h-[35vh] relative overflow-hidden">
               <Image
                 src={process.env.API_URL + image.url}
                 sizes="100vw"
                 fill
                 priority
                 alt={`Pattern ${image.name}`}
-                className="object-cover rounded-lg"
+                className="object-cover"
               />
-            </div>
+            </Card>
           </CarouselItem>
         ))}
       </CarouselContent>

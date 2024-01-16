@@ -47,7 +47,6 @@ const Menu = () => {
             theme === 'dark'
               ? '0 0 2rem -14px rgba(255, 255, 255, 0.25)'
               : '0 0 0.5rem 0.25rem rgba(0, 0, 0, 0.05)',
-          // border: theme === 'dark' ? '0.5px solid rgb(49 49 49)' : '1px solid #eaeaea',
         }}
       >
         <div className="flex justify-between items-center gap-2">

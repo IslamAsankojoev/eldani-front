@@ -7,14 +7,16 @@ import colors from 'tailwindcss/colors'
 import PatternComments from './PatternComments'
 import PatternLike from './PatternLike'
 import PatternCarousel from './PatternCarousel'
+import Link from 'next/link'
 
-type PatternCardProps = Pick<Pattern, 'id' | 'name' | 'description' | 'price' | 'thumbnails'>
+type PatternCardProps = Pick<Pattern, 'id' | 'name' | 'description' | 'price' | 'thumbnails' | 'slug'>
 
-const PatternCard = ({ id, name, description, price, thumbnails }: PatternCardProps) => {
+const PatternCard = ({ id, name, description, price, thumbnails, slug }: PatternCardProps) => {
   const { theme } = useTheme()
   return (
     <>
-      <div
+      <Link
+        href={`/pattern/?slug=${slug}&id=${id}`}
         style={{
           breakInside: 'avoid',
         }}
@@ -51,7 +53,7 @@ const PatternCard = ({ id, name, description, price, thumbnails }: PatternCardPr
             4.5 <span className="text-muted-foreground">(89)</span>
           </div>
         </div>
-      </div>
+      </Link>
     </>
   )
 }

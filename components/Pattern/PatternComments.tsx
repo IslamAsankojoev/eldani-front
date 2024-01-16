@@ -104,7 +104,7 @@ const PatternComments = ({ id }: { id: number }) => {
       <DrawerTrigger asChild>
         <Button
           variant="ghost"
-          className="h-auto w-auto p-0 m-0 bg-transparent hover:bg-transparent border-none focus:border-none outline-none focus:outline-none active:scale-110 transition"
+          className="h-auto w-auto p-0 m-0 bg-transparent hover:bg-transparent border-none focus:border-none outline-none focus:outline-none active:scale-110 transition relative"
         >
           <MessageCircle size={23} strokeWidth={1.25} absoluteStrokeWidth />
         </Button>

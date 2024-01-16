@@ -10,7 +10,7 @@ export const ProductService = {
     return data as Pattern[]
   },
   async findOne(id: number) {
-    const data = await ky.get(`${this.entity}/${id}`).json()
+    const data = await ky.get(`${this.entity}/${id}?populate=*`).json()
     return data as Pattern
   },
   async create(data: Pattern) {
