@@ -5,12 +5,14 @@ export const ProductService = {
   entity: 'products',
   async find(searchParams?: SearchParamsOption) {
     const data = await ky.get(this.entity, {
-      searchParams,
+      searchParams
     }).json()
     return data as Pattern[]
   },
-  async findOne(id: number) {
-    const data = await ky.get(`${this.entity}/${id}?populate=*`).json()
+  async findOne(id: number, searchParams?: SearchParamsOption) {
+    const data = await ky.get(`${this.entity}/${id}`, {
+      searchParams
+    }).json()
     return data as Pattern
   },
   async create(data: Pattern) {

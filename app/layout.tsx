@@ -36,7 +36,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
               <main>
                 <Menu />
                 {typeof window !== 'undefined' ? null : (
+                  <>
                   <div className="container flex-grow">{children}</div>
+                  </>
                 )}
                 <Footer />
               </main>

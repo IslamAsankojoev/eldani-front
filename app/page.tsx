@@ -20,7 +20,7 @@ export default function Home() {
   return (
     <section>
       <h1 className={cn('text-center text-2xl font-extrabold my-6 md:my-10')}>
-        Eldani patterns collection - {localStorage.getItem('viewport')}
+        Eldani patterns collection
       </h1>
       <div className="grid mt-4 gap-3 grid-cols-2 md:grid-cols-3 lg:grid-cols-5 masonry">
         {isLoading ? (

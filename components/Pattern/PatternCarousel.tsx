@@ -72,8 +72,8 @@ const PatternCarousel = ({ thumbnails }: CarouselDemoProps) => {
           />
         ))}
       </div>
-      <CarouselPrevious />
-      <CarouselNext />
+      <CarouselPrevious className='hidden md:visible' />
+      <CarouselNext className='hidden md:visible' />
     </Carousel>
   )
 }

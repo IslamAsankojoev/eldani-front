@@ -8,6 +8,7 @@ import PatternComments from './PatternComments'
 import PatternLike from './PatternLike'
 import PatternCardCarousel from './PatternCardCarousel'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 type PatternCardProps = Pick<
   Pattern,
@@ -17,22 +18,25 @@ type PatternCardProps = Pick<
 const PatternCard = ({ id, name, description, price, thumbnails, slug }: PatternCardProps) => {
   const { theme } = useTheme()
   const router = useRouter()
-  const onLinkClick = (e: any) => {
-    e.preventDefault()
-    router.push(`/pattern/?slug=${slug}&id=${id}`)
+  const patternLink = {
+    href: `/pattern/${slug}?id=${id}`,
   }
+
   return (
     <>
       <div>
-        <Card
-          className={cn('overflow-hidden border-none relative border-2 rounded-lg cursor-pointer')}
-          style={{
-            boxShadow: theme === 'dark' ? 'none' : '0 0 0.5rem 0.25rem rgba(0, 0, 0, 0.05)',
-          }}
-          onClick={onLinkClick}
-        >
-          {thumbnails && <PatternCardCarousel thumbnails={thumbnails} />}
-        </Card>
+        <Link {...patternLink}>
+          <Card
+            className={cn(
+              'overflow-hidden border-none relative border-2 rounded-lg cursor-pointer',
+            )}
+            style={{
+              boxShadow: theme === 'dark' ? 'none' : '0 0 0.5rem 0.25rem rgba(0, 0, 0, 0.05)',
+            }}
+          >
+            {thumbnails && <PatternCardCarousel thumbnails={thumbnails} />}
+          </Card>
+        </Link>
 
         <div className="flex flex-col space-y-1.5 p-2">
           <div className="flex justify-between">
@@ -43,14 +47,16 @@ const PatternCard = ({ id, name, description, price, thumbnails, slug }: Pattern
             </div>
           </div>
 
-          <div className="cursor-pointer flex items-center truncate ..." onClick={onLinkClick}>
-            <p className="text-sm md:text-lg font-semibold capitalize">{name}</p>
-            {description && (
-              <p className="text-sm text-muted-foreground capitalize">
-                &nbsp;-&nbsp;{description[0]?.children[0].text}
-              </p>
-            )}
-          </div>
+          <Link {...patternLink}>
+            <div className="cursor-pointer flex items-center truncate ...">
+              <p className="text-sm md:text-lg font-semibold capitalize">{name}</p>
+              {description && (
+                <p className="text-sm text-muted-foreground capitalize">
+                  &nbsp;-&nbsp;{description[0]?.children[0].text}
+                </p>
+              )}
+            </div>
+          </Link>
 
           <div className="flex items-center space-x-1 text-sm">
             <Star className="h-4 w-4 text-yellow-500" fill={colors.yellow[500]} />

@@ -7,7 +7,7 @@ const nextConfig = {
   env: {
     API_URL: process.env.REACT_APP_SERVER_URL,
     API_KEY: process.env.REACT_APP_SERVER_KEY,
-  }
+  },
 }
 
 module.exports = nextConfig
