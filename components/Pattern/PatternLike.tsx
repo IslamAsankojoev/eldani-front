@@ -30,11 +30,8 @@ const PatternLike = () => {
           strokeWidth={1.25}
           fill={liked ? colors.rose[500] : 'none'}
           absoluteStrokeWidth
-          className={cn(
-            className,
-          )}
+          className={cn(className)}
         />
-       
       </Button>
     </>
   )

@@ -6,28 +6,32 @@ import { Star } from 'lucide-react'
 import colors from 'tailwindcss/colors'
 import PatternComments from './PatternComments'
 import PatternLike from './PatternLike'
-import PatternCarousel from './PatternCarousel'
-import Link from 'next/link'
+import PatternCardCarousel from './PatternCardCarousel'
+import { useRouter } from 'next/navigation'
 
-type PatternCardProps = Pick<Pattern, 'id' | 'name' | 'description' | 'price' | 'thumbnails' | 'slug'>
+type PatternCardProps = Pick<
+  Pattern,
+  'id' | 'name' | 'description' | 'price' | 'thumbnails' | 'slug'
+>
 
 const PatternCard = ({ id, name, description, price, thumbnails, slug }: PatternCardProps) => {
   const { theme } = useTheme()
+  const router = useRouter()
+  const onLinkClick = (e: any) => {
+    e.preventDefault()
+    router.push(`/pattern/?slug=${slug}&id=${id}`)
+  }
   return (
     <>
-      <Link
-        href={`/pattern/?slug=${slug}&id=${id}`}
-        style={{
-          breakInside: 'avoid',
-        }}
-      >
+      <div>
         <Card
-          className={cn('overflow-hidden border-none relative border-2 rounded-lg')}
+          className={cn('overflow-hidden border-none relative border-2 rounded-lg cursor-pointer')}
           style={{
             boxShadow: theme === 'dark' ? 'none' : '0 0 0.5rem 0.25rem rgba(0, 0, 0, 0.05)',
           }}
+          onClick={onLinkClick}
         >
-          {thumbnails && <PatternCarousel thumbnails={thumbnails} />}
+          {thumbnails && <PatternCardCarousel thumbnails={thumbnails} />}
         </Card>
 
         <div className="flex flex-col space-y-1.5 p-2">
@@ -39,7 +43,7 @@ const PatternCard = ({ id, name, description, price, thumbnails, slug }: Pattern
             </div>
           </div>
 
-          <div className="flex items-center truncate ...">
+          <div className="cursor-pointer flex items-center truncate ..." onClick={onLinkClick}>
             <p className="text-sm md:text-lg font-semibold capitalize">{name}</p>
             {description && (
               <p className="text-sm text-muted-foreground capitalize">
@@ -53,7 +57,7 @@ const PatternCard = ({ id, name, description, price, thumbnails, slug }: Pattern
             4.5 <span className="text-muted-foreground">(89)</span>
           </div>
         </div>
-      </Link>
+      </div>
     </>
   )
 }

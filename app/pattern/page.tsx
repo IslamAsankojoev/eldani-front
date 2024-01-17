@@ -1,30 +1,32 @@
 import { ProductService } from '@/service/pattern.service'
 import PatternCarousel from '../../components/Pattern/PatternCarousel'
-import Image from 'next/image'
+
+export const revalidate = 0
 
 export async function generateStaticParams() {
   const posts = await ProductService.find()
- 
+
   return posts.map((post) => ({
     slug: post.slug,
   }))
 }
 
-async function getData({ searchParams }: { searchParams: { slug: string, id: string } }) {
+async function getData({ searchParams }: { searchParams: { slug: string; id: string } }) {
   const pattern = await ProductService.findOne(Number(searchParams.id))
   return pattern
 }
 
-const Pattern = async ({ searchParams }: { searchParams: { slug: string, id: string } }) => {
+const Pattern = async ({ searchParams }: { searchParams: { slug: string; id: string } }) => {
   const pattern = await getData({ searchParams })
-  console.log(pattern)
   return (
-    <div>
-      {pattern.thumbnails && <Image src={process.env.API_URL + pattern?.thumbnails[0]?.url} alt="Image" width={400} height={600} />}
-      <h1>Pattern: {pattern.name}</h1>
-      <h1>
-        {pattern.price}c
-      </h1>
+    <div className="flex py-10 flex-col md:flex-row">
+      <div className="flex-grow-[1]">
+        {pattern.thumbnails && <PatternCarousel thumbnails={pattern.thumbnails} />}
+      </div>
+      <div className="flex-grow-[2] p-10">
+        <h1>{pattern.name}</h1>
+        <h2>{pattern.price}c</h2>
+      </div>
     </div>
   )
 }

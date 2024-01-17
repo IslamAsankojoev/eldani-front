@@ -17,7 +17,7 @@ type CarouselDemoProps = {
   thumbnails: Media[]
 }
 
-const PatternCarousel = ({ thumbnails }: CarouselDemoProps) => {
+const PatternCardCarousel = ({ thumbnails }: CarouselDemoProps) => {
   const [api, setApi] = useState<CarouselApi>()
   const { ref, inView, entry } = useInView({
     threshold: 0,
@@ -44,13 +44,14 @@ const PatternCarousel = ({ thumbnails }: CarouselDemoProps) => {
   }, [api])
 
   return (
-    <Carousel className="w-full" setApi={setApi} ref={ref}>
+    <Carousel className="w-full max-w-xs" setApi={setApi} ref={ref}>
       <CarouselContent>
         {thumbnails?.map((image) => (
           <CarouselItem key={image.id}>
-            <Card className="relative h-[70vh]">
+            <Card className="h-[60vw] md:h-[40vh] relative overflow-hidden">
               <Image
                 src={process.env.API_URL + image.url}
+                sizes="100vw"
                 fill
                 priority
                 alt={`Pattern ${image.name}`}
@@ -78,4 +79,4 @@ const PatternCarousel = ({ thumbnails }: CarouselDemoProps) => {
   )
 }
 
-export default PatternCarousel
+export default PatternCardCarousel
