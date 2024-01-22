@@ -15,9 +15,10 @@ import { Card } from '@/shadcn/ui/card'
 
 type CarouselDemoProps = {
   thumbnails: Media[]
+  className?: string
 }
 
-const PatternCardCarousel = ({ thumbnails }: CarouselDemoProps) => {
+const PatternCardCarousel = ({ thumbnails, className }: CarouselDemoProps) => {
   const [api, setApi] = useState<CarouselApi>()
   const { ref, inView, entry } = useInView({
     threshold: 0,
@@ -44,18 +45,23 @@ const PatternCardCarousel = ({ thumbnails }: CarouselDemoProps) => {
   }, [api])
 
   return (
-    <Carousel className="w-full max-w-xs" setApi={setApi} ref={ref}>
+    <Carousel className="w-full rounded-lg" setApi={setApi} ref={ref}>
       <CarouselContent>
         {thumbnails?.map((image) => (
           <CarouselItem key={image.id}>
-            <Card className="h-[60vw] md:h-[40vh] relative overflow-hidden">
+            <Card
+              className={cn(
+                'h-[60vw] md:h-[40vh] relative overflow-hidden bg-transparent',
+                className,
+              )}
+            >
               <Image
                 src={process.env.API_URL + image.url}
                 sizes="100vw"
                 fill
                 priority
-                alt={`Pattern ${image.name}`}
-                className="object-cover rounded-lg"
+                alt={`Pattern ${image?.formats?.large?.url}`}
+                className="object-cover"
               />
             </Card>
           </CarouselItem>
@@ -73,8 +79,8 @@ const PatternCardCarousel = ({ thumbnails }: CarouselDemoProps) => {
           />
         ))}
       </div>
-      <CarouselPrevious />
-      <CarouselNext />
+      <CarouselPrevious className="hidden" />
+      <CarouselNext className="hidden" />
     </Carousel>
   )
 }

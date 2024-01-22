@@ -1,21 +1,32 @@
 'use client'
 import PatternCard from '@/components/Pattern/PatternCard'
+import PatternSkeleton from '@/components/Pattern/PatternSkeleton'
 import { ProductService } from '@/service/pattern.service'
 import { useQuery } from 'react-query'
 import { cn } from '@/lib/utils'
 import _ from 'lodash'
-import PatternSkeleton from '@/components/Pattern/PatternSkeleton'
+import { useEffect } from 'react'
 
-export default function Home() {
+export default function Home({ searchParams }: { searchParams: { viewport: string } }) {
   const {
     data: patterns,
     refetch: patternFetch,
     isLoading,
-  } = useQuery([ProductService.entity], () =>
-    ProductService.find({
-      populate: '*',
-    }),
+  } = useQuery(
+    [ProductService.entity],
+    () =>
+      ProductService.find({
+        populate: '*',
+      }),
+    {
+      cacheTime: 1000 * 60 * 60 * 24,
+      staleTime: 1000 * 60 * 60 * 24,
+    },
   )
+
+  useEffect(() => {
+    localStorage.setItem('viewport', searchParams.viewport)
+  }, [searchParams.viewport])
 
   return (
     <section>

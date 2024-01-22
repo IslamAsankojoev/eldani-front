@@ -67,3 +67,9 @@ main {
 /* nextjs-portal {
   display: none;
 } */
+
+@layer components {
+  .initial-container {
+    @apply w-full mx-auto px-[0px];
+  }
+}

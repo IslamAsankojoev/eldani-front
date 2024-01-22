@@ -54,7 +54,7 @@ const PatternCarousel = ({ thumbnails }: CarouselDemoProps) => {
                 fill
                 priority
                 alt={`Pattern ${image.name}`}
-                className="object-cover rounded-lg"
+                className="object-cover"
               />
             </Card>
           </CarouselItem>
@@ -72,8 +72,8 @@ const PatternCarousel = ({ thumbnails }: CarouselDemoProps) => {
           />
         ))}
       </div>
-      <CarouselPrevious className='hidden md:visible' />
-      <CarouselNext className='hidden md:visible' />
+      <CarouselPrevious className="hidden md:visible" />
+      <CarouselNext className="hidden md:visible" />
     </Carousel>
   )
 }

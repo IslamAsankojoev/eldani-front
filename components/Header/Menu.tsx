@@ -20,7 +20,7 @@ const Menu = () => {
       <br className="hidden md:block" />
       <Card
         className="
-      dark:bg-[#252221]
+      dark:bg-[#2f2a2a]
       bg-white
       md:static 
       fixed 
@@ -42,12 +42,6 @@ const Menu = () => {
       dark:border-[#303030]
       border-[.7px]
       "
-        style={{
-          boxShadow:
-            theme === 'dark'
-              ? '0 0 2rem -14px rgba(255, 255, 255, 0.25)'
-              : '0 0 0.5rem 0.25rem rgba(0, 0, 0, 0.05)',
-        }}
       >
         <div className="flex justify-between items-center gap-2">
           {navigationList.map((item) => (
@@ -61,9 +55,9 @@ const Menu = () => {
         </div>
       </Card>
       {/* <br className='md:hidden'/> */}
-      <br className="md:hidden" />
-      <br className="md:hidden" />
-      <br className="md:hidden" />
+      <hr className="md:hidden mt-3" />
+      <hr className="md:hidden mt-6" />
+      <hr className="md:hidden mt-6" />
     </header>
   )
 }

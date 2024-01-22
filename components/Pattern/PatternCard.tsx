@@ -20,6 +20,7 @@ const PatternCard = ({ id, name, description, price, thumbnails, slug }: Pattern
   const router = useRouter()
   const patternLink = {
     href: `/pattern/${slug}?id=${id}`,
+    as: `/pattern/${slug}`,
   }
 
   return (
@@ -28,11 +29,8 @@ const PatternCard = ({ id, name, description, price, thumbnails, slug }: Pattern
         <Link {...patternLink}>
           <Card
             className={cn(
-              'overflow-hidden border-none relative border-2 rounded-lg cursor-pointer',
+              'overflow-hidden border-none relative border-2 rounded-lg cursor-pointer shadow-none bg-transparent',
             )}
-            style={{
-              boxShadow: theme === 'dark' ? 'none' : '0 0 0.5rem 0.25rem rgba(0, 0, 0, 0.05)',
-            }}
           >
             {thumbnails && <PatternCardCarousel thumbnails={thumbnails} />}
           </Card>
@@ -42,7 +40,7 @@ const PatternCard = ({ id, name, description, price, thumbnails, slug }: Pattern
           <div className="flex justify-between">
             <p className="text-xl capitalize font-extrabold">{price + 'c'}</p>
             <div className="flex gap-3 items-center">
-              <PatternComments id={id} />
+              <PatternComments id={id} thumbnails={thumbnails} />
               <PatternLike />
             </div>
           </div>

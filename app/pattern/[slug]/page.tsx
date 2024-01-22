@@ -1,26 +1,34 @@
 import { ProductService } from '@/service/pattern.service'
 import PatternCarousel from '@/components/Pattern/PatternCarousel'
-import { Comp } from '@/components/Comp'
+import { unstable_cache } from 'next/cache'
+import { cn } from '@/lib/utils'
 
 export const revalidate = 0
 
-export async function generateStaticParams() {
-  const posts = await ProductService.find()
+const getCachedUser = unstable_cache(async (id) => getData({ params: { slug: id } }), ['pattern'])
 
-  return posts.map((post) => ({
-    slug: post.slug,
-  }))
-}
-
-async function getData({ searchParams }: { searchParams: { slug: string; id: string } }) {
-  const pattern = await ProductService.findOne(Number(searchParams.id), {populate: '*'})
+async function getData({ params }: { params: { slug: string } }) {
+  const pattern = await ProductService.findBySlug(params.slug, { populate: '*' })
   return pattern
 }
 
-const Pattern = async ({ searchParams }: { searchParams: { slug: string; id: string } }) => {
-  const pattern = await getData({ searchParams })
+const Pattern = async ({
+  params,
+  searchParams: { viewport },
+}: {
+  params: { slug: string }
+  searchParams: { viewport: string }
+}) => {
+  const pattern = await getData({ params })
+
   return (
-    <div className="flex py-2 md:py-10 flex-col md:flex-row">
+    <div
+      className={cn(
+        'flex md:py-10 flex-col md:flex-row',
+        viewport === 'mobile' ? '' : 'container',
+        'initial-container md:container',
+      )}
+    >
       <div className="flex-grow-[1]">
         {pattern.thumbnails && <PatternCarousel thumbnails={pattern.thumbnails} />}
       </div>
@@ -28,11 +36,8 @@ const Pattern = async ({ searchParams }: { searchParams: { slug: string; id: str
         <h1>{pattern.name}</h1>
         <h2>{pattern.price}c</h2>
       </div>
-      <Comp />
     </div>
   )
 }
 
 export default Pattern
-
-

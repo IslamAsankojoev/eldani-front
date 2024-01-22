@@ -4,6 +4,7 @@ import { ThemeProvider } from '@/providers/theme-provider'
 import Menu from '@/components/Header/Menu'
 import Footer from '@/components/Footer/Footer'
 import { QueryClientProvider } from '@/providers/QueryClientProvider'
+import MainLayoutProvider from '@/providers/MainLayoutProvider'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -37,7 +38,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
                 <Menu />
                 {typeof window !== 'undefined' ? null : (
                   <>
-                  <div className="container flex-grow">{children}</div>
+                    <MainLayoutProvider>{children}</MainLayoutProvider>
                   </>
                 )}
                 <Footer />

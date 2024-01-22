@@ -2,7 +2,7 @@ import { SyntheticEvent, useEffect, useRef, useState } from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/shadcn/ui/avatar'
 import avatar1 from '/public/images/avatar1.jpg'
 import { Button } from '@/shadcn/ui/button'
-import { SendHorizonal } from 'lucide-react'
+import { Loader, Loader2, SendHorizonal } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import TextareaAutosize from 'react-textarea-autosize'
 import { useTheme } from 'next-themes'
@@ -11,9 +11,15 @@ import colors from 'tailwindcss/colors'
 const CommentInput = ({
   handleSendComment,
   avatar,
+  className,
+  classNameInput,
+  isLoading,
 }: {
   handleSendComment: any
   avatar: string
+  className?: string
+  classNameInput?: string
+  isLoading?: boolean
 }) => {
   const { theme } = useTheme()
   const ref = useRef<HTMLTextAreaElement>(null)
@@ -25,15 +31,20 @@ const CommentInput = ({
 
   const handleSend = (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
     e.preventDefault()
-    handleSendComment(comment).then(() => {
+    if (!comment.length) return null
+    try {
+      handleSendComment(comment)
       setComment('')
       ref.current?.focus()
-    })
+    } catch (error) {
+      console.error(error)
+    }
   }
-  console.log(avatar)
   return (
-    <div className="flex items-center p-2 gap-2 bg-stone-100 dark:bg-stone-800">
-      <Avatar className="mx-2 self-start">
+    <div
+      className={cn('flex items-center w-full p-2 gap-2 bg-stone-100 dark:bg-stone-800', className)}
+    >
+      <Avatar className="mr-2 self-start">
         <AvatarImage src={avatar} className="rounded-full border-[1px] border-stone-300" />
         <AvatarFallback>CN</AvatarFallback>
       </Avatar>
@@ -44,15 +55,26 @@ const CommentInput = ({
           value={comment}
           onChange={handleType}
           className={cn(
-            'flex-1 bg-transparent outline-none focus:outline-none dark:placeholder-stone-400 dark:bg-stone-800 resize-none',
+            'flex-1 bg-transparent outline-none focus:outline-none dark:placeholder-stone-400 dark:bg-stone-800 resize-none font-normal',
+            classNameInput,
           )}
         />
-        <Button variant="ghost" className="self-end" type="submit">
-          <SendHorizonal
-            size={25}
-            color={theme === 'dark' ? colors.stone[200] : colors.stone[500]}
-          />
-        </Button>
+        {comment.length ? (
+          <Button variant="ghost" className="self-end" type="submit">
+            {false ? (
+              <Loader2
+                size={25}
+                color={theme === 'dark' ? colors.stone[200] : colors.stone[700]}
+                className="animate-spin"
+              />
+            ) : (
+              <SendHorizonal
+                size={25}
+                color={theme === 'dark' ? colors.stone[200] : colors.stone[700]}
+              />
+            )}
+          </Button>
+        ) : null}
       </form>
     </div>
   )

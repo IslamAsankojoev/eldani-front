@@ -1,4 +1,4 @@
-interface Comment {
+interface IComment {
   id: number
   content: string
   blocked: boolean
@@ -14,4 +14,4 @@ interface Comment {
   children: Comment[]
 }
 
-type CommentPost = Pick<Comment, 'content' | 'author'>
+type CommentPost = Pick<IComment, 'content' | 'author'>
