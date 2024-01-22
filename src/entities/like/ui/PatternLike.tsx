@@ -1,10 +1,10 @@
-import { cn } from '@/lib/utils'
+import { cn } from '@/src/shared/libs/utils'
 import { Button } from '@/shadcn/ui/button'
 import { Heart } from 'lucide-react'
 import React from 'react'
 import colors from 'tailwindcss/colors'
 
-const PatternLike = () => {
+export const PatternLike = () => {
   const [liked, setLiked] = React.useState(false)
   const [className, setClassName] = React.useState('')
 
@@ -36,5 +36,3 @@ const PatternLike = () => {
     </>
   )
 }
-
-export default PatternLike

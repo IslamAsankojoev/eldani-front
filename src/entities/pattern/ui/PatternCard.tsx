@@ -1,30 +1,20 @@
 'use client'
-import { cn } from '@/lib/utils'
+import { cn } from '@/src/shared/libs/utils'
 import { Card } from '@/shadcn/ui/card'
-import { useTheme } from 'next-themes'
 import { Star } from 'lucide-react'
 import colors from 'tailwindcss/colors'
-import PatternComments from './PatternComments'
-import PatternLike from './PatternLike'
-import PatternCardCarousel from './PatternCardCarousel'
-import { useRouter } from 'next/navigation'
+import {PatternCardCarousel} from './PatternCardCarousel'
 import Link from 'next/link'
+import { PatternLike } from '@/src/entities/like'
+import { PatternComments } from '@/src/entities/comment'
 
-type PatternCardProps = Pick<
-  Pattern,
-  'id' | 'name' | 'description' | 'price' | 'thumbnails' | 'slug'
->
-
-const PatternCard = ({ id, name, description, price, thumbnails, slug }: PatternCardProps) => {
-  const { theme } = useTheme()
-  const router = useRouter()
+export const PatternCard = ({ id, name, description, price, thumbnails, slug }: Pattern) => {
   const patternLink = {
     href: `/pattern/${slug}?id=${id}`,
     as: `/pattern/${slug}`,
   }
 
   return (
-    <>
       <div>
         <Link {...patternLink}>
           <Card
@@ -62,8 +52,5 @@ const PatternCard = ({ id, name, description, price, thumbnails, slug }: Pattern
           </div>
         </div>
       </div>
-    </>
   )
 }
-
-export default PatternCard

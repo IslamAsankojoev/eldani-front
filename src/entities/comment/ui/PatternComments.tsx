@@ -14,21 +14,21 @@ import {
   DrawerTrigger,
 } from '@/shadcn/ui/drawer'
 import { MessageCircle, X } from 'lucide-react'
-import PatternComment from './PatternComment'
+import { PatternComment } from './PatternComment'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useTheme } from 'next-themes'
 import colors from 'tailwindcss/colors'
-import CommentInput from './CommentInput'
-import { CommentService } from '@/service/comment.service'
+import { CommentInput } from './CommentInput'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { useEffect, useRef, useState } from 'react'
-import _, { create } from 'lodash'
-import CommentSkeleton from './CommentSkeleton'
-import PatternCardCarousel from './PatternCardCarousel'
+import _ from 'lodash'
+import { CommentSkeleton } from './CommentSkeleton'
 import { Card } from '@/shadcn/ui/card'
-import { cn } from '@/lib/utils'
+import { cn } from '@/src/shared/libs/utils'
+import { PatternCardCarousel } from '../../pattern'
+import { CommentService } from '../api'
 
-const PatternComments = ({ id, thumbnails }: Pick<Pattern, 'id' | 'thumbnails'>) => {
+export const PatternComments = ({ id, thumbnails }: Pick<Pattern, 'id' | 'thumbnails'>) => {
   const { theme } = useTheme()
   const queryClient = useQueryClient()
   const closeRef = useRef<null | HTMLButtonElement>(null)
@@ -146,6 +146,9 @@ const PatternComments = ({ id, thumbnails }: Pick<Pattern, 'id' | 'thumbnails'>)
                   <PatternCardCarousel
                     thumbnails={thumbnails}
                     className="md:h-[60vh] rounded-2xl"
+                    prevButtonClassName='!left-2 !flex z-50 !-bottom-2 !top-[initial] !bg-stone-900'
+                    nextButtonClassName='!right-2 !flex z-50 !-bottom-2 !top-[initial] !bg-stone-900'
+                    dotsClassName='!bottom-5'
                   />
                 )}
               </Card>
@@ -170,10 +173,7 @@ const PatternComments = ({ id, thumbnails }: Pick<Pattern, 'id' | 'thumbnails'>)
                             ?.map((comment: IComment) => (
                               <PatternComment
                                 key={comment.id}
-                                author={comment.author}
-                                content={comment.content}
-                                createdAt={comment.createdAt}
-                                updatedAt={comment.updatedAt}
+                                {...comment}
                               />
                             ))
                         ) : (
@@ -269,5 +269,3 @@ const PatternComments = ({ id, thumbnails }: Pick<Pattern, 'id' | 'thumbnails'>)
     </Drawer>
   )
 }
-
-export default PatternComments

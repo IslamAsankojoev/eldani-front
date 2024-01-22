@@ -1,16 +1,13 @@
 'use client'
-import PatternCard from '@/components/Pattern/PatternCard'
-import PatternSkeleton from '@/components/Pattern/PatternSkeleton'
-import { ProductService } from '@/service/pattern.service'
 import { useQuery } from 'react-query'
-import { cn } from '@/lib/utils'
+import { cn } from '@/src/shared/libs/utils'
 import _ from 'lodash'
 import { useEffect } from 'react'
+import { PatternCard, PatternSkeleton, ProductService } from '@/src/entities/pattern'
 
 export default function Home({ searchParams }: { searchParams: { viewport: string } }) {
   const {
     data: patterns,
-    refetch: patternFetch,
     isLoading,
   } = useQuery(
     [ProductService.entity],
@@ -42,15 +39,10 @@ export default function Home({ searchParams }: { searchParams: { viewport: strin
           </>
         ) : (
           <>
-            {patterns?.map((pattern) => (
+            {patterns?.map((pattern: Pattern) => (
               <PatternCard
                 key={pattern.id}
-                id={pattern.id}
-                name={pattern.name}
-                description={pattern.description}
-                thumbnails={pattern.thumbnails}
-                price={pattern.price}
-                slug={pattern.slug}
+                {...pattern}
               />
             ))}
           </>

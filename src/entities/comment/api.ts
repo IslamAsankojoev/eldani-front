@@ -6,7 +6,7 @@ export const CommentService = {
     const data = await fetch(
       process.env.API_URL + '/api' + entity + `/api::product.product:${id}`,
     ).then((res) => res.json())
-    return data as Comment[]
+    return data as IComment[]
   },
   async create(id: number, comment: CommentPost) {
     const data = await fetch(
@@ -21,6 +21,6 @@ export const CommentService = {
         }),
       },
     ).then((res) => res.json())
-    return data as Comment
+    return data as IComment
   },
 }

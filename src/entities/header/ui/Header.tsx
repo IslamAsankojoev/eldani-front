@@ -1,10 +1,9 @@
 'use client'
 import { Button } from '@/shadcn/ui/button'
 import Link from 'next/link'
-import { ModeToggle } from '../ModeToggle'
 import { usePathname } from 'next/navigation'
-import { useTheme } from 'next-themes'
 import { Card } from '@/shadcn/ui/card'
+import { ModeToggle } from '@/src/shared'
 
 const navigationList = [
   { name: 'Home', href: '/' },
@@ -12,9 +11,8 @@ const navigationList = [
   { name: 'Contacts', href: '/contacts' },
 ]
 
-const Menu = () => {
+export const Header = () => {
   const pathname = usePathname()
-  const { theme } = useTheme()
   return (
     <header>
       <br className="hidden md:block" />
@@ -54,12 +52,10 @@ const Menu = () => {
           <ModeToggle />
         </div>
       </Card>
-      {/* <br className='md:hidden'/> */}
+      <br className='md:hidden'/>
       <hr className="md:hidden mt-3" />
       <hr className="md:hidden mt-6" />
       <hr className="md:hidden mt-6" />
     </header>
   )
 }
-
-export default Menu

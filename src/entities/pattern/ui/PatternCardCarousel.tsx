@@ -7,17 +7,21 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/shadcn/ui/carousel'
-import { useEffect, useState } from 'react'
+import { HTMLProps, useEffect, useState } from 'react'
 import { type CarouselApi } from '@/shadcn/ui/carousel'
 import { useInView } from 'react-intersection-observer'
-import { cn } from '@/lib/utils'
+import { cn } from '@/src/shared/libs/utils'
 import { Card } from '@/shadcn/ui/card'
 
 type CarouselDemoProps = {
   thumbnails: Media[]
+  className?: string
+  prevButtonClassName?: string;
+  nextButtonClassName?: string;
+  dotsClassName?:string;
 }
 
-const PatternCarousel = ({ thumbnails }: CarouselDemoProps) => {
+export const PatternCardCarousel = ({ thumbnails, className, nextButtonClassName = 'hidden', prevButtonClassName = 'hidden', dotsClassName }: CarouselDemoProps) => {
   const [api, setApi] = useState<CarouselApi>()
   const { ref, inView, entry } = useInView({
     threshold: 0,
@@ -44,23 +48,31 @@ const PatternCarousel = ({ thumbnails }: CarouselDemoProps) => {
   }, [api])
 
   return (
-    <Carousel className="w-full" setApi={setApi} ref={ref}>
+    <Carousel className="w-full rounded-lg" setApi={setApi} ref={ref}>
       <CarouselContent>
         {thumbnails?.map((image) => (
           <CarouselItem key={image.id}>
-            <Card className="relative h-[70vh]">
+            <Card
+              className={cn(
+                'h-[60vw] md:h-[40vh] relative overflow-hidden bg-transparent',
+                className,
+              )}
+            >
               <Image
                 src={process.env.API_URL + image.url}
+                sizes="100vw"
                 fill
                 priority
-                alt={`Pattern ${image.name}`}
+                alt={`Pattern ${image?.formats?.large?.url}`}
                 className="object-cover"
               />
             </Card>
           </CarouselItem>
         ))}
       </CarouselContent>
-      <div className="absolute bottom-2 left-1/2 z-10 flex gap-2 -translate-x-1/2">
+      <div className={
+        cn('absolute bottom-2 left-1/2 z-10 flex gap-2 -translate-x-1/2', dotsClassName)
+      }>
         {thumbnails?.map((image, index) => (
           <div
             onClick={() => api?.scrollTo(index)}
@@ -72,10 +84,12 @@ const PatternCarousel = ({ thumbnails }: CarouselDemoProps) => {
           />
         ))}
       </div>
-      <CarouselPrevious className="hidden md:visible" />
-      <CarouselNext className="hidden md:visible" />
+      <CarouselPrevious 
+      variant='outline'
+      className={cn(
+        prevButtonClassName,
+      )} />
+      <CarouselNext variant='outline' className={nextButtonClassName} />
     </Carousel>
   )
 }
-
-export default PatternCarousel

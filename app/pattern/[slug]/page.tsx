@@ -1,7 +1,6 @@
-import { ProductService } from '@/service/pattern.service'
-import PatternCarousel from '@/components/Pattern/PatternCarousel'
+import { cn } from '@/src/shared/libs/utils'
 import { unstable_cache } from 'next/cache'
-import { cn } from '@/lib/utils'
+import { PatternCarousel, ProductService } from '@/src/entities/pattern'
 
 export const revalidate = 0
 

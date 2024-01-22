@@ -1,4 +1,4 @@
-import { ky } from '@/config'
+import { ky } from '@/src/app/config'
 import { SearchParamsOption } from 'ky'
 
 export const ProductService = {

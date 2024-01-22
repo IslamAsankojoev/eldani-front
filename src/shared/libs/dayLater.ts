@@ -1,4 +1,4 @@
-function dayLater(inputDate: string) {
+export const dayLater = (inputDate: string) => {
   const currentDate = new Date()
 
   // Преобразуем строку в объект Date
@@ -36,5 +36,3 @@ function dayLater(inputDate: string) {
     return `${yearsPassed} г.`
   }
 }
-
-export default dayLater

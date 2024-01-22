@@ -3,17 +3,16 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/shadcn/ui/avatar'
 import avatar1 from '/public/images/avatar1.jpg'
 import { Button } from '@/shadcn/ui/button'
 import { Loader, Loader2, SendHorizonal } from 'lucide-react'
-import { cn } from '@/lib/utils'
+import { cn } from '@/src/shared/libs/utils'
 import TextareaAutosize from 'react-textarea-autosize'
 import { useTheme } from 'next-themes'
 import colors from 'tailwindcss/colors'
 
-const CommentInput = ({
+export const CommentInput = ({
   handleSendComment,
   avatar,
   className,
   classNameInput,
-  isLoading,
 }: {
   handleSendComment: any
   avatar: string
@@ -79,5 +78,3 @@ const CommentInput = ({
     </div>
   )
 }
-
-export default CommentInput

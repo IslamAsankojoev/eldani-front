@@ -1,10 +1,8 @@
 import type { Metadata } from 'next'
-import './globals.css'
-import { ThemeProvider } from '@/providers/theme-provider'
-import Menu from '@/components/Header/Menu'
-import Footer from '@/components/Footer/Footer'
-import { QueryClientProvider } from '@/providers/QueryClientProvider'
-import MainLayoutProvider from '@/providers/MainLayoutProvider'
+import '@/src/app/globals.css'
+import { Header } from '@/src/entities/header'
+import { Footer } from '@/src/entities/footer'
+import { MainLayoutProvider, QueryClientProvider, ThemeProvider } from '@/src/app/providers'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -35,11 +33,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
           >
             <QueryClientProvider>
               <main>
-                <Menu />
+                <Header />
                 {typeof window !== 'undefined' ? null : (
-                  <>
                     <MainLayoutProvider>{children}</MainLayoutProvider>
-                  </>
                 )}
                 <Footer />
               </main>

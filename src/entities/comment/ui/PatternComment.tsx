@@ -1,14 +1,14 @@
 'use client'
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/shadcn/ui/avatar'
-import dayLater from '@/lib/dayLater'
+import { dayLater } from '@/src/shared'
 
-const PatternComment = ({
+export const PatternComment = ({
   content,
   createdAt,
   author,
   updatedAt,
-}: Pick<IComment, 'content' | 'createdAt' | 'author' | 'updatedAt'>) => {
+}: IComment) => {
   return (
     <div className="flex space-x-4">
       <Avatar>
@@ -30,5 +30,3 @@ const PatternComment = ({
     </div>
   )
 }
-
-export default PatternComment

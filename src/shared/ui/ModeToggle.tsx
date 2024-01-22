@@ -4,14 +4,15 @@ import { useTheme } from 'next-themes'
 
 import { Button } from '@/shadcn/ui/button'
 
-export function ModeToggle() {
+export const ModeToggle = () => {
   const { setTheme, theme } = useTheme()
 
   const handleClick = (theme: string) => {
     setTheme(theme)
   }
+  console.log('theme', theme)
 
-  return theme ? (
+  return !!theme ? (
     <Button
       variant="ghost"
       size="icon"

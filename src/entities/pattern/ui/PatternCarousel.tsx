@@ -10,15 +10,14 @@ import {
 import { useEffect, useState } from 'react'
 import { type CarouselApi } from '@/shadcn/ui/carousel'
 import { useInView } from 'react-intersection-observer'
-import { cn } from '@/lib/utils'
+import { cn } from '@/src/shared/libs/utils'
 import { Card } from '@/shadcn/ui/card'
 
 type CarouselDemoProps = {
   thumbnails: Media[]
-  className?: string
 }
 
-const PatternCardCarousel = ({ thumbnails, className }: CarouselDemoProps) => {
+export const PatternCarousel = ({ thumbnails }: CarouselDemoProps) => {
   const [api, setApi] = useState<CarouselApi>()
   const { ref, inView, entry } = useInView({
     threshold: 0,
@@ -45,22 +44,16 @@ const PatternCardCarousel = ({ thumbnails, className }: CarouselDemoProps) => {
   }, [api])
 
   return (
-    <Carousel className="w-full rounded-lg" setApi={setApi} ref={ref}>
+    <Carousel className="w-full" setApi={setApi} ref={ref}>
       <CarouselContent>
         {thumbnails?.map((image) => (
           <CarouselItem key={image.id}>
-            <Card
-              className={cn(
-                'h-[60vw] md:h-[40vh] relative overflow-hidden bg-transparent',
-                className,
-              )}
-            >
+            <Card className="relative h-[70vh]">
               <Image
                 src={process.env.API_URL + image.url}
-                sizes="100vw"
                 fill
                 priority
-                alt={`Pattern ${image?.formats?.large?.url}`}
+                alt={`Pattern ${image.name}`}
                 className="object-cover"
               />
             </Card>
@@ -79,10 +72,8 @@ const PatternCardCarousel = ({ thumbnails, className }: CarouselDemoProps) => {
           />
         ))}
       </div>
-      <CarouselPrevious className="hidden" />
-      <CarouselNext className="hidden" />
+      <CarouselPrevious className="hidden md:visible" />
+      <CarouselNext className="hidden md:visible" />
     </Carousel>
   )
 }
-
-export default PatternCardCarousel

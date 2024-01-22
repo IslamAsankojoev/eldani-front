@@ -1,6 +1,6 @@
 import { Skeleton } from '@/shadcn/ui/skeleton'
 
-const PatternSkeleton = () => {
+export const PatternSkeleton = () => {
   return (
     <div className="flex flex-col items-start gap-2.5">
       <Skeleton className="h-[60vw] md:h-[40vh] w-full rounded-lg" />
@@ -10,5 +10,3 @@ const PatternSkeleton = () => {
     </div>
   )
 }
-
-export default PatternSkeleton
