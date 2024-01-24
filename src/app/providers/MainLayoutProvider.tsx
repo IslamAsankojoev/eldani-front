@@ -1,8 +1,13 @@
 'use client'
+
 import { usePathname } from 'next/navigation'
 import React from 'react'
 
-export const MainLayoutProvider = ({ children }: { children: React.ReactNode }) => {
+export const MainLayoutProvider = ({
+  children,
+}: {
+  children: React.ReactNode
+}) => {
   const pathanme = usePathname()
   if (pathanme === '/') {
     return (

@@ -1,15 +1,22 @@
 'use client'
-import { useQuery } from 'react-query'
-import { cn } from '@/src/shared/libs/utils'
+
 import _ from 'lodash'
 import { useEffect } from 'react'
-import { PatternCard, PatternSkeleton, ProductService } from '@/src/entities/pattern'
+import { useQuery } from 'react-query'
 
-export default function Home({ searchParams }: { searchParams: { viewport: string } }) {
-  const {
-    data: patterns,
-    isLoading,
-  } = useQuery(
+import {
+  PatternCard,
+  PatternSkeleton,
+  ProductService,
+} from '@/src/entities/pattern'
+import { cn } from '@/src/shared/libs/utils'
+
+export default function Home({
+  searchParams,
+}: {
+  searchParams: { viewport: string }
+}) {
+  const { data: patterns, isLoading } = useQuery(
     [ProductService.entity],
     () =>
       ProductService.find({
@@ -27,10 +34,10 @@ export default function Home({ searchParams }: { searchParams: { viewport: strin
 
   return (
     <section>
-      <h1 className={cn('text-center text-2xl font-extrabold my-6 md:my-10')}>
+      <h1 className={cn('my-6 text-center text-2xl font-extrabold md:my-10')}>
         Eldani patterns collection
       </h1>
-      <div className="grid mt-4 gap-3 grid-cols-2 md:grid-cols-3 lg:grid-cols-5 masonry">
+      <div className="masonry mt-4 grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-5">
         {isLoading ? (
           <>
             {_.times(5, (i) => (
@@ -40,10 +47,7 @@ export default function Home({ searchParams }: { searchParams: { viewport: strin
         ) : (
           <>
             {patterns?.map((pattern: Pattern) => (
-              <PatternCard
-                key={pattern.id}
-                {...pattern}
-              />
+              <PatternCard key={pattern.id} {...pattern} />
             ))}
           </>
         )}

@@ -1,9 +1,10 @@
 'use client'
+
 import React from 'react'
 
 export const Footer = () => {
   return (
-    <footer className="bg-stone-950 p-4 text-muted-foreground text-center text-sm border-t-2 mt-4">
+    <footer className="mt-4 border-t-2 bg-stone-950 p-4 text-center text-sm text-muted-foreground">
       &copy;2024 Все права защищены
     </footer>
   )

@@ -1,7 +1,9 @@
 'use client'
-import { Button } from '@/shadcn/ui/button'
+
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+
+import { Button } from '@/shadcn/ui/button'
 import { Card } from '@/shadcn/ui/card'
 import { ModeToggle } from '@/src/shared'
 
@@ -18,32 +20,36 @@ export const Header = () => {
       <br className="hidden md:block" />
       <Card
         className="
-      dark:bg-[#2f2a2a]
-      bg-white
-      md:static 
-      fixed 
+      fixed
+      left-0
       top-0 
-      z-50
-      left-0 
+      z-50 
       mx-auto 
+      flex
       w-full 
-      md:w-fit 
-      flex 
-      justify-between
-      items-center
-      md:p-2
-      p-3 
-      px-4
-      gap-2
-      md:rounded-xl
-      rounded-none
-      dark:border-[#303030]
+      items-center 
+      justify-between 
+      gap-2 
+      rounded-none 
       border-[.7px]
+      bg-white
+      p-3
+      px-4 
+      md:static
+      md:w-fit
+      md:rounded-xl
+      md:p-2
+      dark:border-[#303030]
+      dark:bg-[#2f2a2a]
       "
       >
-        <div className="flex justify-between items-center gap-2">
+        <div className="flex items-center justify-between gap-2">
           {navigationList.map((item) => (
-            <Button key={item.name} asChild variant={item.href === pathname ? 'default' : 'ghost'}>
+            <Button
+              key={item.name}
+              asChild
+              variant={item.href === pathname ? 'default' : 'ghost'}
+            >
               <Link href={item.href}>{item.name}</Link>
             </Button>
           ))}
@@ -52,10 +58,10 @@ export const Header = () => {
           <ModeToggle />
         </div>
       </Card>
-      <br className='md:hidden'/>
-      <hr className="md:hidden mt-3" />
-      <hr className="md:hidden mt-6" />
-      <hr className="md:hidden mt-6" />
+      <br className="md:hidden" />
+      <hr className="mt-3 md:hidden" />
+      <hr className="mt-6 md:hidden" />
+      <hr className="mt-6 md:hidden" />
     </header>
   )
 }

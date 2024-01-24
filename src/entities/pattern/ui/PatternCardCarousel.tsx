@@ -1,5 +1,10 @@
 'use client'
+
 import Image from 'next/image'
+import { HTMLProps, useEffect, useState } from 'react'
+import { useInView } from 'react-intersection-observer'
+
+import { Card } from '@/shadcn/ui/card'
 import {
   Carousel,
   CarouselContent,
@@ -7,21 +12,24 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/shadcn/ui/carousel'
-import { HTMLProps, useEffect, useState } from 'react'
 import { type CarouselApi } from '@/shadcn/ui/carousel'
-import { useInView } from 'react-intersection-observer'
 import { cn } from '@/src/shared/libs/utils'
-import { Card } from '@/shadcn/ui/card'
 
 type CarouselDemoProps = {
   thumbnails: Media[]
   className?: string
-  prevButtonClassName?: string;
-  nextButtonClassName?: string;
-  dotsClassName?:string;
+  prevButtonClassName?: string
+  nextButtonClassName?: string
+  dotsClassName?: string
 }
 
-export const PatternCardCarousel = ({ thumbnails, className, nextButtonClassName = 'hidden', prevButtonClassName = 'hidden', dotsClassName }: CarouselDemoProps) => {
+export const PatternCardCarousel = ({
+  thumbnails,
+  className,
+  nextButtonClassName = 'hidden',
+  prevButtonClassName = 'hidden',
+  dotsClassName,
+}: CarouselDemoProps) => {
   const [api, setApi] = useState<CarouselApi>()
   const { ref, inView, entry } = useInView({
     threshold: 0,
@@ -54,7 +62,7 @@ export const PatternCardCarousel = ({ thumbnails, className, nextButtonClassName
           <CarouselItem key={image.id}>
             <Card
               className={cn(
-                'h-[60vw] md:h-[40vh] relative overflow-hidden bg-transparent',
+                'relative h-[60vw] overflow-hidden bg-transparent md:h-[40vh]',
                 className,
               )}
             >
@@ -70,26 +78,25 @@ export const PatternCardCarousel = ({ thumbnails, className, nextButtonClassName
           </CarouselItem>
         ))}
       </CarouselContent>
-      <div className={
-        cn('absolute bottom-2 left-1/2 z-10 flex gap-2 -translate-x-1/2', dotsClassName)
-      }>
+      <div
+        className={cn(
+          'absolute bottom-2 left-1/2 z-10 flex -translate-x-1/2 gap-2',
+          dotsClassName,
+        )}
+      >
         {thumbnails?.map((image, index) => (
           <div
             onClick={() => api?.scrollTo(index)}
             key={image.id}
             className={cn(
-              'w-1 h-1 bg-white/55 rounded-full cursor-pointer hover:scale-125 transition',
-              active === index + 1 && 'bg-white scale-125',
+              'h-1 w-1 cursor-pointer rounded-full bg-white/55 transition hover:scale-125',
+              active === index + 1 && 'scale-125 bg-white',
             )}
           />
         ))}
       </div>
-      <CarouselPrevious 
-      variant='outline'
-      className={cn(
-        prevButtonClassName,
-      )} />
-      <CarouselNext variant='outline' className={nextButtonClassName} />
+      <CarouselPrevious variant="outline" className={cn(prevButtonClassName)} />
+      <CarouselNext variant="outline" className={nextButtonClassName} />
     </Carousel>
   )
 }

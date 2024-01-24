@@ -1,5 +1,6 @@
 'use client'
-import { QueryClient, QueryClientProvider as Provider } from 'react-query'
+
+import { QueryClientProvider as Provider, QueryClient } from 'react-query'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -12,6 +13,10 @@ const queryClient = new QueryClient({
   },
 })
 
-export const QueryClientProvider = ({ children }: { children: React.ReactNode }) => {
+export const QueryClientProvider = ({
+  children,
+}: {
+  children: React.ReactNode
+}) => {
   return <Provider client={queryClient}>{children}</Provider>
 }

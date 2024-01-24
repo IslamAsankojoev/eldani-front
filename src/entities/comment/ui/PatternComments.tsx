@@ -1,32 +1,26 @@
 'use client'
+import { useEffect, useRef, useState } from 'react'
+
+import _ from 'lodash'
+import { useTheme } from 'next-themes'
+import { MessageCircle, X } from 'lucide-react'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
+
+import colors from 'tailwindcss/colors'
+import { Card } from '@/shadcn/ui/card'
 import { Button } from '@/shadcn/ui/button'
+import { cn } from '@/src/shared/libs/utils'
 import { Separator } from '@/shadcn/ui/separator'
 import { ScrollArea } from '@/shadcn/ui/scroll-area'
-import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/shadcn/ui/dialog'
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerOverlay,
-  DrawerTitle,
-  DrawerTrigger,
-} from '@/shadcn/ui/drawer'
-import { MessageCircle, X } from 'lucide-react'
-import { PatternComment } from './PatternComment'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { useTheme } from 'next-themes'
-import colors from 'tailwindcss/colors'
-import { CommentInput } from './CommentInput'
-import { useMutation, useQuery, useQueryClient } from 'react-query'
-import { useEffect, useRef, useState } from 'react'
-import _ from 'lodash'
-import { CommentSkeleton } from './CommentSkeleton'
-import { Card } from '@/shadcn/ui/card'
-import { cn } from '@/src/shared/libs/utils'
-import { PatternCardCarousel } from '../../pattern'
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/shadcn/ui/dialog'
+import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerTitle, DrawerTrigger } from '@/shadcn/ui/drawer'
+
 import { CommentService } from '../api'
+import { CommentInput } from './CommentInput'
+import { PatternComment } from './PatternComment'
+import { CommentSkeleton } from './CommentSkeleton'
+import { PatternCardCarousel } from '../../pattern'
 
 export const PatternComments = ({ id, thumbnails }: Pick<Pattern, 'id' | 'thumbnails'>) => {
   const { theme } = useTheme()
@@ -146,8 +140,8 @@ export const PatternComments = ({ id, thumbnails }: Pick<Pattern, 'id' | 'thumbn
                   <PatternCardCarousel
                     thumbnails={thumbnails}
                     className="md:h-[60vh] rounded-2xl"
-                    prevButtonClassName='!left-2 !flex z-50 !-bottom-2 !top-[initial] !bg-stone-900'
-                    nextButtonClassName='!right-2 !flex z-50 !-bottom-2 !top-[initial] !bg-stone-900'
+                    prevButtonClassName='!left-2 !flex z-50 !-bottom-2 !top-[initial]'
+                    nextButtonClassName='!right-2 !flex z-50 !-bottom-2 !top-[initial]'
                     dotsClassName='!bottom-5'
                   />
                 )}

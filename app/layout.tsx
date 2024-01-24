@@ -1,8 +1,13 @@
 import type { Metadata } from 'next'
+
 import '@/src/app/globals.css'
-import { Header } from '@/src/entities/header'
+import {
+  MainLayoutProvider,
+  QueryClientProvider,
+  ThemeProvider,
+} from '@/src/app/providers'
 import { Footer } from '@/src/entities/footer'
-import { MainLayoutProvider, QueryClientProvider, ThemeProvider } from '@/src/app/providers'
+import { Header } from '@/src/entities/header'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -24,7 +29,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <>
       <html lang="en" suppressHydrationWarning translate="no">
         <head />
-        <body className="dark:bg-stone-900 bg-slate-100">
+        <body className="bg-slate-100 dark:bg-stone-900">
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
@@ -35,7 +40,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
               <main>
                 <Header />
                 {typeof window !== 'undefined' ? null : (
-                    <MainLayoutProvider>{children}</MainLayoutProvider>
+                  <MainLayoutProvider>{children}</MainLayoutProvider>
                 )}
                 <Footer />
               </main>

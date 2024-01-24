@@ -21,7 +21,9 @@ export const PatternComment = ({
           <p className="text-muted-foreground font-bold">
             {dayLater(createdAt)}
             {createdAt !== updatedAt ? (
-              <span className="text-muted-foreground font-light text-xs">(изменено)</span>
+              <span className="text-muted-foreground font-light text-xs">
+                (изменено)
+              </span>
             ) : null}
           </p>
         </div>
