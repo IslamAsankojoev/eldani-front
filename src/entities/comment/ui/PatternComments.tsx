@@ -162,14 +162,9 @@ export const PatternComments = ({ id, thumbnails }: Pick<Pattern, 'id' | 'thumbn
                       <>
                         {data?.length ? (
                           // @ts-ignore
-                          _.sortBy(data, ['createdAt'])
-                            .reverse()
-                            ?.map((comment: IComment) => (
-                              <PatternComment
-                                key={comment.id}
-                                {...comment}
-                              />
-                            ))
+                          data?.map((comment: IComment) => (
+                            <PatternComment key={comment.id} {...comment} />
+                          ))
                         ) : (
                           <p className="text-center text-sm text-muted-foreground py-10">
                             No comments yet

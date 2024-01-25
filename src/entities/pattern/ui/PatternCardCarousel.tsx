@@ -1,7 +1,8 @@
 'use client'
 
-import Image from 'next/image'
 import { HTMLProps, useEffect, useState } from 'react'
+
+import Image from 'next/image'
 import { useInView } from 'react-intersection-observer'
 
 import { Card } from '@/shadcn/ui/card'
@@ -13,6 +14,7 @@ import {
   CarouselPrevious,
 } from '@/shadcn/ui/carousel'
 import { type CarouselApi } from '@/shadcn/ui/carousel'
+
 import { cn } from '@/src/shared/libs/utils'
 
 type CarouselDemoProps = {

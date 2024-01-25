@@ -1,12 +1,16 @@
-"use client";
-import { cn } from "@/src/shared/libs/utils";
-import { Card } from "@/shadcn/ui/card";
-import { Star } from "lucide-react";
-import colors from "tailwindcss/colors";
-import { PatternCardCarousel } from "./PatternCardCarousel";
-import Link from "next/link";
-import { PatternLike } from "@/src/entities/like";
-import { PatternComments } from "@/src/entities/comment";
+'use client'
+
+import { Star } from 'lucide-react'
+import Link from 'next/link'
+import colors from 'tailwindcss/colors'
+
+import { Card } from '@/shadcn/ui/card'
+
+import { PatternComments } from '@/src/entities/comment'
+import { PatternLike } from '@/src/entities/like'
+import { cn } from '@/src/shared/libs/utils'
+
+import { PatternCardCarousel } from './PatternCardCarousel'
 
 export const PatternCard = ({
   id,
@@ -19,14 +23,14 @@ export const PatternCard = ({
   const patternLink = {
     href: `/pattern/${slug}?id=${id}`,
     as: `/pattern/${slug}`,
-  };
+  }
 
   return (
     <div>
       <Link {...patternLink}>
         <Card
           className={cn(
-            "relative cursor-pointer overflow-hidden rounded-lg border-2 border-none bg-transparent shadow-none",
+            'relative cursor-pointer overflow-hidden rounded-lg border-2 border-none bg-transparent shadow-none',
           )}
         >
           {thumbnails && <PatternCardCarousel thumbnails={thumbnails} />}
@@ -35,7 +39,7 @@ export const PatternCard = ({
 
       <div className="flex flex-col space-y-1.5 p-2">
         <div className="flex justify-between">
-          <p className="text-xl font-extrabold capitalize">{price + "c"}</p>
+          <p className="text-xl font-extrabold capitalize">{price + 'c'}</p>
           <div className="flex items-center gap-3">
             <PatternComments id={id} thumbnails={thumbnails} />
             <PatternLike />
@@ -61,5 +65,5 @@ export const PatternCard = ({
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

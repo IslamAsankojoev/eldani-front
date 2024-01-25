@@ -1,15 +1,17 @@
 // @ts-nocheck
 'use client'
 
+import * as React from 'react'
+
 import useEmblaCarousel, {
   type EmblaCarouselType as CarouselApi,
   type EmblaOptionsType as CarouselOptions,
   type EmblaPluginType as CarouselPlugin,
 } from 'embla-carousel-react'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
-import * as React from 'react'
 
 import { Button } from '@/shadcn/ui/button'
+
 import { cn } from '@/src/shared/libs/utils'
 
 // @ts-nocheck
