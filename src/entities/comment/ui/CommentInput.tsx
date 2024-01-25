@@ -1,11 +1,13 @@
+import { SyntheticEvent, useEffect, useRef, useState } from 'react'
+
 import { Loader, Loader2, SendHorizonal } from 'lucide-react'
 import { useTheme } from 'next-themes'
-import { SyntheticEvent, useEffect, useRef, useState } from 'react'
 import TextareaAutosize from 'react-textarea-autosize'
 import colors from 'tailwindcss/colors'
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/shadcn/ui/avatar'
 import { Button } from '@/shadcn/ui/button'
+
 import { cn } from '@/src/shared/libs/utils'
 
 export const CommentInput = ({

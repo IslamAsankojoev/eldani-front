@@ -61,7 +61,7 @@ export const Header = () => {
       <br className="md:hidden" />
       <hr className="mt-3 md:hidden" />
       <hr className="mt-6 md:hidden" />
-      <hr className="mt-6 md:hidden" />
+      {/* <hr className="mt-6 md:hidden" /> */}
     </header>
   )
 }

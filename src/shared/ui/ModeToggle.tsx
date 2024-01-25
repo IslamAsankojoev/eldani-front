@@ -10,7 +10,6 @@ export const ModeToggle = () => {
   const handleClick = (theme: string) => {
     setTheme(theme)
   }
-  console.log('theme', theme)
 
   return !!theme ? (
     <Button

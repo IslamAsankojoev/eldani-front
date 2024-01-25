@@ -1,6 +1,14 @@
+import {
+  type BlocksContent,
+  BlocksRenderer,
+} from '@strapi/blocks-react-renderer'
 import { unstable_cache } from 'next/cache'
 
-import { PatternCarousel, ProductService } from '@/src/entities/pattern'
+import {
+  Description,
+  PatternCarousel,
+  ProductService,
+} from '@/src/entities/pattern'
 import { cn } from '@/src/shared/libs/utils'
 
 export const revalidate = 0
@@ -25,7 +33,6 @@ const Pattern = async ({
   searchParams: { viewport: string }
 }) => {
   const pattern = await getData({ params })
-
   return (
     <div
       className={cn(
@@ -34,14 +41,20 @@ const Pattern = async ({
         'initial-container md:container',
       )}
     >
-      <div className="flex-grow-[1]">
+      <div className="md:w-2/5">
         {pattern.thumbnails && (
           <PatternCarousel thumbnails={pattern.thumbnails} />
         )}
       </div>
-      <div className="flex-grow-[2] p-10">
-        <h1>{pattern.name}</h1>
-        <h2>{pattern.price}c</h2>
+      <div className="md:w-3/5 p-4 pt-10 md:p-16">
+        <h1 className="text-xl md:text-3xl font-extrabold">{pattern.name}</h1>
+        <h2 className="text-lg md:text-2xl font-bold">
+          <span className="block w-fit after:block after:h-1 after:w-full after:bg-rose-500">
+            {pattern.price}c
+          </span>
+        </h2>
+        <hr className="mt-4 border-none" />
+        <Description content={pattern.description} />
       </div>
     </div>
   )
