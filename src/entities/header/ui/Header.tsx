@@ -5,10 +5,12 @@ import { usePathname } from 'next/navigation'
 
 import { Button } from '@/shadcn/ui/button'
 import { Card } from '@/shadcn/ui/card'
+
 import { ModeToggle } from '@/src/shared'
 
 const navigationList = [
   { name: 'Home', href: '/' },
+  { name: 'Make order', href: '/make-order' },
   { name: 'About', href: '/about' },
   { name: 'Contacts', href: '/contacts' },
 ]

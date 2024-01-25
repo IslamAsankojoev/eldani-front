@@ -71,7 +71,7 @@ export const PatternCarousel = ({ thumbnails }: CarouselDemoProps) => {
                       priority
                       alt={`Pattern ${image.name}`}
                       className={cn(
-                        'object-cover',
+                        'object-cover select-none',
                         active === image.id && 'border-1 border-rose-500',
                       )}
                     />
@@ -97,7 +97,7 @@ export const PatternCarousel = ({ thumbnails }: CarouselDemoProps) => {
                       fill
                       priority
                       alt={`Pattern ${image.name}`}
-                      className="object-cover"
+                      className="object-cover select-none"
                     />
                   </Card>
                 </CarouselItem>
