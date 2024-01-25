@@ -146,9 +146,9 @@ export const PatternComments = ({ id, thumbnails }: Pick<Pattern, 'id' | 'thumbn
                   <PatternCardCarousel
                     thumbnails={thumbnails}
                     className="md:h-[60vh] rounded-2xl"
-                    prevButtonClassName='!left-2 !flex z-50 !-bottom-2 !top-[initial] !bg-stone-900'
-                    nextButtonClassName='!right-2 !flex z-50 !-bottom-2 !top-[initial] !bg-stone-900'
-                    dotsClassName='!bottom-5'
+                    prevButtonClassName="!left-2 !flex z-50 !-bottom-2 !top-[initial] !bg-stone-900"
+                    nextButtonClassName="!right-2 !flex z-50 !-bottom-2 !top-[initial] !bg-stone-900"
+                    dotsClassName="!bottom-5"
                   />
                 )}
               </Card>
@@ -168,14 +168,9 @@ export const PatternComments = ({ id, thumbnails }: Pick<Pattern, 'id' | 'thumbn
                       <>
                         {data?.length ? (
                           // @ts-ignore
-                          _.sortBy(data, ['createdAt'])
-                            .reverse()
-                            ?.map((comment: IComment) => (
-                              <PatternComment
-                                key={comment.id}
-                                {...comment}
-                              />
-                            ))
+                          data?.map((comment: IComment) => (
+                            <PatternComment key={comment.id} {...comment} />
+                          ))
                         ) : (
                           <p className="text-center text-sm text-muted-foreground py-10">
                             No comments yet

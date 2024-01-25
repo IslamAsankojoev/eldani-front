@@ -1,20 +1,15 @@
 'use client'
+import { cn } from '@/src/shared'
 import { usePathname } from 'next/navigation'
 import React from 'react'
 
 export const MainLayoutProvider = ({ children }: { children: React.ReactNode }) => {
-  const pathanme = usePathname()
-  if (pathanme === '/') {
-    return (
-      <>
-        <div className="container flex-grow">{children}</div>
-      </>
-    )
-  }
+  const pathname = usePathname()
+  const theme = 'white'
 
   return (
     <>
-      <div className="flex-grow">{children}</div>
+      <div className={cn('flex-grow', pathname === '/' ? 'container' : '')}>{children}</div>
     </>
   )
 }
