@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react'
 
 import Image from 'next/image'
-import { useInView } from 'react-intersection-observer'
 
 import { Card } from '@/shadcn/ui/card'
 import { type CarouselApi } from '@/shadcn/ui/carousel'
@@ -23,22 +22,12 @@ type CarouselDemoProps = {
 
 export const PatternCarousel = ({ thumbnails }: CarouselDemoProps) => {
   const [api, setApi] = useState<CarouselApi>()
-  const { ref, inView, entry } = useInView({
-    threshold: 0,
-    trackVisibility: true,
-    delay: 100,
-  })
+
   const [active, setActive] = useState(0)
 
-  const handleHover = (index: number) => {
+  const handleClick = (index: number) => {
     api?.scrollTo(index)
   }
-
-  useEffect(() => {
-    if (!inView) {
-      api?.scrollTo(0)
-    }
-  }, [inView, api])
 
   useEffect(() => {
     if (!api) {
@@ -60,6 +49,7 @@ export const PatternCarousel = ({ thumbnails }: CarouselDemoProps) => {
             opts={{
               align: 'start',
             }}
+            setApi={setApi}
           >
             <CarouselContent className="h-[72vh]">
               {thumbnails?.map((image, index) => (
@@ -67,7 +57,7 @@ export const PatternCarousel = ({ thumbnails }: CarouselDemoProps) => {
                   key={image.id}
                   className={cn('basis-1/4 cursor-pointer')}
                   onClick={() => {
-                    handleHover(index)
+                    handleClick(index)
                   }}
                 >
                   <Card
@@ -97,7 +87,6 @@ export const PatternCarousel = ({ thumbnails }: CarouselDemoProps) => {
           <Carousel
             className="w-full overflow-hidden rounded-none md:rounded-xl"
             setApi={setApi}
-            ref={ref}
           >
             <CarouselContent>
               {thumbnails?.map((image) => (

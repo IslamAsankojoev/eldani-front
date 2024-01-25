@@ -1,7 +1,3 @@
-import {
-  type BlocksContent,
-  BlocksRenderer,
-} from '@strapi/blocks-react-renderer'
 import { unstable_cache } from 'next/cache'
 
 import {
@@ -10,6 +6,9 @@ import {
   ProductService,
 } from '@/src/entities/pattern'
 import { cn } from '@/src/shared/libs/utils'
+import { Button } from '@/shadcn/ui/button'
+import { Card } from '@/shadcn/ui/card'
+import { PatternComments } from '@/src/entities/comment'
 
 export const revalidate = 0
 
@@ -46,15 +45,26 @@ const Pattern = async ({
           <PatternCarousel thumbnails={pattern.thumbnails} />
         )}
       </div>
-      <div className="md:w-3/5 p-4 pt-10 md:p-16">
-        <h1 className="text-xl md:text-3xl font-extrabold">{pattern.name}</h1>
-        <h2 className="text-lg md:text-2xl font-bold">
-          <span className="block w-fit after:block after:h-1 after:w-full after:bg-rose-500">
-            {pattern.price}c
-          </span>
-        </h2>
+      
+      <div className="p-4 pt-10 md:w-3/5 md:p-16">
+        <h1 className="text-xl font-extrabold md:text-3xl">{pattern.name}</h1> 
+        <br />
+        <Card className="inline-flex gap-2 p-2  dark:bg-stone-700 dark:border-stone-950 hover:border-rose-600 hover:dark:border-rose-100 transition">
+          <span className={cn(
+            "block w-fit text-lg font-bold md:text-xl !leading-10",
+            // "after:block after:h-1 after:w-full after:bg-rose-500 after:rounded-2xl",
+            // "before:block before:h-1 before:w-full before:bg-rose-500 before:rounded-2xl",
+          )}>
+            &nbsp;&nbsp;{pattern.price}c&nbsp;&nbsp;
+          </span> 
+          <Button className='rounded-sm text-base dark:bg-stone-800 dark:hover:bg-stone-900' variant='secondary'>
+            Купить
+          </Button>
+        </Card>    
         <hr className="mt-4 border-none" />
+
         <Description content={pattern.description} />
+        <hr className="mt-4 border-none" />
       </div>
     </div>
   )

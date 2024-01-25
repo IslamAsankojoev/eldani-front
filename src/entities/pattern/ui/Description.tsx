@@ -36,7 +36,7 @@ export const Description = ({ content }: { content: any }) => {
         paragraph: (props) => {
           // @ts-ignore
           if (props.children[0].props.text === '') {
-            return <br />
+            return <hr className='mt-4 border-none' />
           } else {
             return <p>{props.children}</p>
           }

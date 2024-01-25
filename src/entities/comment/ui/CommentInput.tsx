@@ -1,3 +1,4 @@
+'use client'
 import { SyntheticEvent, useEffect, useRef, useState } from 'react'
 
 import { Loader, Loader2, SendHorizonal } from 'lucide-react'

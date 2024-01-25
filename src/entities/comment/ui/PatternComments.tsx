@@ -1,28 +1,50 @@
 'use client'
+
 import { useEffect, useRef, useState } from 'react'
 
 import _ from 'lodash'
-import { useTheme } from 'next-themes'
 import { MessageCircle, X } from 'lucide-react'
-import { useMutation, useQuery, useQueryClient } from 'react-query'
-
-import colors from 'tailwindcss/colors'
-import { Card } from '@/shadcn/ui/card'
-import { Button } from '@/shadcn/ui/button'
-import { cn } from '@/src/shared/libs/utils'
-import { Separator } from '@/shadcn/ui/separator'
-import { ScrollArea } from '@/shadcn/ui/scroll-area'
+import { useTheme } from 'next-themes'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/shadcn/ui/dialog'
-import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerTitle, DrawerTrigger } from '@/shadcn/ui/drawer'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
+import colors from 'tailwindcss/colors'
 
+import { Button } from '@/shadcn/ui/button'
+import { Card } from '@/shadcn/ui/card'
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogTrigger,
+} from '@/shadcn/ui/dialog'
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerTitle,
+  DrawerTrigger,
+} from '@/shadcn/ui/drawer'
+import { ScrollArea } from '@/shadcn/ui/scroll-area'
+import { Separator } from '@/shadcn/ui/separator'
+
+import { cn } from '@/src/shared/libs/utils'
+
+import { PatternCardCarousel } from '../../pattern'
 import { CommentService } from '../api'
 import { CommentInput } from './CommentInput'
-import { PatternComment } from './PatternComment'
 import { CommentSkeleton } from './CommentSkeleton'
-import { PatternCardCarousel } from '../../pattern'
+import { PatternComment } from './PatternComment'
 
-export const PatternComments = ({ id, thumbnails }: Pick<Pattern, 'id' | 'thumbnails'>) => {
+export const PatternComments = ({
+  id,
+  thumbnails,
+  wrapperComponent,
+}: Pick<Pattern, 'id' | 'thumbnails'> & {
+  wrapperComponent?: React.FC
+}) => {
   const { theme } = useTheme()
   const queryClient = useQueryClient()
   const closeRef = useRef<null | HTMLButtonElement>(null)
@@ -31,7 +53,8 @@ export const PatternComments = ({ id, thumbnails }: Pick<Pattern, 'id' | 'thumbn
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
   const [openDesktop, setOpenDesktop] = useState(false)
-  const navigator = typeof window !== 'undefined' && (window.navigator as Navigator)
+  const navigator =
+    typeof window !== 'undefined' && (window.navigator as Navigator)
   const viewport = localStorage.getItem('viewport')
   const my_avatar = 'https://loremflickr.com/320/240/boy'
 
@@ -127,7 +150,7 @@ export const PatternComments = ({ id, thumbnails }: Pick<Pattern, 'id' | 'thumbn
         <DialogTrigger asChild>
           <Button
             variant="ghost"
-            className="h-auto w-auto p-0 m-0 bg-transparent hover:bg-transparent border-none focus:border-none outline-none focus:outline-none active:scale-110 transition relative !ring-transparent"
+            className="relative m-0 h-auto w-auto border-none bg-transparent p-0 outline-none !ring-transparent transition hover:bg-transparent focus:border-none focus:outline-none active:scale-110"
           >
             <MessageCircle size={23} strokeWidth={1.25} absoluteStrokeWidth />
           </Button>
@@ -135,23 +158,28 @@ export const PatternComments = ({ id, thumbnails }: Pick<Pattern, 'id' | 'thumbn
         <DialogContent className="py-3 pl-3 pr-0 md:rounded-[34px]">
           <div className="flex w-full gap-3 py-2 pl-2">
             <div className="flex-grow">
-              <Card className="rounded-2xl overflow-hidden border-none">
+              <Card className="overflow-hidden rounded-2xl border-none">
                 {thumbnails && (
                   <PatternCardCarousel
                     thumbnails={thumbnails}
-                    className="md:h-[60vh] rounded-2xl"
-                    prevButtonClassName='!left-2 !flex z-50 !-bottom-2 !top-[initial]'
-                    nextButtonClassName='!right-2 !flex z-50 !-bottom-2 !top-[initial]'
-                    dotsClassName='!bottom-5'
+                    className="rounded-2xl md:h-[60vh]"
+                    prevButtonClassName="!left-2 !flex z-50 !-bottom-2 !top-[initial]"
+                    nextButtonClassName="!right-2 !flex z-50 !-bottom-2 !top-[initial]"
+                    dotsClassName="!bottom-5"
                   />
                 )}
               </Card>
             </div>
-            <div className="flex-grow w-1/5 flex flex-col justify-between gap-2">
+            <div className="flex w-1/5 flex-grow flex-col justify-between gap-2">
               <div>
                 <DialogTitle className="pl-5 text-sm">Comments</DialogTitle>
-                <ScrollArea className="md:h-[50vh] pr-2">
-                  <div className={cn('flex px-4 py-4 flex-col gap-4', isLoading ? 'py-7' : '')}>
+                <ScrollArea className="pr-2 md:h-[50vh]">
+                  <div
+                    className={cn(
+                      'flex flex-col gap-4 px-4 py-4',
+                      isLoading ? 'py-7' : '',
+                    )}
+                  >
                     {isLoading ? (
                       <>
                         {Array.from({ length: 7 }).map((_, index) => (
@@ -166,7 +194,7 @@ export const PatternComments = ({ id, thumbnails }: Pick<Pattern, 'id' | 'thumbn
                             <PatternComment key={comment.id} {...comment} />
                           ))
                         ) : (
-                          <p className="text-center text-sm text-muted-foreground py-10">
+                          <p className="py-10 text-center text-sm text-muted-foreground">
                             No comments yet
                           </p>
                         )}
@@ -200,7 +228,7 @@ export const PatternComments = ({ id, thumbnails }: Pick<Pattern, 'id' | 'thumbn
       <DrawerTrigger asChild>
         <Button
           variant="ghost"
-          className="h-auto w-auto p-0 m-0 bg-transparent hover:bg-transparent border-none focus:border-none outline-none focus:outline-none active:scale-110 transition relative !ring-transparent"
+          className="relative m-0 h-auto w-auto border-none bg-transparent p-0 outline-none !ring-transparent transition hover:bg-transparent focus:border-none focus:outline-none active:scale-110"
         >
           <MessageCircle size={23} strokeWidth={1.25} absoluteStrokeWidth />
         </Button>
@@ -213,21 +241,25 @@ export const PatternComments = ({ id, thumbnails }: Pick<Pattern, 'id' | 'thumbn
       <DrawerContent>
         <div className="w-full">
           <DrawerHeader>
-            <div className="relative flex justify-center items-center">
+            <div className="relative flex items-center justify-center">
               <DrawerTitle>Comments</DrawerTitle>
               <DrawerClose asChild>
                 <Button
                   ref={closeRef}
-                  className="absolute right-2 p-0 m-0 h-auto hover:bg-transparent bg-transparent"
+                  className="absolute right-2 m-0 h-auto bg-transparent p-0 hover:bg-transparent"
                 >
-                  <X color={theme === 'dark' ? colors.stone[200] : colors.stone[500]} />
+                  <X
+                    color={
+                      theme === 'dark' ? colors.stone[200] : colors.stone[500]
+                    }
+                  />
                 </Button>
               </DrawerClose>
             </div>
           </DrawerHeader>
           <Separator />
           <ScrollArea className="h-[600px] !max-h-[40vh]">
-            <div className="flex px-4 py-3 flex-col gap-4">
+            <div className="flex flex-col gap-4 px-4 py-3">
               {isLoading ? (
                 <>
                   {Array.from({ length: 7 }).map((_, index) => (
@@ -242,7 +274,7 @@ export const PatternComments = ({ id, thumbnails }: Pick<Pattern, 'id' | 'thumbn
                       <PatternComment key={comment.id} {...comment} />
                     ))
                   ) : (
-                    <p className="text-center text-sm text-muted-foreground py-10">
+                    <p className="py-10 text-center text-sm text-muted-foreground">
                       No comments yet
                     </p>
                   )}
@@ -251,7 +283,10 @@ export const PatternComments = ({ id, thumbnails }: Pick<Pattern, 'id' | 'thumbn
             </div>
           </ScrollArea>
           <DrawerFooter>
-            <CommentInput handleSendComment={handleSendComment} avatar={my_avatar} />
+            <CommentInput
+              handleSendComment={handleSendComment}
+              avatar={my_avatar}
+            />
           </DrawerFooter>
         </div>
       </DrawerContent>
