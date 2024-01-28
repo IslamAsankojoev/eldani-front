@@ -1,14 +1,15 @@
 import { unstable_cache } from 'next/cache'
 
+import { Button } from '@/shadcn/ui/button'
+import { Card } from '@/shadcn/ui/card'
+
+import { PatternComments } from '@/src/entities/comment'
 import {
   Description,
   PatternCarousel,
   ProductService,
 } from '@/src/entities/pattern'
 import { cn } from '@/src/shared/libs/utils'
-import { Button } from '@/shadcn/ui/button'
-import { Card } from '@/shadcn/ui/card'
-import { PatternComments } from '@/src/entities/comment'
 
 export const revalidate = 0
 
@@ -40,31 +41,47 @@ const Pattern = async ({
         'initial-container md:container',
       )}
     >
-      <div className="md:w-2/5">
-        {pattern.thumbnails && (
-          <PatternCarousel thumbnails={pattern.thumbnails} />
-        )}
+      <div className="relative md:w-2/5">
+        <div className="md:sticky md:top-16">
+          {pattern.thumbnails && (
+            <PatternCarousel thumbnails={pattern.thumbnails} />
+          )}
+        </div>
       </div>
-      
-      <div className="p-4 pt-10 md:w-3/5 md:p-16">
-        <h1 className="text-xl font-extrabold md:text-3xl">{pattern.name}</h1> 
+
+      <div className="p-4 pt-10 md:w-3/5 md:px-10">
+        <h1 className="text-xl font-extrabold md:text-3xl">{pattern.name}</h1>
         <br />
-        <Card className="inline-flex gap-2 p-2  dark:bg-stone-700 dark:border-stone-950 hover:border-rose-600 hover:dark:border-rose-100 transition">
-          <span className={cn(
-            "block w-fit text-lg font-bold md:text-xl !leading-10",
-            // "after:block after:h-1 after:w-full after:bg-rose-500 after:rounded-2xl",
-            // "before:block before:h-1 before:w-full before:bg-rose-500 before:rounded-2xl",
-          )}>
+        <Card
+          className={cn(
+            'inline-grid grid-flow-col justify-items-stretch overflow-hidden border-none p-0  shadow-md transition dark:border-stone-950 dark:bg-stone-700',
+            // 'hover:border-rose-600 hover:dark:border-rose-100',
+          )}
+        >
+          <span
+            className={cn(
+              'block w-fit p-2 text-lg font-bold !leading-10 md:text-xl',
+            )}
+          >
             &nbsp;&nbsp;{pattern.price}c&nbsp;&nbsp;
-          </span> 
-          <Button className='rounded-sm text-base dark:bg-stone-800 dark:hover:bg-stone-900' variant='secondary'>
-            Купить
+          </span>
+          <Button
+            className="h-full flex-grow rounded-none bg-slate-200 text-base hover:bg-slate-300 dark:bg-stone-800 dark:hover:bg-stone-600"
+            variant="secondary"
+          >
+            &nbsp;&nbsp;Купить&nbsp;&nbsp;
           </Button>
-        </Card>    
+        </Card>
         <hr className="mt-4 border-none" />
 
         <Description content={pattern.description} />
         <hr className="mt-4 border-none" />
+        <div
+          className={cn(
+            'sticky bottom-0 left-0 hidden h-36 w-full md:block',
+            'bg-gradient-to-t from-slate-100 to-transparent dark:from-stone-900',
+          )}
+        />
       </div>
     </div>
   )

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+
 import '@/src/app/globals.css'
 
 export const metadata: Metadata = {
@@ -21,7 +22,9 @@ export default function ContainerLayout({ children }: ContainerLayoutProps) {
     <>
       {typeof window !== 'undefined' ? null : (
         <>
-          <div className="container">{children}</div>
+          <div className="container flex flex-col justify-center">
+            {children}
+          </div>
         </>
       )}
     </>

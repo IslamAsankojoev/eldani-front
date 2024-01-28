@@ -58,7 +58,12 @@ export const PatternCardCarousel = ({
   }, [api])
 
   return (
-    <Carousel className="w-full rounded-lg" setApi={setApi} ref={ref}>
+    <Carousel
+      className="w-full rounded-lg"
+      setApi={setApi}
+      ref={ref}
+      opts={{ loop: true }}
+    >
       <CarouselContent>
         {thumbnails?.map((image) => (
           <CarouselItem key={image.id}>
@@ -73,7 +78,7 @@ export const PatternCardCarousel = ({
                 sizes="100vw"
                 fill
                 priority
-                alt={`Pattern ${image?.formats?.large?.url}`}
+                alt={`Pattern ${image?.formats?.small?.url}`}
                 className="object-cover"
               />
             </Card>

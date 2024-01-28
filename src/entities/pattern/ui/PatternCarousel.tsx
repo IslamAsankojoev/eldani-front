@@ -66,12 +66,12 @@ export const PatternCarousel = ({ thumbnails }: CarouselDemoProps) => {
                     )}
                   >
                     <Image
-                      src={process.env.API_URL + image.url}
+                      src={process.env.API_URL + image.formats.small.url}
                       fill
                       priority
                       alt={`Pattern ${image.name}`}
                       className={cn(
-                        'object-cover select-none',
+                        'select-none object-cover',
                         active === image.id && 'border-1 border-rose-500',
                       )}
                     />
@@ -87,6 +87,10 @@ export const PatternCarousel = ({ thumbnails }: CarouselDemoProps) => {
           <Carousel
             className="w-full overflow-hidden rounded-none md:rounded-xl"
             setApi={setApi}
+            opts={{
+              loop: true,
+              duration: 0,
+            }}
           >
             <CarouselContent>
               {thumbnails?.map((image) => (
@@ -97,7 +101,7 @@ export const PatternCarousel = ({ thumbnails }: CarouselDemoProps) => {
                       fill
                       priority
                       alt={`Pattern ${image.name}`}
-                      className="object-cover select-none"
+                      className="select-none object-cover"
                     />
                   </Card>
                 </CarouselItem>
@@ -115,8 +119,8 @@ export const PatternCarousel = ({ thumbnails }: CarouselDemoProps) => {
                 />
               ))}
             </div>
-            <CarouselPrevious className="hidden md:visible" />
-            <CarouselNext className="hidden md:visible" />
+            <CarouselPrevious className="!-bottom-2 !left-2 !top-[initial] z-50 hidden md:flex" />
+            <CarouselNext className="!-bottom-2 !right-2 !top-[initial] z-50 hidden md:flex" />
           </Carousel>
         </div>
       </div>

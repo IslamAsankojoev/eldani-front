@@ -5,6 +5,8 @@ import {
   BlocksRenderer,
 } from '@strapi/blocks-react-renderer'
 
+import { Button } from '@/shadcn/ui/button'
+
 export const Description = ({ content }: { content: any }) => {
   return (
     <BlocksRenderer
@@ -36,16 +38,25 @@ export const Description = ({ content }: { content: any }) => {
         paragraph: (props) => {
           // @ts-ignore
           if (props.children[0].props.text === '') {
-            return <hr className='mt-4 border-none' />
+            return <hr className="mt-4 border-none" />
           } else {
             return <p>{props.children}</p>
           }
         },
         link: ({ children, url }) => {
           return (
-            <a className="text-rose-600" href={url} target="_blank">
-              {children}
-            </a>
+            <>
+              <Button
+                variant="link"
+                asChild
+                className="line-clamp-none inline-block h-fit p-0 text-base"
+              >
+                <a href={url} target="_blank">
+                  {children}
+                </a>
+              </Button>
+              &nbsp;
+            </>
           )
         },
       }}

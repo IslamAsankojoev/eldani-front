@@ -15,7 +15,12 @@ export const MainLayoutProvider = ({
 
   return (
     <>
-      <div className={cn('flex-grow', pathname === '/' ? 'container' : '')}>
+      <div
+        className={cn(
+          'grid flex-grow justify-self-stretch',
+          pathname === '/' ? 'container' : '',
+        )}
+      >
         {children}
       </div>
     </>

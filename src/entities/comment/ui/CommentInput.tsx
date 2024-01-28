@@ -1,4 +1,5 @@
 'use client'
+
 import { SyntheticEvent, useEffect, useRef, useState } from 'react'
 
 import { Loader, Loader2, SendHorizonal } from 'lucide-react'
@@ -66,7 +67,7 @@ export const CommentInput = ({
           value={comment}
           onChange={handleType}
           className={cn(
-            'flex-1 resize-none bg-transparent font-normal outline-none focus:outline-none dark:bg-stone-800 dark:placeholder-stone-400',
+            'h-20 flex-1 resize-none bg-transparent font-normal outline-none focus:outline-none dark:bg-stone-800 dark:placeholder-stone-400',
             classNameInput,
           )}
         />
