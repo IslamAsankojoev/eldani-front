@@ -24,9 +24,10 @@ export const Menu = ({ className }: MenuProps) => {
           asChild
           variant={item.href === pathname ? 'link' : 'link'}
           className={cn(
-            'text-black dark:text-white',
+            'text-black dark:text-white relative',
             item.href === pathname ? 'underline underline-offset-4' : '',
           )}
+          style={{ transition: 'all 0.2s ease-in-out' }}
         >
           <Link href={item.href}>{item.name}</Link>
         </Button>

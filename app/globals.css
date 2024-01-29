@@ -73,3 +73,36 @@ main {
     @apply w-full mx-auto px-[0px];
   }
 }
+
+/* styling scrollbar */
+::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+::-webkit-scrollbar-track {
+  background: #e6e6e6 !important;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #3a3a3a !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #b1b1b1;
+  border-radius: 0.5rem;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #6d6d6d;
+  border-radius: 0.5rem;
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9c9c9c;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #6d6d6d;
+}
