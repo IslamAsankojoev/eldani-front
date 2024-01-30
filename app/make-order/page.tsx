@@ -21,6 +21,8 @@ import {
 import { Input } from '@/shadcn/ui/input'
 import { Label } from '@/shadcn/ui/label'
 import { Textarea } from '@/shadcn/ui/textarea'
+import { ky } from '@/src/app/config'
+import { useSearchParams } from 'next/navigation'
 
 const formSchema = z.object({
   username: z.string().min(1, {
@@ -30,7 +32,6 @@ const formSchema = z.object({
     message: 'Номер телефона обязателен',
   }),
   telegram: z.string(),
-  // subject: z.string(),
   message: z.string(),
   file: z.string(),
 })
@@ -38,13 +39,14 @@ const formSchema = z.object({
 const requiredSchema = formSchema.required()
 
 const Page = () => {
+  const searchParams = useSearchParams()
+  console.log(searchParams.entries())
   const form = useForm({
     resolver: zodResolver(requiredSchema),
     defaultValues: {
       username: '',
       phone: '' as any,
       telegram: '',
-      // subject: '',
       message: '',
       file: '',
     },
@@ -70,7 +72,6 @@ const Page = () => {
             name="username"
             render={({ field }) => (
               <FormItem>
-                {/* <Label>Username</Label> */}
                 <FormControl>
                   <Input placeholder="Имя" {...field} />
                 </FormControl>
@@ -83,7 +84,6 @@ const Page = () => {
             name="phone"
             render={({ field }) => (
               <FormItem>
-                {/* <Label>Phone number</Label> */}
                 <FormControl>
                   <Input placeholder="Номер телефона" {...field} />
                 </FormControl>
@@ -96,7 +96,6 @@ const Page = () => {
             name="telegram"
             render={({ field }) => (
               <FormItem>
-                {/* <Label>Telegram</Label> */}
                 <FormControl>
                   <Input placeholder="Telegram @nickname" {...field} />
                 </FormControl>
@@ -104,28 +103,11 @@ const Page = () => {
               </FormItem>
             )}
           />
-          {/* <FormField
-            control={form.control}
-            name="subject"
-            render={({ field }) => (
-              <FormItem>
-                <Label>Subject</Label>
-                <FormControl>
-                  <Input placeholder="Тема" {...field} />
-                </FormControl>
-                <FormDescription>
-                  Напишите тему, которая вас интересует
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          /> */}
           <FormField
             control={form.control}
             name="message"
             render={({ field }) => (
               <FormItem>
-                {/* <Label>Message</Label> */}
                 <FormControl>
                   <Textarea placeholder="Сообщение" {...field} />
                 </FormControl>
@@ -138,7 +120,6 @@ const Page = () => {
             name="file"
             render={({ field }) => (
               <FormItem>
-                {/* <Label>File</Label> */}
                 <FormControl>
                   <>
                     <Input

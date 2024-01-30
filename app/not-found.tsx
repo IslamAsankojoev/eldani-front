@@ -1,3 +1,4 @@
+
 const NotFound = () => {
   return (
     <div className="flex min-h-[500px] flex-col items-center justify-center">

@@ -28,6 +28,7 @@
     "embla-carousel-react": "^8.0.0-rc19",
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "husky": "^9.0.1",
+    "js-cookie": "^3.0.5",
     "ky": "^1.2.0",
     "lodash": "^4.17.21",
     "lorem-ipsum": "^2.0.8",
@@ -48,6 +49,7 @@
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
+    "@types/js-cookie": "^3.0.6",
     "@types/lodash": "^4.14.202",
     "@types/node": "^20",
     "@types/react": "^18",

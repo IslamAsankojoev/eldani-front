@@ -36,13 +36,13 @@ export function MenuToggle({ className }: MenuToggleProps) {
   }, [pathname])
 
   return (
-    <Sheet onOpenChange={handleOpenChange} open={isOpen} defaultOpen={isOpen}>
+    <Sheet onOpenChange={handleOpenChange} open={isOpen} defaultOpen={isOpen} >
       <SheetTrigger asChild className="relative">
         <Button variant="ghost" size="icon" className={className}>
           {isOpen ? <SheetClose /> : <Menu />}
         </Button>
       </SheetTrigger>
-      <SheetContent className="border-none bg-white/95 dark:bg-stone-900/95">
+      <SheetContent className="border-none bg-white/95 dark:bg-stone-900/95" side='left'>
         <div className="px-6">
           <Link href="/" className="text-xl font-extrabold">
             Eldani
