@@ -42,10 +42,11 @@ export const userToggleRoutes:Route[]= [
 ]
 
 export const UserToggle = ({ className }: UserToggleProps) => {
-  const {data, refetch} = useQuery('user', ()=>UserService.getMe())
+  const {data} = useQuery('user', ()=>UserService.getMe(), {
+    refetchInterval: 800,
+  })
   const [isOpen, setIsOpen] = useState(false)
   const router = useRouter()
-  const pathname = usePathname()
 
   const handleRouteChange = (item:Route) => {
     if (item.href === '/logout') {
@@ -56,10 +57,6 @@ export const UserToggle = ({ className }: UserToggleProps) => {
     router.push(item.href)
     setIsOpen(false)
   }
-
-  useEffect(() => {
-    refetch()
-  }, [pathname])
 
   if(!data) return (
     <Button asChild size='icon' variant='ghost' className={cn(className)}>

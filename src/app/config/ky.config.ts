@@ -6,6 +6,16 @@ export const kyInstance = ky.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  hooks: {
+    beforeRequest: [
+      (request) => {
+        const token = Cookies.get('token')
+        if (token) {
+          request.headers.delete('Authorization')
+        }
+      },
+    ],
+  },
 })
 
 export const kyAuth = kyInstance.extend({
