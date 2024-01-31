@@ -40,7 +40,6 @@ const requiredSchema = formSchema.required()
 
 const Page = () => {
   const searchParams = useSearchParams()
-  console.log(searchParams.entries())
   const form = useForm({
     resolver: zodResolver(requiredSchema),
     defaultValues: {

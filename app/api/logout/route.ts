@@ -9,7 +9,7 @@ export async function GET(request: NextRequest ) {
   return new Response(null, {
     status: 302,
     headers: {
-      location: '/',
+      location: '/login',
       'set-cookie': cookie.toString(),
     },
   })

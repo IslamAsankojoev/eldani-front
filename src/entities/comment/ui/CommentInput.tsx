@@ -1,5 +1,4 @@
 'use client'
-
 import { SyntheticEvent, useEffect, useRef, useState } from 'react'
 
 import { Loader, Loader2, SendHorizonal } from 'lucide-react'
@@ -46,14 +45,14 @@ export const CommentInput = ({
   return (
     <div
       className={cn(
-        'flex w-full items-center gap-2 bg-stone-100 p-2 dark:bg-stone-800',
+        'flex w-full items-center gap-2 bg-stone-100 p-2 dark:bg-stone-800 relative',
         className,
       )}
     >
       <Avatar className="mr-2 self-start">
         <AvatarImage
           src={avatar}
-          className="rounded-full border-[1px] border-stone-300"
+          className="rounded-full border-2 border-stone-300"
         />
         <AvatarFallback>CN</AvatarFallback>
       </Avatar>
@@ -62,17 +61,18 @@ export const CommentInput = ({
         onSubmit={handleSend}
       >
         <TextareaAutosize
+          maxRows={3}
           ref={ref}
           placeholder="Write a comment..."
           value={comment}
           onChange={handleType}
           className={cn(
-            'h-20 flex-1 resize-none bg-transparent font-normal outline-none focus:outline-none dark:bg-stone-800 dark:placeholder-stone-400',
+            'flex-1 resize-none bg-transparent font-normal outline-none focus:outline-none dark:bg-stone-800 dark:placeholder-stone-400',
             classNameInput,
           )}
         />
         {comment.length ? (
-          <Button variant="ghost" className="self-end" type="submit">
+          <Button variant="ghost" className="self-end absolute right-0 bottom-2 translate-y-2" type="submit">
             {false ? (
               <Loader2
                 size={25}

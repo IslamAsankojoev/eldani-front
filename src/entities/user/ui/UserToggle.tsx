@@ -2,14 +2,12 @@
 
 import { useEffect, useState } from 'react'
 
-import { Avatar, AvatarImage } from '@/shadcn/ui/avatar'
+import { Avatar, AvatarFallback, AvatarImage } from '@/shadcn/ui/avatar'
 import { Button } from '@/shadcn/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuLabel,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/shadcn/ui/dropdown-menu'
@@ -17,9 +15,9 @@ import {
 import { cn } from '@/src/shared'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { useQuery } from 'react-query'
-import { UserService } from '..'
 import { LogIn } from 'lucide-react'
+import { Skeleton } from '@/shadcn/ui/skeleton'
+import { useUser } from '../query'
 
 interface UserToggleProps {
   className?: string
@@ -42,15 +40,14 @@ export const userToggleRoutes:Route[]= [
 ]
 
 export const UserToggle = ({ className }: UserToggleProps) => {
-  const {data} = useQuery('user', ()=>UserService.getMe(), {
-    refetchInterval: 800,
-  })
+  const {data:user, isLoading, refetch} = useUser()
   const [isOpen, setIsOpen] = useState(false)
   const router = useRouter()
+  const pathname = usePathname()
 
   const handleRouteChange = (item:Route) => {
-    if (item.href === '/logout') {
-      router.push('/')
+    if (item.href === '/api/logout') {
+      router.push(item.href)
       setIsOpen(false)
       return
     }
@@ -58,9 +55,25 @@ export const UserToggle = ({ className }: UserToggleProps) => {
     setIsOpen(false)
   }
 
-  if(!data) return (
+  useEffect(() => {
+    refetch()
+  }, [pathname])
+
+  console.log('profile', user)
+  if(isLoading){
+    return (
+      <Skeleton className={
+        cn(
+          'w-10 h-10 rounded-full',
+          className
+        )
+      }/>
+    )
+  }
+
+  if(!user) return (
     <Button asChild size='icon' variant='ghost' className={cn(className)}>
-      <Link href='https://fc07-77-235-23-216.ngrok-free.app/api/connect/google'>
+      <Link href='/login'>
         <LogIn size={24} />
       </Link>
     </Button>
@@ -69,14 +82,15 @@ export const UserToggle = ({ className }: UserToggleProps) => {
   return (
     <DropdownMenu onOpenChange={setIsOpen} open={isOpen}>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" className={cn(className)} ring='none'>
+        <Button variant="ghost" size="icon" className={cn(className,'rounded-full active:scale-110 transition p-2')} ring='none'>
           <Avatar className={cn(className, 'cursor-pointer')}>
-            <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+            <AvatarImage src={user?.avatar_google} alt="@shadcn" />
+            <AvatarFallback>{(user?.username || user?.email)[0].toUpperCase()}</AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
-        <DropdownMenuLabel>{data?.username}</DropdownMenuLabel>
+        <DropdownMenuLabel>{user?.username || user?.email}</DropdownMenuLabel>
         <DropdownMenuSeparator />
           <div className='flex flex-col'>
           {userToggleRoutes.map((item) => (

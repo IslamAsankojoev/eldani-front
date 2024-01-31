@@ -1,9 +1,6 @@
-import { unstable_cache } from 'next/cache'
-
 import { Button } from '@/shadcn/ui/button'
 import { Card } from '@/shadcn/ui/card'
 
-import { PatternComments } from '@/src/entities/comment'
 import {
   Description,
   PatternCarousel,
@@ -11,12 +8,12 @@ import {
 } from '@/src/entities/pattern'
 import { cn } from '@/src/shared/libs/utils'
 
-export const revalidate = 0
+export const revalidate = 1
 
-const getCachedUser = unstable_cache(
-  async (id) => getData({ params: { slug: id } }),
-  ['pattern'],
-)
+// const getCachedUser = unstable_cache(
+//   async (id) => getData({ params: { slug: id } }),
+//   ['pattern'],
+// )
 
 async function getData({ params }: { params: { slug: string } }) {
   const pattern = await ProductService.findBySlug(params.slug, {

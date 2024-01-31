@@ -5,43 +5,67 @@ export const ProductService = {
   entity: 'products',
   entityBySlug: 'slugify/slugs/product',
   async find(searchParams?: SearchParamsOption) {
-    const data = await ky
+    try{
+      const data = await ky
       .get(this.entity, {
         searchParams,
       })
       .json()
     return data as Pattern[]
+    } catch (e) {
+      throw e
+    }
   },
   async findOne(slug: string, searchParams?: SearchParamsOption) {
-    const data = await ky
+    try{
+      const data = await ky
       .get(`${this.entity}/${slug}`, {
         searchParams,
       })
       .json()
     return data as Pattern
+    } catch (e) {
+      throw e
+    }
   },
   async findBySlug(slug: string, searchParams?: SearchParamsOption) {
-    const data = await ky
+    try{
+      const data = await ky
       .get(`${this.entityBySlug}/${slug}`, {
         searchParams,
       })
       .json()
     return data as Pattern
+    } catch (e) {
+      throw e
+    }
   },
   async create(data: Pattern) {
-    const response = await ky.post(this.entity, {
-      json: data,
-    })
-    return response
+    try{
+      const response = await ky.post(this.entity, {
+        json: data,
+      })
+      return response
+    } catch (e) {
+      throw e
+    }
   },
   async update(id: number, data: Pattern) {
-    const response = await ky.put(`${this.entity}/${id}`, {
-      json: data,
-    })
-    return response
+    try{
+      const response = await ky.put(`${this.entity}/${id}`, {
+        json: data,
+      })
+      return response
+    } catch (e) {
+      throw e
+    }
   },
   async delete(id: number) {
-    const response = await ky.delete(`${this.entity}/${id}`)
-    return response
+    try{
+      const response = await ky.delete(`${this.entity}/${id}`)
+      return response
+    } catch (e) {
+      throw e
+    }
   },
 }

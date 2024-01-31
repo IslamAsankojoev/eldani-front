@@ -5,6 +5,11 @@ const config = {
   content: [
     './pages/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
+    './src/app/**/*.{ts,tsx}',
+    './src/entities/**/*.{ts,tsx}',
+    './src/features/**/*.{ts,tsx}',
+    './src/shared/**/*.{ts,tsx}',
+    './src/styles/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './shadcn/**/*.{ts,tsx}',
   ],

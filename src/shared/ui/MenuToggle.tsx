@@ -43,7 +43,7 @@ export function MenuToggle({ className }: MenuToggleProps) {
         </Button>
       </SheetTrigger>
       <SheetContent className="border-none bg-white/95 dark:bg-stone-900/95" side='left'>
-        <div className="px-6">
+        <div className="px-6 pt-10">
           <Link href="/" className="text-xl font-extrabold">
             Eldani
           </Link>

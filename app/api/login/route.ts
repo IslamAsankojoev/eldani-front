@@ -1,8 +1,8 @@
 import { cookies } from 'next/headers'
 import { type NextRequest } from 'next/server'
+import { jwtDecode } from "jwt-decode";
 
 import { ky } from '@/src/app/config'
-import { decode } from '@/src/shared'
 
 export async function GET(request: NextRequest) {
   const cookie = cookies()
@@ -12,21 +12,20 @@ export async function GET(request: NextRequest) {
         searchParams: request.nextUrl.searchParams,
       })
       .json()
-    cookie.set({
-      name: 'token',
-      value: user?.jwt,
-      secure: true,
-      expires: new Date(decode(user?.jwt)?.payload?.exp * 1000),
-    })
+      if(user){
+        const expires: any = jwtDecode(user.jwt).exp as number * 1000
+        cookie.set('token', user.jwt, { expires: new Date(expires)})
+      }
   } catch (e) {
-    console.log(e)
+    throw e
   }
 
   return new Response(null, {
     status: 302,
     headers: {
-      location: '/',
+      location: '/login',
       'set-cookie': cookie.toString(),
     },
   })
+  // return new Response("12")
 }

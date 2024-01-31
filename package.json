@@ -29,6 +29,7 @@
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "husky": "^9.0.1",
     "js-cookie": "^3.0.5",
+    "jwt-decode": "^4.0.0",
     "ky": "^1.2.0",
     "lodash": "^4.17.21",
     "lorem-ipsum": "^2.0.8",

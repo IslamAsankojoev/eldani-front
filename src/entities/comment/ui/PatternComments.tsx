@@ -33,6 +33,7 @@ import { Separator } from '@/shadcn/ui/separator'
 import { cn } from '@/src/shared/libs/utils'
 
 import { PatternCardCarousel } from '../../pattern'
+import { useUser } from '../../user/query'
 import { CommentService } from '../api'
 import { CommentInput } from './CommentInput'
 import { CommentSkeleton } from './CommentSkeleton'
@@ -45,6 +46,7 @@ export const PatternComments = ({
 }: Pick<Pattern, 'id' | 'thumbnails'> & {
   wrapperComponent?: React.FC
 }) => {
+  const { data: user } = useUser()
   const { theme } = useTheme()
   const queryClient = useQueryClient()
   const closeRef = useRef<null | HTMLButtonElement>(null)
@@ -110,10 +112,10 @@ export const PatternComments = ({
     return mutateAsync(
       {
         author: {
-          id: 1,
-          name: 'Kama',
-          email: 'kama@mail.ru',
-          avatar: my_avatar,
+          id: user?.id as number,
+          name: user?.username as string,
+          email: user?.email as string,
+          avatar: user?.avatar_google as string,
         },
         content: content,
       },
@@ -157,8 +159,8 @@ export const PatternComments = ({
         </DialogTrigger>
         <DialogContent className="py-3 pl-3 pr-0 md:rounded-[34px]">
           <div className="flex w-full gap-3 py-2 pl-2">
-            <div className="flex-grow">
-              <Card className="overflow-hidden rounded-2xl border-none">
+            <div className="flex flex-grow items-center justify-center">
+              <Card className="w-full overflow-hidden rounded-2xl border-none">
                 {thumbnails && (
                   <PatternCardCarousel
                     thumbnails={thumbnails}
@@ -206,7 +208,7 @@ export const PatternComments = ({
               <div className="pr-5">
                 <CommentInput
                   handleSendComment={handleSendComment}
-                  avatar={my_avatar}
+                  avatar={user?.avatar_google as string}
                   className="rounded-xl"
                   isLoading={mutateLoading}
                 />
@@ -285,7 +287,8 @@ export const PatternComments = ({
           <DrawerFooter>
             <CommentInput
               handleSendComment={handleSendComment}
-              avatar={my_avatar}
+              avatar={user?.avatar_google as string}
+              isLoading={mutateLoading}
             />
           </DrawerFooter>
         </div>
