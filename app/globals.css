@@ -70,7 +70,7 @@ main {
 
 @layer components {
   .initial-container {
-    @apply w-full mx-auto px-[0px];
+    @apply mx-auto w-full px-[0px];
   }
 }
 
@@ -97,7 +97,6 @@ main {
   background: rgb(100, 94, 88);
   border-radius: 0.5rem;
 }
-
 
 ::-webkit-scrollbar-thumb:hover {
   background: rgb(77, 92, 112);

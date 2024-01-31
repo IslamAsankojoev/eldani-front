@@ -3,6 +3,7 @@
 import React from 'react'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useSearchParams } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import TextareaAutosize from 'react-textarea-autosize'
 import * as z from 'zod'
@@ -21,8 +22,8 @@ import {
 import { Input } from '@/shadcn/ui/input'
 import { Label } from '@/shadcn/ui/label'
 import { Textarea } from '@/shadcn/ui/textarea'
+
 import { ky } from '@/src/app/config'
-import { useSearchParams } from 'next/navigation'
 
 const formSchema = z.object({
   username: z.string().min(1, {
@@ -56,7 +57,7 @@ const Page = () => {
   }
 
   return (
-    <Card className="p-5 dark:bg-[#1a1615]">
+    <Card className="dark:bg-stone-920 p-5">
       <Form {...form}>
         <h1 className="mb-4 text-center text-xl font-extrabold md:text-xl">
           Хотите заказать

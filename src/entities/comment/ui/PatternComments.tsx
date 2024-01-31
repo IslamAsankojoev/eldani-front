@@ -174,7 +174,7 @@ export const PatternComments = ({
             </div>
             <div className="flex w-1/5 flex-grow flex-col justify-between gap-2">
               <div>
-                <DialogTitle className="pl-5 text-sm">Comments</DialogTitle>
+                <DialogTitle className="pl-5 text-sm">Комментарии</DialogTitle>
                 <ScrollArea className="pr-2 md:h-[50vh]">
                   <div
                     className={cn(
@@ -197,7 +197,7 @@ export const PatternComments = ({
                           ))
                         ) : (
                           <p className="py-10 text-center text-sm text-muted-foreground">
-                            No comments yet
+                            Комментариев пока нет, будьте первым!
                           </p>
                         )}
                       </>
@@ -244,7 +244,7 @@ export const PatternComments = ({
         <div className="w-full">
           <DrawerHeader>
             <div className="relative flex items-center justify-center">
-              <DrawerTitle>Comments</DrawerTitle>
+              <DrawerTitle>Комментарии</DrawerTitle>
               <DrawerClose asChild>
                 <Button
                   ref={closeRef}
@@ -277,7 +277,7 @@ export const PatternComments = ({
                     ))
                   ) : (
                     <p className="py-10 text-center text-sm text-muted-foreground">
-                      No comments yet
+                      Комментариев пока нет, будьте первым!
                     </p>
                   )}
                 </>

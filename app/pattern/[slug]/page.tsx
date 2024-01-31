@@ -39,7 +39,7 @@ const Pattern = async ({
       )}
     >
       <div className="relative md:w-2/5">
-        <div className="md:sticky md:top-16">
+        <div className="md:sticky md:top-36">
           {pattern.thumbnails && (
             <PatternCarousel thumbnails={pattern.thumbnails} />
           )}
@@ -75,7 +75,7 @@ const Pattern = async ({
         <hr className="mt-4 border-none" />
         <div
           className={cn(
-            'sticky bottom-0 left-0 hidden h-36 w-full md:block',
+            'sticky bottom-0 left-0 -mt-20 hidden h-28 w-full md:block',
             'bg-gradient-to-t from-slate-100 to-transparent dark:from-stone-900',
           )}
         />

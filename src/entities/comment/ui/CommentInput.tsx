@@ -1,4 +1,5 @@
 'use client'
+
 import { SyntheticEvent, useEffect, useRef, useState } from 'react'
 
 import { Loader, Loader2, SendHorizonal } from 'lucide-react'
@@ -45,7 +46,7 @@ export const CommentInput = ({
   return (
     <div
       className={cn(
-        'flex w-full items-center gap-2 bg-stone-100 p-2 dark:bg-stone-800 relative',
+        'relative flex w-full items-center gap-2 bg-stone-100 p-2 dark:bg-stone-800',
         className,
       )}
     >
@@ -63,7 +64,7 @@ export const CommentInput = ({
         <TextareaAutosize
           maxRows={3}
           ref={ref}
-          placeholder="Write a comment..."
+          placeholder="Оставьте комментарий ..."
           value={comment}
           onChange={handleType}
           className={cn(
@@ -72,7 +73,11 @@ export const CommentInput = ({
           )}
         />
         {comment.length ? (
-          <Button variant="ghost" className="self-end absolute right-0 bottom-2 translate-y-2" type="submit">
+          <Button
+            variant="ghost"
+            className="absolute bottom-2 right-0 translate-y-2 self-end"
+            type="submit"
+          >
             {false ? (
               <Loader2
                 size={25}

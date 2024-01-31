@@ -1,7 +1,8 @@
 'use client'
 
-import _ from 'lodash'
 import { useEffect } from 'react'
+
+import _ from 'lodash'
 import { useQuery } from 'react-query'
 
 import {
@@ -35,7 +36,7 @@ export default function Home({
   return (
     <section>
       <h1 className={cn('my-6 text-center text-2xl font-extrabold md:my-10')}>
-        Eldani patterns collection
+        Коллекция Eldani
       </h1>
       <div className="masonry mt-4 grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-5">
         {isLoading ? (
