@@ -14,7 +14,7 @@ export const Header = () => {
     <>
       <br className="hidden border-none md:block" />
       <header className="fixed left-0 top-0 z-50 mx-auto flex w-full justify-center gap-2 p-0 md:p-4">
-        <Card className="flex w-full items-center justify-between gap-2 rounded-none border-[.7px] bg-white p-3 px-4 md:static md:w-fit md:rounded-xl md:p-2  dark:border-[#303030] dark:bg-[#2f2a2a]">
+        <Card className="flex w-full items-center justify-between gap-2 rounded-none border-[.7px] bg-white p-3 px-4 md:static md:w-fit md:rounded-xl md:p-2  dark:bg-stone-750">
           <div className="flex items-center">
             <MenuToggle className="md:hidden" />
             <Link href="/" className="text-xl font-extrabold md:mx-4">
@@ -27,7 +27,7 @@ export const Header = () => {
             <UserToggle className="md:hidden" />
           </div>
         </Card>
-        <Card className="hidden items-center justify-between gap-2 rounded-none border-[.7px] bg-white px-4 md:static md:flex md:w-fit md:rounded-xl md:p-2 dark:border-[#303030] dark:bg-[#2f2a2a]">
+        <Card className="hidden items-center justify-between gap-2 rounded-none border-[.7px] bg-white px-4 md:static md:flex md:w-fit md:rounded-xl md:p-2 dark:bg-stone-750">
           <UserToggle />
         </Card>
       </header>

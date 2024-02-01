@@ -35,6 +35,7 @@ const config = {
     extend: {
       colors: {
         stone: {
+          750: '#2f2a2a',
           920: '#1a1615',
         },
         border: 'hsl(var(--border))',

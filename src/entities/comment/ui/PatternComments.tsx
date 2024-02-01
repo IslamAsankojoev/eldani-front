@@ -32,6 +32,7 @@ import { Separator } from '@/shadcn/ui/separator'
 
 import { cn } from '@/src/shared/libs/utils'
 
+import { BottomPanel } from '..'
 import { PatternCardCarousel } from '../../pattern'
 import { useUser } from '../../user/query'
 import { CommentService } from '../api'
@@ -39,32 +40,31 @@ import { CommentInput } from './CommentInput'
 import { CommentSkeleton } from './CommentSkeleton'
 import { PatternComment } from './PatternComment'
 
-export const PatternComments = ({
+export function PatternComments({
   id,
   thumbnails,
   wrapperComponent,
 }: Pick<Pattern, 'id' | 'thumbnails'> & {
   wrapperComponent?: React.FC
-}) => {
+}) {
   const { data: user } = useUser()
-  const { theme } = useTheme()
   const queryClient = useQueryClient()
   const closeRef = useRef<null | HTMLButtonElement>(null)
   const searchParams = useSearchParams()
   const router = useRouter()
   const pathname = usePathname()
-  const [open, setOpen] = useState(false)
   const [openDesktop, setOpenDesktop] = useState(false)
   const navigator =
     typeof window !== 'undefined' && (window.navigator as Navigator)
-  const viewport = localStorage.getItem('viewport')
+  const viewport =
+    typeof window !== 'undefined' && localStorage.getItem('viewport')
   const my_avatar = 'https://loremflickr.com/320/240/boy'
 
   const { data, refetch, isLoading } = useQuery(
     [CommentService.entity, id],
     () => CommentService.getAll(id),
     {
-      enabled: open || openDesktop,
+      
       staleTime: 6 * 1000,
       refetchInterval: 6 * 1000,
       refetchOnMount: true,
@@ -78,11 +78,6 @@ export const PatternComments = ({
       },
     },
   )
-
-  const dismissible =
-    typeof window !== 'undefined' && navigator
-      ? !(navigator as Navigator).userAgent.toLowerCase().includes('android')
-      : false
 
   const handleSendComment = async (content: string) => {
     queryClient.setQueryData([CommentService.entity, id], (old: any) => {
@@ -125,21 +120,6 @@ export const PatternComments = ({
     )
   }
 
-  const handleRemoveModal = () => {
-    router.replace(pathname, {
-      scroll: false,
-    })
-  }
-
-  useEffect(() => {
-    if (open) {
-      router.push(`${pathname}?modal=comments`, {
-        scroll: false,
-      })
-      refetch()
-    }
-  }, [open, router, pathname, refetch])
-
   useEffect(() => {
     if (searchParams.get('modal') !== 'comments') {
       closeRef.current && closeRef.current.click()
@@ -152,19 +132,19 @@ export const PatternComments = ({
         <DialogTrigger asChild>
           <Button
             variant="ghost"
-            className="relative m-0 h-auto w-auto border-none bg-transparent p-0 outline-none !ring-transparent transition hover:bg-transparent focus:border-none focus:outline-none active:scale-110"
+            className="relative m-0 h-auto w-auto border-none bg-transparent p-2 outline-none !ring-transparent transition hover:bg-transparent focus:border-none focus:outline-none active:scale-110"
           >
             <MessageCircle size={23} strokeWidth={1.25} absoluteStrokeWidth />
           </Button>
         </DialogTrigger>
         <DialogContent className="py-3 pl-3 pr-0 md:rounded-[34px]">
-          <div className="flex w-full gap-3 py-2 pl-2">
-            <div className="flex flex-grow items-center justify-center">
-              <Card className="w-full overflow-hidden rounded-2xl border-none">
+          <div className="flex h-[60vh] w-full gap-3 py-2 pl-2">
+            <div className="flex h-full flex-grow items-center justify-center">
+              <Card className="h-full w-full overflow-hidden rounded-2xl border-none">
                 {thumbnails && (
                   <PatternCardCarousel
                     thumbnails={thumbnails}
-                    className="rounded-2xl md:h-[60vh]"
+                    className="h-full rounded-2xl"
                     prevButtonClassName="!left-2 !flex z-50 !-bottom-2 !top-[initial]"
                     nextButtonClassName="!right-2 !flex z-50 !-bottom-2 !top-[initial]"
                     dotsClassName="!bottom-5"
@@ -172,43 +152,40 @@ export const PatternComments = ({
                 )}
               </Card>
             </div>
-            <div className="flex w-1/5 flex-grow flex-col justify-between gap-2">
-              <div>
-                <DialogTitle className="pl-5 text-sm">Комментарии</DialogTitle>
-                <ScrollArea className="pr-2 md:h-[50vh]">
-                  <div
-                    className={cn(
-                      'flex flex-col gap-4 px-4 py-4',
-                      isLoading ? 'py-7' : '',
-                    )}
-                  >
-                    {isLoading ? (
-                      <>
-                        {Array.from({ length: 7 }).map((_, index) => (
-                          <CommentSkeleton key={index} />
-                        ))}
-                      </>
-                    ) : (
-                      <>
-                        {data?.length ? (
-                          // @ts-ignore
-                          data?.map((comment: IComment) => (
-                            <PatternComment key={comment.id} {...comment} />
-                          ))
-                        ) : (
-                          <p className="py-10 text-center text-sm text-muted-foreground">
-                            Комментариев пока нет, будьте первым!
-                          </p>
-                        )}
-                      </>
-                    )}
-                  </div>
-                </ScrollArea>
-              </div>
+            <div className="flex h-full w-1/5 flex-grow flex-col justify-between gap-2">
+              <DialogTitle className="pl-5 text-sm">Комментарии</DialogTitle>
+              <ScrollArea className="h-full pr-2">
+                <div
+                  className={cn(
+                    'flex h-full flex-col gap-4 px-4 py-4',
+                    isLoading ? 'py-7' : '',
+                  )}
+                >
+                  {isLoading ? (
+                    <>
+                      {Array.from({ length: 7 }).map((_, index) => (
+                        <CommentSkeleton key={index} />
+                      ))}
+                    </>
+                  ) : (
+                    <>
+                      {data?.length ? (
+                        // @ts-ignore
+                        data?.map((comment: IComment) => (
+                          <PatternComment key={comment.id} {...comment} />
+                        ))
+                      ) : (
+                        <p className="py-10 text-center text-sm text-muted-foreground">
+                          Комментариев пока нет, будьте первым!
+                        </p>
+                      )}
+                    </>
+                  )}
+                </div>
+              </ScrollArea>
               <div className="pr-5">
                 <CommentInput
                   handleSendComment={handleSendComment}
-                  avatar={user?.avatar_google as string}
                   className="rounded-xl"
                   isLoading={mutateLoading}
                 />
@@ -220,79 +197,46 @@ export const PatternComments = ({
     )
 
   return (
-    <Drawer
-      dismissible={dismissible}
-      onOpenChange={(open) => {
-        setOpen(open)
-      }}
-      onClose={handleRemoveModal}
-    >
-      <DrawerTrigger asChild>
-        <Button
-          variant="ghost"
-          className="relative m-0 h-auto w-auto border-none bg-transparent p-0 outline-none !ring-transparent transition hover:bg-transparent focus:border-none focus:outline-none active:scale-110"
-        >
-          <MessageCircle size={23} strokeWidth={1.25} absoluteStrokeWidth />
-        </Button>
-      </DrawerTrigger>
-      <DrawerOverlay
-        onClick={() => {
-          closeRef.current && closeRef.current.click()
-        }}
-      />
-      <DrawerContent>
-        <div className="w-full">
-          <DrawerHeader>
-            <div className="relative flex items-center justify-center">
-              <DrawerTitle>Комментарии</DrawerTitle>
-              <DrawerClose asChild>
-                <Button
-                  ref={closeRef}
-                  className="absolute right-2 m-0 h-auto bg-transparent p-0 hover:bg-transparent"
-                >
-                  <X
-                    color={
-                      theme === 'dark' ? colors.stone[200] : colors.stone[500]
-                    }
-                  />
-                </Button>
-              </DrawerClose>
-            </div>
-          </DrawerHeader>
-          <Separator />
-          <ScrollArea className="h-[600px] !max-h-[40vh]">
-            <div className="flex flex-col gap-4 px-4 py-3">
-              {isLoading ? (
-                <>
-                  {Array.from({ length: 7 }).map((_, index) => (
-                    <CommentSkeleton key={index} />
-                  ))}
-                </>
-              ) : (
-                <>
-                  {data?.length ? (
-                    // @ts-ignore
-                    data?.map((comment: IComment) => (
-                      <PatternComment key={comment.id} {...comment} />
-                    ))
-                  ) : (
-                    <p className="py-10 text-center text-sm text-muted-foreground">
-                      Комментариев пока нет, будьте первым!
-                    </p>
-                  )}
-                </>
-              )}
-            </div>
-          </ScrollArea>
-          <DrawerFooter>
-            <CommentInput
-              handleSendComment={handleSendComment}
-              avatar={user?.avatar_google as string}
-              isLoading={mutateLoading}
-            />
-          </DrawerFooter>
+    <BottomPanel
+      header={
+        <div className="relative flex items-center justify-center p-3 pt-5">
+          Комментарии
         </div>
-      </DrawerContent>
-    </Drawer>
+      }
+      footer={
+        <CommentInput
+          handleSendComment={handleSendComment}
+          isLoading={mutateLoading}
+        />
+      }
+    >
+      <div className="w-full">
+        <Separator />
+        <ScrollArea className="">
+          <div className="flex flex-col gap-4 px-4 py-3">
+            {isLoading ? (
+              <>
+                {Array.from({ length: 7 }).map((_, index) => (
+                  <CommentSkeleton key={index} />
+                ))}
+              </>
+            ) : (
+              <>
+                {data?.length ? (
+                  // @ts-ignore
+                  data?.map((comment: IComment) => (
+                    <PatternComment key={comment.id} {...comment}/>
+                  ))
+                ) : (
+                  <p className="py-10 text-center text-sm text-muted-foreground">
+                    Комментариев пока нет, будьте первым!
+                  </p>
+                )}
+              </>
+            )}
+          </div>
+        </ScrollArea>
+      </div>
+    </BottomPanel>
   )
 }

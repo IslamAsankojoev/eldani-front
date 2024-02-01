@@ -1,3 +1,4 @@
+'use client'
 import { cn } from '@/src/shared/libs/utils'
 import { Button } from '@/shadcn/ui/button'
 import { Heart } from 'lucide-react'
@@ -22,7 +23,7 @@ export const PatternLike = () => {
     <>
       <Button
         variant="ghost"
-        className="p-0 m-0 h-auto w-auto bg-transparent hover:bg-transparent active:animate-pulse active:scale-125 transition relative"
+        className="p-2 m-0 h-auto w-auto bg-transparent hover:bg-transparent active:animate-pulse active:scale-125 transition relative"
         onClick={handleLike}
       >
         <Heart

@@ -30,17 +30,17 @@ export const PatternCard = ({
       <Link {...patternLink}>
         <Card
           className={cn(
-            'relative cursor-pointer overflow-hidden rounded-lg border-2 border-none bg-transparent shadow-none',
+            'relative cursor-pointer overflow-hidden rounded-lg border-2 border-none bg-transparent shadow-none h-[60vw] md:h-[40vh]',
           )}
         >
           {thumbnails && <PatternCardCarousel thumbnails={thumbnails} />}
         </Card>
       </Link>
 
-      <div className="flex flex-col space-y-1.5 p-2">
-        <div className="flex justify-between">
+      <div className="flex flex-col space-y-1.5 p-2 pt-0">
+        <div className="flex justify-between items-center">
           <p className="text-xl font-extrabold capitalize">{price + 'c'}</p>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-0">
             <PatternComments id={id} thumbnails={thumbnails} />
             <PatternLike />
           </div>

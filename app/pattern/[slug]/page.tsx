@@ -1,6 +1,8 @@
 import { Button } from '@/shadcn/ui/button'
 import { Card } from '@/shadcn/ui/card'
 
+import { PatternComments } from '@/src/entities/comment'
+import { PatternLike } from '@/src/entities/like'
 import {
   Description,
   PatternCarousel,
@@ -46,29 +48,29 @@ const Pattern = async ({
         </div>
       </div>
 
-      <div className="p-4 pt-10 md:w-3/5 md:px-10">
-        <h1 className="text-xl font-extrabold md:text-3xl">{pattern.name}</h1>
-        <br />
-        <Card
-          className={cn(
-            'inline-grid grid-flow-col justify-items-stretch overflow-hidden border-none p-0  shadow-md transition dark:border-stone-950 dark:bg-stone-700',
-            // 'hover:border-rose-600 hover:dark:border-rose-100',
-          )}
-        >
-          <span
+      <div className="p-4 pt-6 md:w-3/5 md:px-10 md:pt-10">
+        <div className="flex items-center justify-between md:flex-col md:items-start md:gap-4">
+          <div>
+            <h1 className="flex items-center text-xl font-extrabold md:text-3xl">
+              {pattern.name} - {pattern.price}c&nbsp;&nbsp;
+            </h1>
+          </div>
+          <div
             className={cn(
-              'block w-fit p-2 text-lg font-bold !leading-10 md:text-xl',
+              'inline-grid grid-flow-col items-center justify-items-center gap-1 p-0 transition ',
             )}
           >
-            &nbsp;&nbsp;{pattern.price}c&nbsp;&nbsp;
-          </span>
-          <Button
-            className="h-full flex-grow rounded-none bg-slate-200 text-base hover:bg-slate-300 dark:bg-stone-800 dark:hover:bg-stone-600"
-            variant="secondary"
-          >
-            &nbsp;&nbsp;Купить&nbsp;&nbsp;
-          </Button>
-        </Card>
+            <PatternComments id={pattern.id} thumbnails={pattern.thumbnails} />
+            <PatternLike />
+            <span className='mx-1'/>
+            <Button
+              className="h-full flex-grow bg-slate-500 text-base text-white shadow-md hover:bg-slate-500/80 dark:bg-stone-700 dark:hover:bg-stone-700/80"
+              variant="secondary"
+            >
+              &nbsp;&nbsp;Купить&nbsp;&nbsp;
+            </Button>
+          </div>
+        </div>
         <hr className="mt-4 border-none" />
 
         <Description content={pattern.description} />

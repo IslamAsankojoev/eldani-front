@@ -3,6 +3,8 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/shadcn/ui/avatar'
 
 import { dayLater } from '@/src/shared'
+import { useEffect } from 'react'
+import { useInView } from 'react-intersection-observer'
 
 export const PatternComment = ({
   content,
@@ -10,6 +12,9 @@ export const PatternComment = ({
   author,
   updatedAt,
 }: IComment) => {
+
+
+
   return (
     <div className="flex space-x-4">
       <Avatar>

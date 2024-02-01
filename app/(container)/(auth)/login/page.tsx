@@ -9,7 +9,7 @@ import { Avatar, AvatarImage } from '@/shadcn/ui/avatar'
 import { Button } from '@/shadcn/ui/button'
 import { Card } from '@/shadcn/ui/card'
 
-const loginUrl = 'https://2e8b-92-62-75-86.ngrok-free.app/api/connect/google'
+const loginUrl = 'https://d118-77-235-23-216.ngrok-free.app/api/connect/google'
 
 const Login = () => {
   const queryClient = useQueryClient()
@@ -35,6 +35,9 @@ const Login = () => {
             <Link href={loginUrl}>Войти через Google</Link>
           </div>
         </Button>
+        <p className='text-sm text-muted-foreground text-center'>
+          в данный момент доступен вход <br/> только через Google
+        </p>
       </Card>
     </div>
   )

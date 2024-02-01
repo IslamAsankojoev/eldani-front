@@ -5,5 +5,5 @@ export const kyInstance = ky.create({
   headers: {
     'Content-Type': 'application/json',
   },
-  credentials: 'include',
+  credentials: typeof window === 'undefined' ? 'omit' : 'include',
 })

@@ -51,18 +51,18 @@ export const PatternCarousel = ({ thumbnails }: CarouselDemoProps) => {
             }}
             setApi={setApi}
           >
-            <CarouselContent className="h-[72vh]">
+            <CarouselContent className="h-[72vh] flex">
               {thumbnails?.map((image, index) => (
                 <CarouselItem
                   key={image.id}
-                  className={cn('basis-1/4 cursor-pointer')}
+                  className={cn('basis-1/4 cursor-pointer ')}
                   onClick={() => {
                     handleClick(index)
                   }}
                 >
                   <Card
                     className={cn(
-                      'relative h-[155px] overflow-hidden rounded-none md:rounded-xl',
+                      'relative h-full overflow-hidden rounded-none md:rounded-xl',
                     )}
                   >
                     <Image

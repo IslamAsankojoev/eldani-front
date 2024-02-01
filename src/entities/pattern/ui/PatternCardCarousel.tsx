@@ -59,17 +59,17 @@ export const PatternCardCarousel = ({
 
   return (
     <Carousel
-      className="w-full rounded-lg"
+      className="w-full rounded-lg h-full"
       setApi={setApi}
       ref={ref}
       opts={{ loop: true }}
     >
-      <CarouselContent>
+      <CarouselContent className='h-full'>
         {thumbnails?.map((image) => (
-          <CarouselItem key={image.id}>
+          <CarouselItem key={image.id} className='h-full'>
             <Card
               className={cn(
-                'relative h-[60vw] overflow-hidden bg-transparent md:h-[40vh]',
+                'relative h-full overflow-hidden bg-transparent md:h-full',
                 className,
               )}
             >

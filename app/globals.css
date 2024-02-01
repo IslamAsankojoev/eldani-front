@@ -58,6 +58,7 @@
   }
 }
 
+
 main {
   min-height: 100dvh;
   display: flex;
@@ -78,6 +79,13 @@ main {
 ::-webkit-scrollbar {
   width: 0.6rem;
   height: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  ::-webkit-scrollbar {
+  width: 0.2rem;
+  height: 0.5rem;
+}
 }
 
 ::-webkit-scrollbar-track {
