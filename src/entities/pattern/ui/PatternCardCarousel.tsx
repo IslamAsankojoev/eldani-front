@@ -87,7 +87,7 @@ export const PatternCardCarousel = ({
       </CarouselContent>
       <div
         className={cn(
-          'absolute bottom-2 left-1/2 z-10 flex -translate-x-1/2 gap-2',
+          'absolute bottom-2 left-1/2 flex -translate-x-1/2 gap-2',
           dotsClassName,
         )}
       >

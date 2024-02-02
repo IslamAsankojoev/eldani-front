@@ -126,7 +126,7 @@ export function PatternComments({
     }
   }, [searchParams])
 
-  if (viewport === 'desktop')
+  if (viewport === 'desktop2')
     return (
       <Dialog open={openDesktop} onOpenChange={setOpenDesktop}>
         <DialogTrigger asChild>

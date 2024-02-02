@@ -44,7 +44,8 @@ export const BottomPanel = ({ children, header, footer }: Props) => {
         open={open}
         onDismiss={onDismiss}
         defaultSnap={({ snapPoints, lastSnap }) =>
-          lastSnap ?? Math.min(...snapPoints)
+          // lastSnap ?? Math.min(...snapPoints)
+          snapPoints[0]
         }
         snapPoints={({ maxHeight }) => [
           maxHeight * 0.6,

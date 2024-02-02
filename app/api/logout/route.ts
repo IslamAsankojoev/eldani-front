@@ -6,11 +6,5 @@ export async function GET(request: NextRequest ) {
   console.log('delete token')
   cookie.delete('token')
 
-  return new Response(null, {
-    status: 302,
-    headers: {
-      location: '/login',
-      'set-cookie': cookie.toString(),
-    },
-  })
+  return Response.redirect(new URL(process.env.URL + '/login', request.url))
 }
