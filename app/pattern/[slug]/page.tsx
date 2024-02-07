@@ -48,33 +48,41 @@ const Pattern = async ({
         </div>
       </div>
 
-      <div className="p-4 pt-6 md:w-3/5 md:px-10 md:pt-10">
-        <div className="flex items-center justify-between md:flex-col md:items-start md:gap-4">
-          <div>
-            <h1 className="flex items-center text-xl font-extrabold md:text-3xl">
-              {pattern.name} - {pattern.price}c&nbsp;&nbsp;
-            </h1>
-          </div>
-          <div
-            className={cn(
-              'inline-grid grid-flow-col items-center justify-items-center gap-1 p-0 transition ',
-            )}
-          >
-            <PatternComments id={pattern.id} thumbnails={pattern.thumbnails} />
-            <PatternLike />
-            <span className='mx-1'/>
-            <Button
-              className="h-full flex-grow bg-slate-500 text-base text-white shadow-md hover:bg-slate-500/80 dark:bg-stone-700 dark:hover:bg-stone-700/80"
-              variant="secondary"
+      <div className="flex flex-col justify-between p-4 pt-6 md:w-3/5 md:px-10 md:pt-10">
+        <div>
+          <div className="flex items-center justify-between md:flex-col md:items-start md:gap-4">
+            <div>
+              <h1 className="text-xl font-extrabold md:text-3xl">
+                {pattern.name}
+              </h1>
+              <h2 className="text-xl font-extrabold text-rose-500 md:text-2xl">
+                {pattern.price}c
+              </h2>
+            </div>
+            <div
+              className={cn(
+                'inline-grid grid-flow-col items-center justify-items-center gap-1 p-0 transition ',
+              )}
             >
-              &nbsp;&nbsp;Купить&nbsp;&nbsp;
-            </Button>
+              <PatternComments
+                id={pattern.id}
+                thumbnails={pattern.thumbnails}
+              />
+              <PatternLike />
+              <span className="mx-1" />
+              <Button
+                className="h-full flex-grow bg-slate-500 text-base text-white shadow-md hover:bg-slate-500/80 dark:bg-stone-700 dark:hover:bg-stone-700/80"
+                variant="secondary"
+              >
+                &nbsp;&nbsp;Купить&nbsp;&nbsp;
+              </Button>
+            </div>
           </div>
-        </div>
-        <hr className="mt-4 border-none" />
+          <hr className="mt-4 border-none" />
 
-        <Description content={pattern.description} />
-        <hr className="mt-4 border-none" />
+          <Description content={pattern.description} />
+          <hr className="mt-4 border-none" />
+        </div>
         <div
           className={cn(
             'sticky bottom-0 left-0 -mt-20 hidden h-28 w-full md:block',

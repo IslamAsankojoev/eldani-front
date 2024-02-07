@@ -1,16 +1,20 @@
 'use client'
 
 import * as React from 'react'
+
+import _ from 'lodash'
 import { Drawer as DrawerPrimitive } from 'vaul'
 
 import { cn } from '@/src/shared/libs/utils'
-import _ from 'lodash'
 
 const Drawer = ({
   shouldScaleBackground = false,
   ...props
 }: React.ComponentProps<typeof DrawerPrimitive.Root>) => (
-  <DrawerPrimitive.Root shouldScaleBackground={shouldScaleBackground} {...props} />
+  <DrawerPrimitive.Root
+    shouldScaleBackground={shouldScaleBackground}
+    {...props}
+  />
 )
 Drawer.displayName = 'Drawer'
 
@@ -41,12 +45,12 @@ const DrawerContent = React.forwardRef<
     <DrawerPrimitive.Content
       style={{
         transition: 'transform .2s cubic-bezier(.32,.72,0,1)',
-        // height: 'auto',
+        height: 'auto',
         // bottom: 0,
       }}
       ref={ref}
       className={cn(
-        'drawer fixed inset-x-0 bottom-0 z-50 mt-24 flex !h-auto flex-col rounded-t-[10px] bg-white dark:bg-stone-900 outline-none focus:outline-none',
+        'drawer fixed inset-x-0 bottom-0 z-50 mt-24 flex !h-[90vh] flex-col rounded-t-[10px] bg-white outline-none focus:outline-none dark:bg-stone-900',
         'after:hidden',
         // '!bottom-0',
         className,
@@ -60,12 +64,21 @@ const DrawerContent = React.forwardRef<
 ))
 DrawerContent.displayName = 'DrawerContent'
 
-const DrawerHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
-  <div className={cn('grid gap-1.5 p-3 text-center sm:text-left', className)} {...props} />
+const DrawerHeader = ({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) => (
+  <div
+    className={cn('grid gap-1.5 p-3 text-center sm:text-left', className)}
+    {...props}
+  />
 )
 DrawerHeader.displayName = 'DrawerHeader'
 
-const DrawerFooter = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+const DrawerFooter = ({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) => (
   <div className={cn('mt-auto flex flex-col gap-2', className)} {...props} />
 )
 DrawerFooter.displayName = 'DrawerFooter'

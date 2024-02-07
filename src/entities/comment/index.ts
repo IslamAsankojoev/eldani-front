@@ -1,6 +1,7 @@
-export { CommentSkeleton } from "./ui/CommentSkeleton";
-export { CommentInput } from "./ui/CommentInput";
-export { PatternComment } from "./ui/PatternComment";
-export { PatternComments } from "./ui/PatternComments";
-export { CommentService } from "./api";
-export { BottomPanel } from "./ui/BottomPanel";
+export { CommentSkeleton } from './ui/CommentSkeleton'
+export { CommentInput } from './ui/CommentInput'
+export { PatternComment } from './ui/PatternComment'
+export { PatternComments } from './ui/PatternComments'
+export { CommentService } from './api'
+export { BottomPanel } from './ui/SpringBottomPanel'
+export { VaulBottomPanel } from './ui/VaulBottomPanel'

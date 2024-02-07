@@ -42,17 +42,12 @@ export const userToggleRoutes: Route[] = [
 ]
 
 export const UserToggle = ({ className }: UserToggleProps) => {
-  const { data: user, isLoading, refetch } = useUser()
+  const { data: user, isError, isLoading, refetch } = useUser()
   const [isOpen, setIsOpen] = useState(false)
   const router = useRouter()
   const pathname = usePathname()
 
   const handleRouteChange = (item: Route) => {
-    if (item.href === '/api/logout') {
-      router.push(item.href)
-      setIsOpen(false)
-      return
-    }
     router.push(item.href)
     setIsOpen(false)
   }

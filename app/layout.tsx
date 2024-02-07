@@ -1,7 +1,5 @@
 import type { Metadata } from 'next'
 
-import './globals.css'
-import './style.css'
 import {
   MainLayoutProvider,
   QueryClientProvider,
@@ -9,6 +7,8 @@ import {
 } from '@/src/app/providers'
 import { Footer } from '@/src/entities/footer'
 import { Header } from '@/src/entities/header'
+
+import './globals.css'
 
 export const metadata: Metadata = {
   title: 'Create Next App',

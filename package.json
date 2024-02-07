@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev -p 4000",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 4000",
     "lint": "next lint"
   },
   "dependencies": {
@@ -20,6 +20,8 @@
     "@radix-ui/react-scroll-area": "^1.0.5",
     "@radix-ui/react-separator": "^1.0.3",
     "@radix-ui/react-slot": "^1.0.2",
+    "@radix-ui/react-toast": "^1.1.5",
+    "@react-spring/web": "^9.7.3",
     "@strapi/blocks-react-renderer": "^1.0.0",
     "@webiny/react-rich-text-lexical-renderer": "^5.38.5",
     "class-variance-authority": "^0.7.0",
@@ -42,6 +44,7 @@
     "react-hook-form": "^7.49.3",
     "react-intersection-observer": "^9.5.3",
     "react-query": "^3.39.3",
+    "react-spring": "^9.7.3",
     "react-spring-bottom-sheet": "^3.4.1",
     "react-textarea-autosize": "^8.5.3",
     "tailwind-merge": "^2.2.0",

@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie'
 import ky from 'ky'
 
 export const kyInstance = ky.create({
@@ -5,5 +6,14 @@ export const kyInstance = ky.create({
   headers: {
     'Content-Type': 'application/json',
   },
-  credentials: typeof window === 'undefined' ? 'omit' : 'include',
+  retry: 0,
+  hooks: {
+    beforeRequest: [
+      (request) => {
+        if (Cookies.get('token')) {
+          request.headers.set('Authorization', `Bearer ${Cookies.get('token')}`)
+        }
+      },
+    ],
+  },
 })

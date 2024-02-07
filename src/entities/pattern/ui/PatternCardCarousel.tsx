@@ -1,6 +1,6 @@
 'use client'
 
-import { HTMLProps, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import Image from 'next/image'
 import { useInView } from 'react-intersection-observer'
@@ -59,14 +59,14 @@ export const PatternCardCarousel = ({
 
   return (
     <Carousel
-      className="w-full rounded-lg h-full"
+      className="h-full w-full rounded-lg"
       setApi={setApi}
       ref={ref}
       opts={{ loop: true }}
     >
-      <CarouselContent className='h-full'>
+      <CarouselContent className="h-full">
         {thumbnails?.map((image) => (
-          <CarouselItem key={image.id} className='h-full'>
+          <CarouselItem key={image.id} className="h-full">
             <Card
               className={cn(
                 'relative h-full overflow-hidden bg-transparent md:h-full',

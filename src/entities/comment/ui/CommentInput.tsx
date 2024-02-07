@@ -48,10 +48,12 @@ export const CommentInput = ({
   }
   if (!user)
     return (
-      <div className="bg-stone-100 p-2 dark:bg-stone-800">
+      <div className="bg-stone-100 p-2 md:rounded-xl dark:bg-stone-800">
         <p className="text-center text-sm text-stone-500 dark:text-stone-400">
-        <Button asChild variant='link' className='p-0'><Link href="/login">Войдите</Link></Button> - чтобы оставить комментарий
-         
+          <Button asChild variant="link" className="p-0">
+            <Link href="/login">Войдите</Link>
+          </Button>{' '}
+          - чтобы оставить комментарий
         </p>
       </div>
     )
@@ -98,7 +100,7 @@ export const CommentInput = ({
             ) : (
               <SendHorizonal
                 size={25}
-                color={theme === 'dark' ? colors.stone[200] : colors.stone[700]}
+                color={theme === 'dark' ? colors.stone[100] : colors.stone[700]}
               />
             )}
           </Button>

@@ -32,7 +32,7 @@ import { Separator } from '@/shadcn/ui/separator'
 
 import { cn } from '@/src/shared/libs/utils'
 
-import { BottomPanel } from '..'
+import { BottomPanel, VaulBottomPanel } from '../'
 import { PatternCardCarousel } from '../../pattern'
 import { useUser } from '../../user/query'
 import { CommentService } from '../api'
@@ -49,22 +49,16 @@ export function PatternComments({
 }) {
   const { data: user } = useUser()
   const queryClient = useQueryClient()
-  const closeRef = useRef<null | HTMLButtonElement>(null)
   const searchParams = useSearchParams()
-  const router = useRouter()
-  const pathname = usePathname()
-  const [openDesktop, setOpenDesktop] = useState(false)
-  const navigator =
-    typeof window !== 'undefined' && (window.navigator as Navigator)
+  const [open, setOpen] = useState(false)
   const viewport =
     typeof window !== 'undefined' && localStorage.getItem('viewport')
-  const my_avatar = 'https://loremflickr.com/320/240/boy'
 
   const { data, refetch, isLoading } = useQuery(
     [CommentService.entity, id],
     () => CommentService.getAll(id),
     {
-      
+      enabled: open,
       staleTime: 6 * 1000,
       refetchInterval: 6 * 1000,
       refetchOnMount: true,
@@ -94,10 +88,10 @@ export function PatternComments({
         updatedAt: new Date().toISOString().toString() as string,
         gotThread: false,
         author: {
-          id: 1,
-          name: 'Kama',
-          email: 'kama@mail.ru',
-          avatar: my_avatar,
+          id: user?.id as number,
+          name: user?.username as string,
+          email: user?.email as string,
+          avatar: user?.avatar_google as string,
         },
         children: [],
       }
@@ -120,15 +114,9 @@ export function PatternComments({
     )
   }
 
-  useEffect(() => {
-    if (searchParams.get('modal') !== 'comments') {
-      closeRef.current && closeRef.current.click()
-    }
-  }, [searchParams])
-
-  if (viewport === 'desktop2')
+  if (viewport === 'desktop')
     return (
-      <Dialog open={openDesktop} onOpenChange={setOpenDesktop}>
+      <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
           <Button
             variant="ghost"
@@ -198,6 +186,17 @@ export function PatternComments({
 
   return (
     <BottomPanel
+      open={open}
+      handleDismiss={() => setOpen(false)}
+      trigger={
+        <Button
+          variant="ghost"
+          className="relative m-0 h-auto w-auto border-none bg-transparent p-2 outline-none !ring-transparent transition hover:bg-transparent focus:border-none focus:outline-none active:scale-110"
+          onClick={() => setOpen(true)}
+        >
+          <MessageCircle size={23} strokeWidth={1.25} absoluteStrokeWidth />
+        </Button>
+      }
       header={
         <div className="relative flex items-center justify-center p-3 pt-5">
           Комментарии
@@ -225,7 +224,7 @@ export function PatternComments({
                 {data?.length ? (
                   // @ts-ignore
                   data?.map((comment: IComment) => (
-                    <PatternComment key={comment.id} {...comment}/>
+                    <PatternComment key={comment.id} {...comment} />
                   ))
                 ) : (
                   <p className="py-10 text-center text-sm text-muted-foreground">
@@ -239,4 +238,48 @@ export function PatternComments({
       </div>
     </BottomPanel>
   )
+
+  // return (
+  //   <VaulBottomPanel
+  //     header={
+  //       <div className="relative flex items-center justify-center p-3 pt-5">
+  //         Комментарии
+  //       </div>
+  //     }
+  //     footer={
+  //       <CommentInput
+  //         handleSendComment={handleSendComment}
+  //         isLoading={mutateLoading}
+  //       />
+  //     }
+  //   >
+  //     <div className="h-full w-full">
+  //       <Separator />
+  //       <ScrollArea className="h-96">
+  //         <div className="flex flex-col gap-4 px-4 py-3">
+  //           {isLoading ? (
+  //             <>
+  //               {Array.from({ length: 7 }).map((_, index) => (
+  //                 <CommentSkeleton key={index} />
+  //               ))}
+  //             </>
+  //           ) : (
+  //             <>
+  //               {data?.length ? (
+  //                 // @ts-ignore
+  //                 data?.map((comment: IComment) => (
+  //                   <PatternComment key={comment.id} {...comment} />
+  //                 ))
+  //               ) : (
+  //                 <p className="py-10 text-center text-sm text-muted-foreground">
+  //                   Комментариев пока нет, будьте первым!
+  //                 </p>
+  //               )}
+  //             </>
+  //           )}
+  //         </div>
+  //       </ScrollArea>
+  //     </div>
+  //   </VaulBottomPanel>
+  // )
 }
