@@ -7,6 +7,8 @@ import { useSearchParams } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import TextareaAutosize from 'react-textarea-autosize'
 import * as z from 'zod'
+import { useTranslation } from 'react-i18next'
+import en from '../../../src/locales/en.json'
 
 import { Button } from '@/shadcn/ui/button'
 import { Card } from '@/shadcn/ui/card'
@@ -41,6 +43,7 @@ const requiredSchema = formSchema.required()
 
 const Page = () => {
   const searchParams = useSearchParams()
+  const {t} = useTranslation()
   const form = useForm({
     resolver: zodResolver(requiredSchema),
     defaultValues: {
@@ -60,8 +63,8 @@ const Page = () => {
     <Card className="dark:bg-stone-920 p-5">
       <Form {...form}>
         <h1 className="mb-4 text-center text-xl font-extrabold md:text-xl">
-          Хотите заказать
-          <br /> индивидуальный пошив одежды?
+          {t('order')}
+          <br />
         </h1>
         <form
           onSubmit={form.handleSubmit(onSubmit)}

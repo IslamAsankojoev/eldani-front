@@ -1,6 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: false,
+  i18n: {
+    locales: ['en', 'ru'],
+    defaultLocale: 'ru',
+  },
   env: {
     API_URL: process.env.REACT_APP_SERVER_URL,
     API_KEY: process.env.REACT_APP_SERVER_KEY,

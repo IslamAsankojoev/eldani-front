@@ -69,6 +69,7 @@ main {
   display: none;
 } */
 
+
 @layer components {
   .initial-container {
     @apply mx-auto w-full px-[0px];
