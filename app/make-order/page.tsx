@@ -3,12 +3,9 @@
 import React from 'react'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useSearchParams } from 'next/navigation'
 import { useForm } from 'react-hook-form'
-import TextareaAutosize from 'react-textarea-autosize'
 import * as z from 'zod'
 import { useTranslation } from 'react-i18next'
-import en from '../../../src/locales/en.json'
 
 import { Button } from '@/shadcn/ui/button'
 import { Card } from '@/shadcn/ui/card'
@@ -18,14 +15,10 @@ import {
   FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from '@/shadcn/ui/form'
 import { Input } from '@/shadcn/ui/input'
-import { Label } from '@/shadcn/ui/label'
 import { Textarea } from '@/shadcn/ui/textarea'
-
-import { ky } from '@/src/app/config'
 
 const formSchema = z.object({
   username: z.string().min(1, {
@@ -42,7 +35,6 @@ const formSchema = z.object({
 const requiredSchema = formSchema.required()
 
 const Page = () => {
-  const searchParams = useSearchParams()
   const {t} = useTranslation()
   const form = useForm({
     resolver: zodResolver(requiredSchema),
@@ -63,9 +55,7 @@ const Page = () => {
     <Card className="dark:bg-stone-920 p-5">
       <Form {...form}>
         <h1 className="mb-4 text-center text-xl font-extrabold md:text-xl">
-          {t('order')}
-          <br />
-        </h1>
+          {t('order')} </h1>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
           className="flex flex-col space-y-4"
@@ -142,8 +132,7 @@ const Page = () => {
           />
           <hr className="mt-6 border-none" />
           <Button className="px-20" type="submit">
-            Отправить
-          </Button>
+            {t('otpravit')} </Button>
         </form>
       </Form>
     </Card>
