@@ -7,7 +7,6 @@ export function middleware(request: NextRequest) {
   const viewport = device.type === 'mobile' ? 'mobile' : 'desktop'
   url.searchParams.set('viewport', viewport)
 
-
   // routes guarded by this middleware
   if(url.pathname.startsWith('/profile')) {
     if(!cookie.has('token')) {

@@ -32,13 +32,14 @@ import { Separator } from '@/shadcn/ui/separator'
 
 import { cn } from '@/src/shared/libs/utils'
 
-import { BottomPanel, VaulBottomPanel } from '../'
+import { VaulBottomPanel } from '../'
 import { PatternCardCarousel } from '../../pattern'
 import { useUser } from '../../user/query'
 import { CommentService } from '../api'
 import { CommentInput } from './CommentInput'
 import { CommentSkeleton } from './CommentSkeleton'
 import { PatternComment } from './PatternComment'
+import MuiBottomDrawer from './MuiBottomDrawer'
 
 export function PatternComments({
   id,
@@ -116,7 +117,8 @@ export function PatternComments({
 
   if (viewport === 'desktop')
     return (
-      <Dialog open={open} onOpenChange={setOpen}>
+      <div>
+        <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
           <Button
             variant="ghost"
@@ -182,21 +184,15 @@ export function PatternComments({
           </div>
         </DialogContent>
       </Dialog>
+      </div>
     )
 
-  return (
-    <BottomPanel
+
+    return (
+      <MuiBottomDrawer
       open={open}
       handleDismiss={() => setOpen(false)}
-      trigger={
-        <Button
-          variant="ghost"
-          className="relative m-0 h-auto w-auto border-none bg-transparent p-2 outline-none !ring-transparent transition hover:bg-transparent focus:border-none focus:outline-none active:scale-110"
-          onClick={() => setOpen(true)}
-        >
-          <MessageCircle size={23} strokeWidth={1.25} absoluteStrokeWidth />
-        </Button>
-      }
+      handleOpen={() => setOpen(true)}
       header={
         <div className="relative flex items-center justify-center p-3 pt-5">
           Комментарии
@@ -208,36 +204,87 @@ export function PatternComments({
           isLoading={mutateLoading}
         />
       }
-    >
-      <div className="w-full">
-        <Separator />
-        <ScrollArea className="">
-          <div className="flex flex-col gap-4 px-4 py-3">
-            {isLoading ? (
-              <>
-                {Array.from({ length: 7 }).map((_, index) => (
-                  <CommentSkeleton key={index} />
-                ))}
-              </>
-            ) : (
-              <>
-                {data?.length ? (
-                  // @ts-ignore
-                  data?.map((comment: IComment) => (
-                    <PatternComment key={comment.id} {...comment} />
-                  ))
-                ) : (
-                  <p className="py-10 text-center text-sm text-muted-foreground">
-                    Комментариев пока нет, будьте первым!
-                  </p>
-                )}
-              </>
-            )}
-          </div>
-        </ScrollArea>
-      </div>
-    </BottomPanel>
-  )
+      >
+         <div className="flex flex-col gap-4 px-4 py-3">
+           {isLoading ? (
+             <>
+               {Array.from({ length: 7 }).map((_, index) => (
+                 <CommentSkeleton key={index} />
+               ))}
+             </>
+           ) : (
+             <>
+               {data?.length ? (
+                 data?.map((comment: IComment) => (
+                   <PatternComment key={comment.id} {...comment} />
+                 ))
+               ) : (
+                 <p className="py-10 text-center text-sm text-muted-foreground">
+                   Комментариев пока нет, будьте первым!
+                 </p>
+               )}
+             </>
+           )}
+         </div>
+       
+      </MuiBottomDrawer>
+    )
+
+  // return (
+  //   <BottomPanel
+  //     open={open}
+  //     handleDismiss={() => setOpen(false)}
+  //     trigger={
+  //       <Button
+  //         variant="ghost"
+  //         className="relative m-0 h-auto w-auto border-none bg-transparent p-2 outline-none !ring-transparent transition hover:bg-transparent focus:border-none focus:outline-none active:scale-110"
+  //         onClick={() => setOpen(true)}
+  //       >
+  //         <MessageCircle size={23} strokeWidth={1.25} absoluteStrokeWidth />
+  //       </Button>
+  //     }
+  //     header={
+  //       <div className="relative flex items-center justify-center p-3 pt-5">
+  //         Комментарии
+  //       </div>
+  //     }
+  //     footer={
+  //       <CommentInput
+  //         handleSendComment={handleSendComment}
+  //         isLoading={mutateLoading}
+  //       />
+  //     }
+  //   >
+  //     <div className="w-full">
+  //       <Separator />
+  //       <ScrollArea className="">
+  //         <div className="flex flex-col gap-4 px-4 py-3">
+  //           {isLoading ? (
+  //             <>
+  //               {Array.from({ length: 7 }).map((_, index) => (
+  //                 <CommentSkeleton key={index} />
+  //               ))}
+  //             </>
+  //           ) : (
+  //             <>
+  //               {data?.length ? (
+  //                 // @ts-ignore
+  //                 data?.map((comment: IComment) => (
+  //                   <PatternComment key={comment.id} {...comment} />
+  //                 ))
+  //               ) : (
+  //                 <p className="py-10 text-center text-sm text-muted-foreground">
+  //                   Комментариев пока нет, будьте первым!
+  //                 </p>
+  //               )}
+  //             </>
+  //           )}
+  //         </div>
+  //       </ScrollArea>
+  //     </div>
+  //   </BottomPanel>
+  // )
+
 
   // return (
   //   <VaulBottomPanel
