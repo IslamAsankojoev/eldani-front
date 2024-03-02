@@ -5,7 +5,6 @@ import React from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
-import { useTranslation } from 'react-i18next'
 
 import { Button } from '@/shadcn/ui/button'
 import { Card } from '@/shadcn/ui/card'
@@ -35,7 +34,6 @@ const formSchema = z.object({
 const requiredSchema = formSchema.required()
 
 const Page = () => {
-  const {t} = useTranslation()
   const form = useForm({
     resolver: zodResolver(requiredSchema),
     defaultValues: {
@@ -55,7 +53,8 @@ const Page = () => {
     <Card className="dark:bg-stone-920 p-5">
       <Form {...form}>
         <h1 className="mb-4 text-center text-xl font-extrabold md:text-xl">
-          {t('order')} </h1>
+          Заказать пошив одежды
+        </h1>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
           className="flex flex-col space-y-4"
@@ -132,7 +131,8 @@ const Page = () => {
           />
           <hr className="mt-6 border-none" />
           <Button className="px-20" type="submit">
-            {t('otpravit')} </Button>
+            Отправить
+          </Button>
         </form>
       </Form>
     </Card>

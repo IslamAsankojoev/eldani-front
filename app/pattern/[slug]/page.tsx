@@ -1,5 +1,5 @@
 import { Button } from '@/shadcn/ui/button'
-import { Card } from '@/shadcn/ui/card'
+import { unstable_cache } from 'next/cache'
 
 import { PatternComments } from '@/src/entities/comment'
 import { PatternLike } from '@/src/entities/like'
@@ -10,7 +10,7 @@ import {
 } from '@/src/entities/pattern'
 import { cn } from '@/src/shared/libs/utils'
 
-export const revalidate = 1
+export const revalidate = 0
 
 // const getCachedUser = unstable_cache(
 //   async (id) => getData({ params: { slug: id } }),
@@ -73,8 +73,11 @@ const Pattern = async ({
               <Button
                 className="h-full flex-grow bg-slate-500 text-base text-white shadow-md hover:bg-slate-500/80 dark:bg-stone-700 dark:hover:bg-stone-700/80"
                 variant="secondary"
+                asChild
               >
-                &nbsp;&nbsp;Купить&nbsp;&nbsp;
+                <a href="https://t.me/uclami" target="_blank">
+                  &nbsp;&nbsp;Купить&nbsp;&nbsp;
+                </a>
               </Button>
             </div>
           </div>

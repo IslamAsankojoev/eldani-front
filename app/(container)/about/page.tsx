@@ -1,9 +1,10 @@
+import { Card } from '@/shadcn/ui/card'
 
 const Page = () => {
   return (
-    <div className="flex flex-col justify-center">
+    <Card className="bg-stone-920 flex flex-col justify-center p-5">
       <p className="text-balance text-base">
-        <h1 className="text-3xl font-bold">Eldani</h1>
+        <h1 className="ml-6 text-3xl">« Eldani »</h1>
         <hr className="my-1 w-0" />
         В тихом провинциальном городке Элиза проживала с таинственным взглядом и
         даром видеть красоту в обыденном. С детства ее мечтания были наполнены
@@ -28,7 +29,7 @@ const Page = () => {
         призывая своих последователей выражать себя через моду и делать мир
         красочнее благодаря своей индивидуальности.
       </p>
-    </div>
+    </Card>
   )
 }
 

@@ -3,5 +3,4 @@ export const navigationList = [
   { name: 'Заказать', href: '/make-order' },
   { name: 'Об Eldani', href: '/about' },
   { name: 'Контакты', href: '/contacts' },
-  { name: 'Draggable', href: '/draggable-desk' },
 ]

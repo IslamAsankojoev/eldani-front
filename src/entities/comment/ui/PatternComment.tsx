@@ -3,8 +3,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/shadcn/ui/avatar'
 
 import { dayLater } from '@/src/shared'
-import { useEffect } from 'react'
-import { useInView } from 'react-intersection-observer'
 
 export const PatternComment = ({
   content,
@@ -12,9 +10,6 @@ export const PatternComment = ({
   author,
   updatedAt,
 }: IComment) => {
-
-
-
   return (
     <div className="flex space-x-4">
       <Avatar>
@@ -24,10 +19,10 @@ export const PatternComment = ({
       <div>
         <div className="flex items-center space-x-2 text-xs">
           <p className="text-stone-500 dark:text-stone-300">{author.name}</p>
-          <p className="font-bold text-muted-foreground">
+          <p className="text-muted-foreground font-bold">
             {dayLater(createdAt)}
             {createdAt !== updatedAt ? (
-              <span className="text-xs font-light text-muted-foreground">
+              <span className="text-muted-foreground text-xs font-light">
                 (изменено)
               </span>
             ) : null}

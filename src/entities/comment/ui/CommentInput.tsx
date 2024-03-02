@@ -48,7 +48,7 @@ export const CommentInput = ({
   }
   if (!user)
     return (
-      <div className="bg-stone-100 p-2 md:rounded-xl dark:bg-stone-900">
+      <div className="bg-stone-100 p-2 md:rounded-xl dark:bg-stone-800">
         <p className="text-center text-sm text-stone-500 dark:text-stone-400">
           <Button asChild variant="link" className="p-0">
             <Link href="/login">Войдите</Link>
@@ -61,7 +61,7 @@ export const CommentInput = ({
   return (
     <div
       className={cn(
-        'relative flex w-full items-center gap-2 bg-stone-100 p-2 dark:bg-stone-900',
+        'relative flex w-full items-center gap-2 bg-stone-100 p-2 dark:bg-stone-800',
         className,
       )}
     >
