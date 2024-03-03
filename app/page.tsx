@@ -12,11 +12,7 @@ import {
 } from '@/src/entities/pattern'
 import { cn } from '@/src/shared/libs/utils'
 
-export default function Home({
-  searchParams,
-}: {
-  searchParams: { viewport: string }
-}) {
+export default function Home() {
   const { data: patterns, isLoading } = useQuery(
     [ProductService.entity],
     () =>
@@ -28,10 +24,6 @@ export default function Home({
       staleTime: 1000 * 60 * 60 * 24,
     },
   )
-
-  useEffect(() => {
-    localStorage.setItem('viewport', searchParams.viewport)
-  }, [searchParams.viewport])
 
   return (
     <section>

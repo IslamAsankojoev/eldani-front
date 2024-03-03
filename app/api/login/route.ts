@@ -4,6 +4,7 @@ import { type NextRequest } from 'next/server'
 
 import { ky } from '@/src/app/config'
 
+export const dynamic = 'force-dynamic'
 export async function GET(request: NextRequest) {
   const cookie = cookies()
   try {
@@ -27,5 +28,4 @@ export async function GET(request: NextRequest) {
       'set-cookie': cookie.toString(),
     },
   })
-  // return new Response('12')
 }
