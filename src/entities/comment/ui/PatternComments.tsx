@@ -147,7 +147,7 @@ export function PatternComments({
                             <PatternComment key={comment.id} {...comment} />
                           ))
                         ) : (
-                          <p className="text-muted-foreground py-10 text-center text-sm">
+                          <p className="py-10 text-center text-sm text-muted-foreground">
                             Комментариев пока нет, будьте первым!
                           </p>
                         )}
@@ -186,7 +186,7 @@ export function PatternComments({
         />
       }
     >
-      <div className="flex flex-col gap-4 px-4 py-3">
+      <div className="flex flex-col gap-6 px-4 py-3">
         {isLoading ? (
           <>
             {Array.from({ length: 7 }).map((_, index) => (
@@ -200,7 +200,7 @@ export function PatternComments({
                 <PatternComment key={comment.id} {...comment} />
               ))
             ) : (
-              <p className="text-muted-foreground py-10 text-center text-sm">
+              <p className="py-10 text-center text-sm text-muted-foreground">
                 Комментариев пока нет, будьте первым!
               </p>
             )}

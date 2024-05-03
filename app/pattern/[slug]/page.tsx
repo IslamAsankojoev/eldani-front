@@ -48,9 +48,9 @@ const Pattern = async ({
         </div>
       </div>
 
-      <div className="flex flex-col justify-between p-4 pt-6 md:w-3/5 md:px-10 md:pt-10">
+      <div className="flex flex-col justify-between p-4 md:w-3/5 md:px-10 md:pt-10">
         <div>
-          <div className="flex items-center justify-between md:flex-col md:items-start md:gap-4">
+          <div className="flex items-start justify-between md:flex-col md:gap-4">
             <div>
               <h1 className="text-xl font-extrabold md:text-3xl">
                 {pattern.name}
@@ -71,7 +71,7 @@ const Pattern = async ({
               <PatternLike />
               <span className="mx-1" />
               <Button
-                className="h-full flex-grow bg-slate-500 text-base text-white shadow-md hover:bg-slate-500/80 dark:bg-stone-700 dark:hover:bg-stone-700/80"
+                className="h-full flex-grow text-base text-white shadow-md bg-rose-700 hover:bg-rose-700/80"
                 variant="secondary"
                 asChild
               >
@@ -83,7 +83,7 @@ const Pattern = async ({
           </div>
           <hr className="mt-4 border-none" />
 
-          <Description content={pattern.description} />
+          <Description content={pattern?.description} />
           <hr className="mt-4 border-none" />
         </div>
         <div

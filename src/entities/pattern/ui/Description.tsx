@@ -8,7 +8,7 @@ import {
 import { Button } from '@/shadcn/ui/button'
 
 export const Description = ({ content }: { content: any }) => {
-  return (
+  return content ? (
     <BlocksRenderer
       content={content}
       modifiers={{
@@ -61,5 +61,5 @@ export const Description = ({ content }: { content: any }) => {
         },
       }}
     />
-  )
+  ) : null
 }

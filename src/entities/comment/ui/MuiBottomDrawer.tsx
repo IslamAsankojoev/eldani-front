@@ -1,12 +1,13 @@
 import * as React from 'react'
-import { styled } from '@mui/material/styles'
-import SwipeableDrawer from '@mui/material/SwipeableDrawer'
-import { Button } from '@/shadcn/ui/button'
-import { MessageCircle } from 'lucide-react'
+
 import { Global } from '@emotion/react'
-import colors from 'tailwindcss/colors'
-import { Separator } from '@/shadcn/ui/separator'
+import SwipeableDrawer from '@mui/material/SwipeableDrawer'
+import { styled } from '@mui/material/styles'
+import { MessageCircle } from 'lucide-react'
 import { useTheme } from 'next-themes'
+
+import { Button } from '@/shadcn/ui/button'
+import { Separator } from '@/shadcn/ui/separator'
 
 const drawerBleeding = 56
 
@@ -32,8 +33,6 @@ const Puller = styled('div')(() => ({
 export default function MuiBottomDrawer(props: Props) {
   const { window, children, open, handleDismiss, header, footer, handleOpen } =
     props
-  const { theme } = useTheme()
-  const color = theme === 'dark' ? colors.stone[200] : colors.stone[800]
 
   const container =
     window !== undefined ? () => window().document.body : undefined
@@ -45,7 +44,7 @@ export default function MuiBottomDrawer(props: Props) {
             height: `calc(70% - ${drawerBleeding}px)`,
             overflow: 'visible',
             background: 'transparent',
-            color,
+            color: 'initial',
           },
         }}
       />
@@ -81,7 +80,7 @@ export default function MuiBottomDrawer(props: Props) {
         >
           <Puller className="bg-stone-200 dark:bg-stone-600" />
         </div>
-        <div className="dark:!bg-stone-920 flex h-full flex-col justify-between overflow-hidden rounded-t-xl bg-white">
+        <div className="flex h-full flex-col justify-between overflow-hidden rounded-t-xl bg-white dark:!bg-stone-920">
           <div>{header}</div>
           <Separator />
           <div className="flex-grow overflow-auto !p-0">{children}</div>

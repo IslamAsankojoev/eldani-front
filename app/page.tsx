@@ -1,7 +1,5 @@
 'use client'
 
-import { useEffect } from 'react'
-
 import _ from 'lodash'
 import { useQuery } from 'react-query'
 
@@ -20,6 +18,7 @@ export default function Home() {
         populate: '*',
       }),
     {
+      retry: false,
       cacheTime: 1000 * 60 * 60 * 24,
       staleTime: 1000 * 60 * 60 * 24,
     },
@@ -34,14 +33,15 @@ export default function Home() {
         {isLoading ? (
           <>
             {_.times(5, (i) => (
-              <PatternSkeleton />
+              <PatternSkeleton key={i} />
             ))}
           </>
         ) : (
           <>
-            {patterns?.map((pattern: Pattern) => (
-              <PatternCard key={pattern.id} {...pattern} />
-            ))}
+            {patterns
+              ?.map((pattern: Pattern) => (
+                <PatternCard key={pattern.id} {...pattern} />
+              ))}
           </>
         )}
       </div>

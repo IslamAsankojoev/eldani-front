@@ -15,6 +15,7 @@ import {
 } from '@/shadcn/ui/carousel'
 
 import { cn } from '@/src/shared/libs/utils'
+import { imageLoader } from '@/src/shared/libs/imageLoader'
 
 type CarouselDemoProps = {
   thumbnails: Media[]
@@ -48,6 +49,7 @@ export const PatternCarousel = ({ thumbnails }: CarouselDemoProps) => {
             orientation="vertical"
             opts={{
               align: 'start',
+              loop: true,
             }}
             setApi={setApi}
           >
@@ -66,10 +68,11 @@ export const PatternCarousel = ({ thumbnails }: CarouselDemoProps) => {
                     )}
                   >
                     <Image
-                      src={process.env.API_URL + image.formats.small.url}
+                      src={image.formats.small.url}
                       fill
-                      priority
+                      loader={imageLoader}
                       alt={`Pattern ${image.name}`}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       className={cn(
                         'select-none object-cover',
                         active === image.id && 'border-1 border-rose-500',

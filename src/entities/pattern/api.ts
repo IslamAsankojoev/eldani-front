@@ -5,43 +5,43 @@ export const ProductService = {
   entity: 'products',
   entityBySlug: 'slugify/slugs/product',
   async find(searchParams?: SearchParamsOption) {
-    try{
+    try {
       const data = await ky
-      .get(this.entity, {
-        searchParams,
-      })
-      .json()
-    return data as Pattern[]
+        .get(this.entity, {
+          searchParams,
+        })
+        .json()
+      return data as Pattern[]
     } catch (e) {
       throw e
     }
   },
   async findOne(slug: string, searchParams?: SearchParamsOption) {
-    try{
+    try {
       const data = await ky
-      .get(`${this.entity}/${slug}`, {
-        searchParams,
-      })
-      .json()
-    return data as Pattern
+        .get(`${this.entity}/${slug}`, {
+          searchParams,
+        })
+        .json()
+      return data as Pattern
     } catch (e) {
       throw e
     }
   },
   async findBySlug(slug: string, searchParams?: SearchParamsOption) {
-    try{
+    try {
       const data = await ky
-      .get(`${this.entityBySlug}/${slug}`, {
-        searchParams,
-      })
-      .json()
-    return data as Pattern
+        .get(`${this.entityBySlug}/${slug}`, {
+          searchParams,
+        })
+        .json()
+      return data as Pattern
     } catch (e) {
       throw e
     }
   },
   async create(data: Pattern) {
-    try{
+    try {
       const response = await ky.post(this.entity, {
         json: data,
       })
@@ -51,7 +51,7 @@ export const ProductService = {
     }
   },
   async update(id: number, data: Pattern) {
-    try{
+    try {
       const response = await ky.put(`${this.entity}/${id}`, {
         json: data,
       })
@@ -61,7 +61,7 @@ export const ProductService = {
     }
   },
   async delete(id: number) {
-    try{
+    try {
       const response = await ky.delete(`${this.entity}/${id}`)
       return response
     } catch (e) {

@@ -9,7 +9,7 @@ import { Avatar, AvatarImage } from '@/shadcn/ui/avatar'
 import { Button } from '@/shadcn/ui/button'
 import { Card } from '@/shadcn/ui/card'
 
-const loginUrl = 'https://2268-217-29-29-158.ngrok-free.app/api/connect/google'
+const loginUrl = 'http://localhost:8000/api/connect/google'
 
 const Login = () => {
   const queryClient = useQueryClient()

@@ -1,0 +1,10 @@
+.tmp/
+.cache/
+.git/
+build/
+node_modules/
+data/
+backup/
+.next/
+.vscode/ 
+.zed/

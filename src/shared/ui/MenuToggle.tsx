@@ -52,6 +52,7 @@ export function MenuToggle({ className }: MenuToggleProps) {
           <div className="flex flex-col">
             {navigationList.map((item) => (
               <Button
+                key={item.name}
                 asChild
                 variant="link"
                 className={cn(

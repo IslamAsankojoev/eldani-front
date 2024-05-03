@@ -16,6 +16,7 @@ import {
 import { type CarouselApi } from '@/shadcn/ui/carousel'
 
 import { cn } from '@/src/shared/libs/utils'
+import { imageLoader } from '@/src/shared/libs/imageLoader'
 
 type CarouselDemoProps = {
   thumbnails: Media[]
@@ -74,11 +75,11 @@ export const PatternCardCarousel = ({
               )}
             >
               <Image
-                src={process.env.API_URL + image.url}
-                sizes="100vw"
+                src={image.url}
+                loader={imageLoader}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 fill
-                priority
-                alt={`Pattern ${image?.formats?.small?.url}`}
+                alt={`Pattern ${image?.name}`}
                 className="object-cover"
               />
             </Card>

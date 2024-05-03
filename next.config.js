@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: "standalone",
   reactStrictMode: false,
   env: {
     API_URL: process.env.REACT_APP_SERVER_URL,
@@ -18,9 +19,9 @@ const nextConfig = {
       'eldani-3333ab7cc275.herokuapp.com',
       '192.168.159.246',
       '192.168.0.106',
+      '192.168.58.246'
     ],
   },
-  trailingSlash: true,
 }
 
 module.exports = nextConfig
