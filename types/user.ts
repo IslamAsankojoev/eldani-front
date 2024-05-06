@@ -10,9 +10,19 @@ interface User {
   avatar_google: string
   phone: string
   avatar: string | null | File
+  role?: UserRole
 }
 
 interface UserWithToken {
   jwt: string
   user: User
+}
+
+interface UserRole {
+  id: number
+  name: string
+  description: string
+  type: "public" | "authenticated" | "admin"
+  createdAt: string
+  updatedAt: string
 }

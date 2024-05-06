@@ -12,6 +12,7 @@ interface Pattern {
   attribute: Property[]
   comments?: any
   locale: string
+  file:Media
 }
 
 interface MediaFormat {

@@ -42,6 +42,18 @@ export default function Home() {
               ?.map((pattern: Pattern) => (
                 <PatternCard key={pattern.id} {...pattern} />
               ))}
+                     {patterns
+              ?.map((pattern: Pattern) => (
+                <PatternCard key={pattern.id} {...pattern} />
+              ))}
+                     {patterns
+              ?.map((pattern: Pattern) => (
+                <PatternCard key={pattern.id} {...pattern} />
+              ))}
+                     {patterns
+              ?.map((pattern: Pattern) => (
+                <PatternCard key={pattern.id} {...pattern} />
+              ))}
           </>
         )}
       </div>

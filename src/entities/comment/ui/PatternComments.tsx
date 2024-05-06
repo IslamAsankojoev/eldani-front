@@ -106,7 +106,7 @@ export function PatternComments({
               variant="ghost"
               className="relative m-0 h-auto w-auto border-none bg-transparent p-2 outline-none !ring-transparent transition hover:bg-transparent focus:border-none focus:outline-none active:scale-110"
             >
-              <MessageCircle size={23} strokeWidth={1.25} absoluteStrokeWidth />
+              <MessageCircle size={25} strokeWidth={1.30} absoluteStrokeWidth />
             </Button>
           </DialogTrigger>
           <DialogContent className="py-3 pl-3 pr-0 md:rounded-[34px]">

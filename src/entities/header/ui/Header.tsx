@@ -14,9 +14,9 @@ export const Header = () => {
     <>
       <br className="hidden border-none md:block" />
       <header className="fixed left-0 top-0 z-50 mx-auto flex w-full justify-center gap-2 p-0 md:p-4">
-        <Card className="flex w-full items-center justify-between gap-2 rounded-none border-[.7px] bg-white/60 p-3 px-4 md:static md:w-fit md:rounded-xl md:p-2  dark:bg-stone-800/60 backdrop-blur-md">
+        <Card className="flex w-full items-center justify-between gap-2 rounded-none border-[.7px] bg-white/60 p-3 px-4 md:static md:w-fit md:rounded-xl md:p-2  dark:bg-stone-950/60 md:dark:bg-stone-800/60 backdrop-blur-md">
           <div className="flex items-center">
-            <MenuToggle className="md:hidden" />
+            <MenuToggle className="md:hidden mr-2" />
             <Link href="/" className="text-xl font-extrabold md:mx-4">
               Eldani
             </Link>

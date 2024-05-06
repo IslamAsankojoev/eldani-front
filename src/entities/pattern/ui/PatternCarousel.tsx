@@ -13,15 +13,18 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/shadcn/ui/carousel'
+import _ from 'lodash'
 
 import { cn } from '@/src/shared/libs/utils'
 import { imageLoader } from '@/src/shared/libs/imageLoader'
+import { Skeleton } from '@/shadcn/ui/skeleton'
 
 type CarouselDemoProps = {
-  thumbnails: Media[]
+  thumbnails?: Media[],
+  skeleton?: boolean,
 }
 
-export const PatternCarousel = ({ thumbnails }: CarouselDemoProps) => {
+export const PatternCarousel = ({ thumbnails, skeleton = false }: CarouselDemoProps) => {
   const [api, setApi] = useState<CarouselApi>()
 
   const [active, setActive] = useState(0)
@@ -54,7 +57,7 @@ export const PatternCarousel = ({ thumbnails }: CarouselDemoProps) => {
             setApi={setApi}
           >
             <CarouselContent className="h-[72vh] flex">
-              {thumbnails?.map((image, index) => (
+              {!skeleton ? thumbnails?.map((image, index) => (
                 <CarouselItem
                   key={image.id}
                   className={cn('basis-1/4 cursor-pointer ')}
@@ -80,6 +83,22 @@ export const PatternCarousel = ({ thumbnails }: CarouselDemoProps) => {
                     />
                   </Card>
                 </CarouselItem>
+              )) : _.times(4, (index) => (
+                <CarouselItem
+                  key={index}
+                  className={cn('basis-1/4 cursor-pointer ')}
+                  onClick={() => {
+                    handleClick(index)
+                  }}
+                >
+                  <Card
+                    className={cn(
+                      'relative h-full overflow-hidden rounded-none md:rounded-xl',
+                    )}
+                  >
+                    <Skeleton className="h-full" />
+                  </Card>
+                </CarouselItem>
               ))}
             </CarouselContent>
             <CarouselPrevious className="" />
@@ -96,16 +115,23 @@ export const PatternCarousel = ({ thumbnails }: CarouselDemoProps) => {
             }}
           >
             <CarouselContent>
-              {thumbnails?.map((image) => (
+              {!skeleton ? thumbnails?.map((image) => (
                 <CarouselItem key={image.id}>
                   <Card className="relative h-[70vh] overflow-hidden rounded-none md:rounded-xl">
                     <Image
-                      src={process.env.API_URL + image.url}
+                      src={image.url}
+                      loader={imageLoader}
                       fill
-                      priority
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       alt={`Pattern ${image.name}`}
                       className="select-none object-cover"
                     />
+                  </Card>
+                </CarouselItem>
+              )) : _.times(4, (index) => (
+                <CarouselItem key={index}>
+                  <Card className="relative h-[70vh] overflow-hidden rounded-none md:rounded-xl">
+                    <Skeleton className="h-full" />
                   </Card>
                 </CarouselItem>
               ))}

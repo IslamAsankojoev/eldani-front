@@ -42,7 +42,7 @@ export const PatternCard = ({
           <p className="text-xl font-extrabold capitalize">{price + 'c'}</p>
           <div className="flex items-center gap-0">
             <PatternComments id={id} thumbnails={thumbnails} />
-            <PatternLike />
+            <PatternLike id={id}/>
           </div>
         </div>
 

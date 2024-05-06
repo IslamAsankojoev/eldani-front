@@ -42,7 +42,7 @@ export function MenuToggle({ className }: MenuToggleProps) {
           {isOpen ? <SheetClose /> : <Menu />}
         </Button>
       </SheetTrigger>
-      <SheetContent className="border-none bg-white/95 dark:bg-stone-900/95" side='left'>
+      <SheetContent className="border-none bg-white/60 dark:bg-stone-950/60 backdrop-blur-sm" side='left'>
         <div className="px-6 pt-10">
           <Link href="/" className="text-xl font-extrabold">
             Eldani

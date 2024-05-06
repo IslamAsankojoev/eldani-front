@@ -28,6 +28,17 @@ export const ProductService = {
       throw e
     }
   },
+  async findByArrayIds(ids: number[], searchParams?: SearchParamsOption) {
+    const query = ids.map((id, idx) => `filters[id][$in][${idx}]=${id}`).join('&')
+    try {
+      const data = await ky
+        .get(`${this.entity}/?populate=*&${query}`)
+        .json()
+      return data as Pattern[]
+    } catch (e) {
+      throw e
+    }
+  },
   async findBySlug(slug: string, searchParams?: SearchParamsOption) {
     try {
       const data = await ky

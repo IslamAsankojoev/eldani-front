@@ -2,16 +2,29 @@
 import { cn } from '@/src/shared/libs/utils'
 import { Button } from '@/shadcn/ui/button'
 import { Heart } from 'lucide-react'
-import React from 'react'
+import React, { FC } from 'react'
 import colors from 'tailwindcss/colors'
+import { useFavouriteStore } from '@/src/app/store/favourite.zustand'
+import { ProductService } from '../../pattern'
 
-export const PatternLike = () => {
-  const [liked, setLiked] = React.useState(false)
+interface PatternLikeProps {
+  id?: number
+}
+
+export const PatternLike:FC<PatternLikeProps> = ({id}) => {
   const [className, setClassName] = React.useState('')
+  const {addFavorite, favourites, removeFavorite} = useFavouriteStore()
+  const liked = favourites.includes(id as number)
 
   const handleLike = () => {
-    setLiked(!liked)
+    if (liked) {
+      removeFavorite(id as number)
+    } else {
+      addFavorite(id as number)
+    }
   }
+
+  ProductService.findByArrayIds(favourites)
 
   React.useEffect(() => {
     setClassName((prev) =>
@@ -27,8 +40,8 @@ export const PatternLike = () => {
         onClick={handleLike}
       >
         <Heart
-          size={23}
-          strokeWidth={1.25}
+          size={25}
+          strokeWidth={1.30}
           fill={liked ? colors.rose[500] : 'none'}
           absoluteStrokeWidth
           className={cn(className)}

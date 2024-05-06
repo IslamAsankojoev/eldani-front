@@ -1,9 +1,10 @@
 /** @type {import('next').NextConfig} */
+const SERVER_API_URL = process.env.REACT_APP_MODE === 'development' ? process.env.REACT_APP_SERVER_URL_DEV : process.env.REACT_APP_SERVER_URL_PROD
 const nextConfig = {
   output: "standalone",
   reactStrictMode: false,
   env: {
-    API_URL: process.env.REACT_APP_SERVER_URL,
+    API_URL: SERVER_API_URL,
     API_KEY: process.env.REACT_APP_SERVER_KEY,
     URL: process.env.REACT_APP_CLIENT_URL,
   },
@@ -21,6 +22,18 @@ const nextConfig = {
       '192.168.0.106',
       '192.168.58.246'
     ],
+  },
+  rewrites: async () => {
+    return [
+      {
+        source: '/api/:path*',
+        destination: `${SERVER_API_URL}/api/:path*`,
+      },
+      {
+        source: '/uploads/:path*',
+        destination: `${SERVER_API_URL}/uploads/:path*`,
+      },
+    ]
   },
 }
 
