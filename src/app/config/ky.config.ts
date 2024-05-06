@@ -2,7 +2,7 @@ import Cookies from 'js-cookie'
 import ky from 'ky'
 
 export const kyInstance = ky.create({
-  prefixUrl: '/api',
+  prefixUrl: '/server-api',
   headers: {
     'Content-Type': 'application/json',
   },

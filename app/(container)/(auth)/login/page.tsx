@@ -9,7 +9,7 @@ import { Avatar, AvatarImage } from '@/shadcn/ui/avatar'
 import { Button } from '@/shadcn/ui/button'
 import { Card } from '@/shadcn/ui/card'
 
-const loginUrl = 'http://localhost:8000/api/connect/google'
+const loginUrl = `${process.env.API_URL}/api/connect/google`
 
 const Login = () => {
   const queryClient = useQueryClient()
