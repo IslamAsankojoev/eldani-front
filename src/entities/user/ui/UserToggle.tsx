@@ -37,7 +37,7 @@ export const userToggleRoutes: Route[] = [
   },
   {
     name: 'Выйти',
-    href: '/api/logout?logout=true',
+    href: '/api/logout',
   },
 ]
 
@@ -48,7 +48,7 @@ export const UserToggle = ({ className }: UserToggleProps) => {
   const pathname = usePathname()
 
   const handleRouteChange = (item: Route) => {
-    if (item.href === '/api/logout?logout=true') {
+    if (item.href === '/api/logout') {
       router.push(item.href)
       setIsOpen(false)
       return
@@ -102,9 +102,7 @@ export const UserToggle = ({ className }: UserToggleProps) => {
             <Button
               variant="ghost"
               className="block text-left"
-              onClick={() => {
-                handleRouteChange(item)
-              }}
+              onClick={() => handleRouteChange(item)}
             >
               {item.name}
             </Button>

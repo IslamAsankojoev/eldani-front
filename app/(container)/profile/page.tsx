@@ -1,11 +1,11 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Phone } from 'lucide-react'
-import Link from 'next/link'
+import ky from 'ky'
 import { useForm } from 'react-hook-form'
 import { useMutation } from 'react-query'
 import { z } from 'zod'
+import { useRouter } from 'next/navigation'
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/shadcn/ui/avatar'
 import { Button } from '@/shadcn/ui/button'
@@ -37,6 +37,7 @@ const formSchema = z.object({
 const Page = () => {
   const { data: user, refetch } = useUser()
   const { toast } = useToast()
+  const router = useRouter()
 
   const { mutateAsync } = useMutation(
     (data: Partial<User>) => UserService.updateMe(data),
@@ -67,9 +68,12 @@ const Page = () => {
   })
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
-    console.log(12)
     await mutateAsync(data)
     refetch()
+  }
+
+  const onLogout = () => {
+    router.push('/api/logout')
   }
 
   return (
@@ -90,11 +94,11 @@ const Page = () => {
             </div>
           </div>
           <Button
-            asChild
             className="h-[initial] self-center text-rose-600 hover:bg-rose-500/10 hover:text-rose-600"
             variant="ghost"
+            onClick={onLogout}
           >
-            <Link href="/api/logout?logout=true">Выйти</Link>
+            Выйти
           </Button>
         </div>
       </Card>
