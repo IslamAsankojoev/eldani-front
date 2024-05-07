@@ -9,12 +9,12 @@ export function middleware(request: NextRequest) {
 
   // routes guarded by this middleware
   if(url.pathname.startsWith('/profile')) {
-    if(!cookie.has('token')) {
+    if(!cookie.has('eldani.session')) {
       return NextResponse.redirect(new URL('/login', request.url))
     }
   }
   if(url.pathname.startsWith('/login')) {
-    if(cookie.has('token')) {
+    if(cookie.has('eldani.session')) {
       return NextResponse.redirect(new URL('/profile', request.url))
     }
   }

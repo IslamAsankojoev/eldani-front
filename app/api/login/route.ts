@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
       .json()
     if (user) {
       const expires: any = (jwtDecode(user.jwt).exp as number) * 1000
-      cookie.set('token', user.jwt, { expires: new Date(expires) })
+      cookie.set('eldani.session', user.jwt, { expires: new Date(expires) })
     }
   } catch (e) {
     throw e

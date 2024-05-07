@@ -10,8 +10,8 @@ export const kyInstance = ky.create({
   hooks: {
     beforeRequest: [
       (request) => {
-        if (Cookies.get('token')) {
-          request.headers.set('Authorization', `Bearer ${Cookies.get('token')}`)
+        if (Cookies.get('eldani.session')) {
+          request.headers.set('Authorization', `Bearer ${Cookies.get('eldani.session')}`)
         }
       },
     ],
