@@ -94,7 +94,7 @@ const Page = () => {
             className="h-[initial] self-center text-rose-600 hover:bg-rose-500/10 hover:text-rose-600"
             variant="ghost"
           >
-            <Link href="/api/logout">Выйти</Link>
+            <Link href="/api/logout?logout=true">Выйти</Link>
           </Button>
         </div>
       </Card>
