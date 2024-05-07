@@ -18,20 +18,7 @@ import {
 } from '@/shadcn/ui/form'
 import { Input } from '@/shadcn/ui/input'
 import { Textarea } from '@/shadcn/ui/textarea'
-
-const formSchema = z.object({
-  username: z.string().min(1, {
-    message: 'Имя указывать обязательно',
-  }),
-  phone: z.string().min(1, {
-    message: 'Номер телефона обязателен',
-  }),
-  telegram: z.string(),
-  message: z.string(),
-  file: z.string(),
-})
-
-const requiredSchema = formSchema.required()
+import { BotService, requiredSchema } from '@/src/entities/telegram'
 
 const Page = () => {
   const form = useForm({
@@ -41,12 +28,12 @@ const Page = () => {
       phone: '' as any,
       telegram: '',
       message: '',
-      file: '',
+      file: null as FileList | null,
     },
   })
 
-  const onSubmit = (data: z.infer<typeof requiredSchema>) => {
-    console.log(data)
+  const onSubmit = async (data: z.infer<typeof requiredSchema>) => {
+    await BotService.sendDocument(data)
   }
 
   return (
@@ -110,14 +97,14 @@ const Page = () => {
           <FormField
             control={form.control}
             name="file"
-            render={({ field }) => (
+            render={() => (
               <FormItem>
                 <FormControl>
                   <>
                     <Input
                       type="file"
                       placeholder="File"
-                      {...field}
+                      {...form.register('file')}
                       className="inline-block cursor-pointer"
                     />
                   </>

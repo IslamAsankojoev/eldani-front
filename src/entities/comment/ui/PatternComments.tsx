@@ -143,7 +143,7 @@ export function PatternComments({
                       <>
                         {data?.length ? (
                           // @ts-ignore
-                          data?.map((comment: IComment) => (
+                          data.filter((comment:IComment)=>!comment.blocked)?.map((comment: IComment) => (
                             <PatternComment key={comment.id} {...comment} />
                           ))
                         ) : (

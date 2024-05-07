@@ -6,7 +6,7 @@ export const UserService = {
   entity: 'users',
   async getMe(options?: Options) {
     try {
-      const data = await ky.get(`${this.entity}/me`, options).json()
+      const data = await ky.get(`${this.entity}/me?populate=*`, options).json()
       return data as User
     } catch (e) {
       return null

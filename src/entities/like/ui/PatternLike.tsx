@@ -5,7 +5,6 @@ import { Heart } from 'lucide-react'
 import React, { FC } from 'react'
 import colors from 'tailwindcss/colors'
 import { useFavouriteStore } from '@/src/app/store/favourite.zustand'
-import { ProductService } from '../../pattern'
 
 interface PatternLikeProps {
   id?: number
@@ -23,8 +22,6 @@ export const PatternLike:FC<PatternLikeProps> = ({id}) => {
       addFavorite(id as number)
     }
   }
-
-  ProductService.findByArrayIds(favourites)
 
   React.useEffect(() => {
     setClassName((prev) =>

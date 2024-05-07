@@ -2,7 +2,6 @@ import { jwtDecode } from 'jwt-decode'
 import { cookies } from 'next/headers'
 import { type NextRequest } from 'next/server'
 
-// import { ky } from '@/src/app/config'
 import ky from 'ky'
 
 export const dynamic = 'force-dynamic'

@@ -12,6 +12,7 @@ import {
 import { cn } from '@/src/shared/libs/utils'
 import { useQuery } from 'react-query'
 import { ArrowDownToLine } from 'lucide-react'
+import { useUser } from '@/src/entities/user/query'
 
 const Pattern = ({
   params,
@@ -20,6 +21,7 @@ const Pattern = ({
   params: { slug: string }
   searchParams: { viewport: string }
 }) => {
+  const { data: user } = useUser()
   const {data:pattern, isLoading} = useQuery(['pattern', params.slug], () => ProductService.findBySlug(params.slug, {populate: '*'}))
   return (
     <div
@@ -69,7 +71,8 @@ const Pattern = ({
                 />
               <PatternLike id={pattern?.id}/>
               <span className="mx-1" />
-              <Button
+              {user?.role?.type === 'admin' && (
+                <Button
                 className="h-full flex-grow text-base shadow-md  bg-stone-800 hover:bg-stone-800/80 text-white"
                 variant="secondary"
                 asChild
@@ -79,6 +82,8 @@ const Pattern = ({
                 <ArrowDownToLine />
                 </a>
               </Button>
+              )}
+              
               <Button
                 className="h-full flex-grow text-base text-white ml-2 shadow-md bg-rose-700 hover:bg-rose-700/80"
                 variant="secondary"
