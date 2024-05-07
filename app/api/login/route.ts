@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
     const user: UserWithToken = await ky
       .get(`${process.env.API_URL}/api/auth/google/callback${request.nextUrl.search}`)
       .json()
-    if (user) {
+    if (user && process.env.MODE) {
       const expires: any = (jwtDecode(user.jwt).exp as number) * 1000
       cookie.set('eldani.session', user.jwt, { expires: new Date(expires) })
     }

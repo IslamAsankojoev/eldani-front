@@ -7,6 +7,7 @@ const nextConfig = {
     API_URL: SERVER_API_URL,
     API_KEY: process.env.REACT_APP_SERVER_KEY,
     URL: process.env.REACT_APP_CLIENT_URL,
+    MODE: process.env.REACT_APP_MODE,
   },
   images: {
     domains: [
