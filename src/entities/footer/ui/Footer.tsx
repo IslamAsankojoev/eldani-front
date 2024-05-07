@@ -2,6 +2,7 @@
 
 import React from 'react'
 import Image from 'next/image'
+import telegramImage from '@/public/images/telegram.png'
 
 export const Footer = () => {
   return (
@@ -15,7 +16,7 @@ export const Footer = () => {
       >
         <span className="font-bold">Islam Asankojoev</span>
         <Image
-          src="/images/telegram.png"
+          src={telegramImage}
           alt="Telegram"
           width={17}
           height={17}

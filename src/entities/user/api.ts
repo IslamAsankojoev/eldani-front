@@ -9,7 +9,7 @@ export const UserService = {
       const data = await ky.get(`${this.entity}/me?populate=*`, options).json()
       return data as User
     } catch (e) {
-      return null
+      throw e
     }
   },
   async updateMe(data: Partial<User>, options?: Options) {
@@ -19,7 +19,7 @@ export const UserService = {
         .json()
       return user as User
     } catch (e) {
-      return null
+      throw e
     }
   },
 }

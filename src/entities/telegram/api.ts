@@ -15,7 +15,7 @@ export const formSchema = z.object({
   }),
   telegram: z.string(),
   message: z.string(),
-  file: z.nullable(z.instanceof(FileList)),
+  file: z.any(),
 })
 export const requiredSchema = formSchema.required()
 
@@ -46,9 +46,16 @@ Telegram: ${data.telegram}
 `)
 
     try {
-      ky.post(SEND_DOCUMENT_URI, {
+      if(data.file) {
+        const res = await ky.post(SEND_DOCUMENT_URI, {
+          body: formData,
+        })
+        return res
+      }
+      const res = await ky.post(SEND_MESSAGE_URI, {
         body: formData,
       })
+      return res
     } catch (e) {
       throw e
     }

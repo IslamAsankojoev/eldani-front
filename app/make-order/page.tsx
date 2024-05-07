@@ -1,7 +1,5 @@
 'use client'
 
-import React from 'react'
-
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
@@ -18,9 +16,13 @@ import {
 } from '@/shadcn/ui/form'
 import { Input } from '@/shadcn/ui/input'
 import { Textarea } from '@/shadcn/ui/textarea'
+import { useToast } from '@/shadcn/ui/use-toast'
+
 import { BotService, requiredSchema } from '@/src/entities/telegram'
+import { useMutation } from 'react-query'
 
 const Page = () => {
+  const { toast } = useToast()
   const form = useForm({
     resolver: zodResolver(requiredSchema),
     defaultValues: {
@@ -28,16 +30,29 @@ const Page = () => {
       phone: '' as any,
       telegram: '',
       message: '',
-      file: null as FileList | null,
+      file: null as any,
+    },
+  })
+  const { mutateAsync } = useMutation(
+  (data: z.infer<typeof requiredSchema>)=> BotService.sendDocument(data),
+  {
+    onSuccess: () => {
+      toast({
+        title: 'Заявка',
+        description: 'Успешно отправлена',
+        variant: 'success',
+        duration: 2000,
+      })
+      form.reset()
     },
   })
 
   const onSubmit = async (data: z.infer<typeof requiredSchema>) => {
-    await BotService.sendDocument(data)
+    mutateAsync(data)
   }
 
   return (
-    <Card className="dark:bg-stone-920 p-5">
+    <Card className="p-5 dark:bg-stone-920">
       <Form {...form}>
         <h1 className="mb-4 text-center text-xl font-extrabold md:text-xl">
           Заказать пошив одежды

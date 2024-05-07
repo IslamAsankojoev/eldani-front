@@ -1,7 +1,5 @@
 'use client'
-
 import { zodResolver } from '@hookform/resolvers/zod'
-import ky from 'ky'
 import { useForm } from 'react-hook-form'
 import { useMutation } from 'react-query'
 import { z } from 'zod'
