@@ -7,7 +7,6 @@ export async function GET(request: NextRequest) {
   if(searchParams.get('logout')){
     const cookie = cookies()
     cookie.delete('eldani.session')
-    return Response.redirect(new URL(process.env.URL + '/login', request.url))
   }
-  return Response
+  return Response.redirect(new URL(process.env.URL + '/login', request.url))
 }
