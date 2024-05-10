@@ -52,7 +52,7 @@ const Page = () => {
   }
 
   return (
-    <Card className="p-5 dark:bg-stone-920">
+    <Card className="p-5 dark:bg-stone-950/60 backdrop-blur-md">
       <Form {...form}>
         <h1 className="mb-4 text-center text-xl font-extrabold md:text-xl">
           Заказать пошив одежды
@@ -65,8 +65,8 @@ const Page = () => {
             control={form.control}
             name="username"
             render={({ field }) => (
-              <FormItem>
-                <FormControl>
+              <FormItem >
+                <FormControl >
                   <Input placeholder="Имя" {...field} />
                 </FormControl>
                 <FormMessage />

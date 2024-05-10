@@ -1,17 +1,17 @@
 interface IComment {
-  id: number
+  id?: number
   content: string
-  blocked: boolean
-  blockedThread: boolean
-  blockReason: null
-  isAdminComment: null
-  removed: boolean
-  approvalStatus: boolean
-  createdAt: string
-  updatedAt: string
-  gotThread: boolean
+  blocked?: boolean
+  blockedThread?: boolean
+  blockReason?: null
+  isAdminComment?: null
+  removed?: boolean
+  approvalStatus?: boolean
+  createdAt?: string
+  updatedAt?: string
+  gotThread?: boolean
   author: Author
-  children: Comment[]
+  children?: Comment[]
 }
 
 type CommentPost = Pick<IComment, 'content' | 'author'>

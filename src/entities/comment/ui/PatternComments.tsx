@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 
+import useMediaQuery from '@mui/material/useMediaQuery'
 import _ from 'lodash'
 import { MessageCircle, X } from 'lucide-react'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
@@ -23,9 +24,9 @@ import { useUser } from '../../user/query'
 import { CommentService } from '../api'
 import { CommentInput } from './CommentInput'
 import { CommentSkeleton } from './CommentSkeleton'
-import { PatternComment } from './PatternComment'
 import MuiBottomDrawer from './MuiBottomDrawer'
-import useMediaQuery from '@mui/material/useMediaQuery'
+import { PatternComment } from './PatternComment'
+import { getAuthorFromUser } from '@/src/shared/libs/getAuthorFromUser'
 
 export function PatternComments({
   id,
@@ -34,7 +35,7 @@ export function PatternComments({
   wrapperComponent?: React.FC
 }) {
   const [editingComment, setEditingComment] = useState<IComment | null>(null)
-  const [commentMode, setCommentMode] = useState<'create' | 'edit' >('create')
+  const [commentMode, setCommentMode] = useState<'create' | 'edit'>('create')
   const [commentValue, setCommentValue] = useState<string>('')
   const { data: user } = useUser()
   const queryClient = useQueryClient()
@@ -63,7 +64,8 @@ export function PatternComments({
   )
 
   const { mutateAsync: deleteCommentMutation } = useMutation(
-    ({commentId, authorId}:{commentId:number, authorId:number}) => CommentService.delete(id, commentId, authorId),
+    ({ commentId, authorId }: { commentId: number; authorId: number }) =>
+      CommentService.delete(id, commentId, authorId),
     {
       onSuccess: () => {
         refetch()
@@ -82,60 +84,40 @@ export function PatternComments({
     },
   )
 
-  const deleteComment = (commentId: number, authorId: number) => {
+  const handleDeleteCommentButton = (commentId: number, authorId: number) => {
     deleteCommentMutation({ commentId, authorId })
   }
 
-  const updateComment = (commentId: number) => {
+  const handleEditCommentButton = (commentId: number) => {
     setCommentMode('edit')
-    setCommentValue(data?.find((comment: IComment) => comment.id === commentId)?.content as string)
-    setEditingComment(data?.find((comment: IComment) => comment.id === commentId) as IComment)
+    setCommentValue(
+      data?.find((comment: IComment) => comment.id === commentId)
+        ?.content as string,
+    )
+    setEditingComment(
+      data?.find((comment: IComment) => comment.id === commentId) as IComment,
+    )
   }
 
-  const handleChangeComment = (value:string) => {
+  const handleChangeComment = (value: string) => {
     setCommentValue(value)
   }
 
   const handleSendComment = async () => {
-    if(commentMode === 'create') {
+    if (commentMode === 'create') {
       queryClient.setQueryData([CommentService.entity, id], (old: any) => {
         const newComment: IComment = {
-          id: Math.random(),
           content: commentValue,
-          blocked: false,
-          blockedThread: false,
-          blockReason: null,
-          isAdminComment: null,
-          removed: false,
-          approvalStatus: true,
-          createdAt: new Date().toISOString().toString() as string,
-          updatedAt: new Date().toISOString().toString() as string,
-          gotThread: false,
-          author: {
-            id: user?.id as number,
-            name: user?.username as string,
-            email: user?.email as string,
-            avatar: user?.avatar_google as string,
-          },
-          children: [],
+          author: getAuthorFromUser(user as User),
         }
         return old.length ? [...old, newComment] : [newComment]
       })
-  
+
       return mutateAsync(
         {
-          author: {
-            id: user?.id as number,
-            name: user?.username as string,
-            email: user?.email as string,
-            avatar: user?.avatar_google as string,
-          },
+          author: getAuthorFromUser(user as User),
           content: commentValue,
-        },
-        {
-          onSuccess: () => {},
-        },
-      )
+        })
     }
     return updateCommentMutation({
       ...editingComment,
@@ -152,7 +134,7 @@ export function PatternComments({
               variant="ghost"
               className="relative m-0 h-auto w-auto border-none bg-transparent p-2 outline-none !ring-transparent transition hover:bg-transparent focus:border-none focus:outline-none active:scale-110"
             >
-              <MessageCircle size={25} strokeWidth={1.30} absoluteStrokeWidth />
+              <MessageCircle size={25} strokeWidth={1.3} absoluteStrokeWidth />
             </Button>
           </DialogTrigger>
           <DialogContent className="py-3 pl-3 pr-0 md:rounded-[34px]">
@@ -190,7 +172,12 @@ export function PatternComments({
                         {data?.length ? (
                           // @ts-ignore
                           data.map((comment: IComment) => (
-                            <PatternComment key={comment.id} {...comment} handleDelete={deleteComment} handleEdit={updateComment}/>
+                            <PatternComment
+                              key={comment.id}
+                              {...comment}
+                              handleDelete={handleDeleteCommentButton}
+                              handleEdit={handleEditCommentButton}
+                            />
                           ))
                         ) : (
                           <p className="py-10 text-center text-sm text-muted-foreground">
@@ -201,7 +188,18 @@ export function PatternComments({
                     )}
                   </div>
                 </ScrollArea>
-                <div className="pr-5">
+                <div className="pr-5 flex flex-col items-end">
+                  {commentMode === 'edit' && (
+                    <Button
+                      variant="link"
+                      onClick={() => {
+                        setCommentMode('create')
+                        setCommentValue('')
+                      }}
+                    >
+                      отменить
+                    </Button>
+                  )}
                   <CommentInput
                     handleSendComment={handleSendComment}
                     handleChange={handleChangeComment}
@@ -228,17 +226,24 @@ export function PatternComments({
         </div>
       }
       footer={
-        <div className='flex flex-col items-end'>
-        {commentMode === 'edit' && <Button variant='link' onClick={()=>{
-          setCommentMode('create')
-          setCommentValue('')}
-        }>отменить</Button>}
-        <CommentInput
-          handleSendComment={handleSendComment}
-          isLoading={mutateLoading}
-          handleChange={handleChangeComment}
-          value={commentValue}
-        />
+        <div className="flex flex-col items-end">
+          {commentMode === 'edit' && (
+            <Button
+              variant="link"
+              onClick={() => {
+                setCommentMode('create')
+                setCommentValue('')
+              }}
+            >
+              отменить
+            </Button>
+          )}
+          <CommentInput
+            handleSendComment={handleSendComment}
+            isLoading={mutateLoading}
+            handleChange={handleChangeComment}
+            value={commentValue}
+          />
         </div>
       }
     >
@@ -253,7 +258,12 @@ export function PatternComments({
           <>
             {data?.length ? (
               data?.map((comment: IComment) => (
-                <PatternComment key={comment.id} {...comment} handleDelete={deleteComment} handleEdit={updateComment}/>
+                <PatternComment
+                  key={comment.id}
+                  {...comment}
+                  handleDelete={handleDeleteCommentButton}
+                  handleEdit={handleEditCommentButton}
+                />
               ))
             ) : (
               <p className="py-10 text-center text-sm text-muted-foreground">

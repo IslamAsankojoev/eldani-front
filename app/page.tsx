@@ -18,6 +18,10 @@ export default function Home() {
         populate: '*',
       }),
     {
+      select: (data) => {
+        // return _.concat(data, data, data, data, data, data)
+        return data
+      },
       retry: false,
       cacheTime: 1000 * 60 * 60 * 24,
       staleTime: 1000 * 60 * 60 * 24,
