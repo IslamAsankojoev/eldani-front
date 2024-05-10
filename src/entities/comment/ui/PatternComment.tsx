@@ -1,6 +1,13 @@
 'use client'
 
 import { Roboto } from 'next/font/google'
+import { Trash2, Pencil, EllipsisVertical } from 'lucide-react'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+  DropdownMenuItem,
+} from "@/shadcn/ui/dropdown-menu"
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/shadcn/ui/avatar'
 
@@ -12,14 +19,23 @@ const robotoFont = Roboto({
   subsets: ['cyrillic'],
 })
 
+interface PatternCommentProps extends IComment {
+  handleDelete: (commentId: number, authorId: number) => void
+  handleEdit: (commentId:number) => void
+}
+
 export const PatternComment = ({
+  id,
   content,
   createdAt,
   author,
   updatedAt,
-}: IComment) => {
+  handleDelete,
+  handleEdit,
+}: PatternCommentProps) => {
   return (
-    <div className="flex space-x-4">
+    <div className="flex space-x-4 justify-between">
+      <div className='flex space-x-4'>
       <Avatar>
         <AvatarImage src={author.avatar} />
         <AvatarFallback>CN</AvatarFallback>
@@ -40,6 +56,17 @@ export const PatternComment = ({
         </div>
         <p className={cn('text-sm', robotoFont.className)}>{content}</p>
       </div>
+      </div>
+
+      <DropdownMenu>
+      <DropdownMenuTrigger>
+        <EllipsisVertical size={16} />
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuItem className='gap-2' onClick={()=>{handleEdit(id)}}><Pencil size={14}/> Изменить</DropdownMenuItem>
+        <DropdownMenuItem className='gap-2' onClick={()=>{handleDelete(id, author.id)}}><Trash2 size={14}/> Удалить</DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
     </div>
   )
 }

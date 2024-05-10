@@ -62,10 +62,14 @@ export default function MuiBottomDrawer(props: Props) {
         onClose={handleDismiss}
         onOpen={handleOpen}
         swipeAreaWidth={drawerBleeding}
-        disableSwipeToOpen={false}
+        disableSwipeToOpen={true}
+        disableBackdropTransition={true}
         transitionDuration={200}
         ModalProps={{
           keepMounted: true,
+        }}
+        style={{
+          zIndex: 50,
         }}
       >
         <div

@@ -1,4 +1,8 @@
 'use client'
+
+import { ArrowDownToLine } from 'lucide-react'
+import { useQuery } from 'react-query'
+
 import { Button } from '@/shadcn/ui/button'
 import { Skeleton } from '@/shadcn/ui/skeleton'
 
@@ -9,10 +13,8 @@ import {
   PatternCarousel,
   ProductService,
 } from '@/src/entities/pattern'
-import { cn } from '@/src/shared/libs/utils'
-import { useQuery } from 'react-query'
-import { ArrowDownToLine } from 'lucide-react'
 import { useUser } from '@/src/entities/user/query'
+import { cn } from '@/src/shared/libs/utils'
 
 const Pattern = ({
   params,
@@ -22,7 +24,9 @@ const Pattern = ({
   searchParams: { viewport: string }
 }) => {
   const { data: user } = useUser()
-  const {data:pattern, isLoading} = useQuery(['pattern', params.slug], () => ProductService.findBySlug(params.slug, {populate: '*'}))
+  const { data: pattern, isLoading } = useQuery(['pattern', params.slug], () =>
+    ProductService.findBySlug(params.slug, { populate: '*' }),
+  )
   return (
     <div
       className={cn(
@@ -33,7 +37,10 @@ const Pattern = ({
     >
       <div className="relative md:w-2/5">
         <div className="md:sticky md:top-36">
-            <PatternCarousel thumbnails={pattern?.thumbnails} skeleton={isLoading}/>
+          <PatternCarousel
+            thumbnails={pattern?.thumbnails}
+            skeleton={isLoading}
+          />
         </div>
       </div>
 
@@ -41,86 +48,54 @@ const Pattern = ({
         <div>
           <div className="flex items-start justify-between md:flex-col md:gap-4">
             <div>
-              {isLoading ? (
-                <Skeleton className="h-8 w-60 d-block my-2" />
-              ) : (
-                <h1 className="text-xl font-extrabold md:text-3xl hidden md:block">
+              <h1 className="hidden text-xl font-extrabold md:block md:text-3xl">
                 {pattern?.name}
               </h1>
-              )}
-              {isLoading ? (
-                <Skeleton className="h-6 w-52 d-block my-2" />
-              ) : (
-                <h2 className="text-3xl font-extrabold md:text-2xl">
+              <h2 className="text-3xl font-extrabold md:text-2xl">
                 {pattern?.price}c
               </h2>
-              )}
             </div>
             <div
               className={cn(
                 'inline-grid grid-flow-col items-center justify-items-center gap-1 p-0 transition',
               )}
             >
-              {isLoading ? (
-                <Skeleton className="h-8 w-60 d-block" />
-              ) : (
-               <>
+              <>
                 <PatternComments
                   id={pattern?.id as number}
                   thumbnails={pattern?.thumbnails}
                 />
-              <PatternLike id={pattern?.id}/>
-              <span className="mx-1" />
-              {user?.role?.type === 'admin' && (
+                <PatternLike id={pattern?.id} />
+                {user?.role?.type === 'admin' && (
+                  <Button
+                    className="h-full flex-grow bg-stone-800 text-base  text-white shadow-md hover:bg-stone-800/80"
+                    variant="secondary"
+                    asChild
+                    size="icon"
+                  >
+                    <a href={pattern?.file?.url} target="_blank">
+                      <ArrowDownToLine />
+                    </a>
+                  </Button>
+                )}
+
                 <Button
-                className="h-full flex-grow text-base shadow-md  bg-stone-800 hover:bg-stone-800/80 text-white"
-                variant="secondary"
-                asChild
-                size='icon'
-              >
-                <a href={pattern?.file?.url} target="_blank">
-                <ArrowDownToLine />
-                </a>
-              </Button>
-              )}
-              
-              <Button
-                className="h-full flex-grow text-base text-white ml-2 shadow-md bg-rose-700 hover:bg-rose-700/80"
-                variant="secondary"
-                asChild
-              >
-                <a href="https://t.me/uclami" target="_blank">
-                  &nbsp;&nbsp;Купить&nbsp;&nbsp;
-                </a>
-              </Button>
-              
-               </>
-              )}
+                  className="ml-2 h-full flex-grow bg-rose-700 text-base text-white shadow-md hover:bg-rose-700/80"
+                  variant="secondary"
+                  asChild
+                >
+                  <a href="https://t.me/uclami" target="_blank">
+                    &nbsp;&nbsp;Купить&nbsp;&nbsp;
+                  </a>
+                </Button>
+              </>
             </div>
           </div>
           <hr className="mt-6 border-none" />
-          {isLoading ? (
-                <Skeleton className="h-8 w-60 d-block my-2" />
-              ) : (
-                <h1 className="text-xl font-extrabold md:text-3xl md:hidden visible mb-2">
-                {pattern?.name}
-              </h1>
-              )}
-          {isLoading ? (
-            <>
-            <Skeleton className="h-6 w-full d-block my-2" />
-            <Skeleton className="h-6 w-full d-block my-2" />
-            <Skeleton className="h-6 w-72 d-block my-2" />
-            <Skeleton className="h-6 w-60 d-block my-2" />
-            <br />
-            <Skeleton className="h-6 w-full d-block my-2" />
-            <Skeleton className="h-6 w-full d-block my-2" />
-            <Skeleton className="h-6 w-60 d-block my-2" />
-            <Skeleton className="h-6 w-60 d-block my-2" />
-            </>
-          ): (
-            <Description content={pattern?.description} />
-          )}
+          <h1 className="visible mb-2 text-xl font-extrabold md:hidden md:text-3xl">
+            {pattern?.name}
+          </h1>
+          <Description content={pattern?.description} />
           <hr className="mt-4 border-none" />
         </div>
         <div

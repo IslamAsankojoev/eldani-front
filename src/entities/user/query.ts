@@ -1,4 +1,3 @@
-import { usePathname } from 'next/navigation'
 import { useQuery } from 'react-query'
 
 import { UserService } from '.'

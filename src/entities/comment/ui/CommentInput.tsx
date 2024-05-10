@@ -19,28 +19,30 @@ export const CommentInput = ({
   handleSendComment,
   className,
   classNameInput,
+  handleChange, 
+  value,
 }: {
   handleSendComment: any
   className?: string
   classNameInput?: string
   isLoading?: boolean
+  handleChange?: any
+  value?: string
 }) => {
   const { data: user } = useUser()
   const { theme } = useTheme()
   const ref = useRef<HTMLTextAreaElement>(null)
-  const [comment, setComment] = useState('')
-  const viewport = localStorage.getItem('viewport')
 
   const handleType = (e: any) => {
-    setComment(e.target.value)
+    handleChange(e.target.value)
   }
 
   const handleSend = (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
     e.preventDefault()
-    if (!comment.length) return null
+    if (!value) return null
     try {
-      handleSendComment(comment)
-      setComment('')
+      handleSendComment(value)
+      handleChange('')
       ref.current?.focus()
     } catch (error) {
       console.error(error)
@@ -82,27 +84,19 @@ export const CommentInput = ({
           maxRows={10}
           ref={ref}
           placeholder="Оставьте комментарий ..."
-          value={comment}
+          value={value}
           onChange={handleType}
           className={cn(
             'flex-1 resize-none bg-transparent font-normal outline-none focus:outline-none dark:bg-stone-800 dark:placeholder-stone-400',
             classNameInput,
           )}
         />
-        {comment.length ? (
+        {!!value ? (
           <Button variant="ghost" className="self-end" type="submit">
-            {false ? (
-              <Loader2
-                size={25}
-                color={theme === 'dark' ? colors.stone[200] : colors.stone[700]}
-                className="animate-spin"
-              />
-            ) : (
               <SendHorizonal
                 size={25}
                 color={theme === 'dark' ? colors.stone[100] : colors.stone[700]}
               />
-            )}
           </Button>
         ) : null}
       </form>
