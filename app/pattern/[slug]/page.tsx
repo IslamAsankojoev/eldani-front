@@ -44,7 +44,7 @@ const Pattern = ({
         </div>
       </div>
 
-      <div className="flex flex-col justify-between px-4 py-3 md:w-3/5 md:px-10 md:pt-10">
+      <div className="flex flex-col justify-between px-4 py-4 md:w-3/5 md:px-10 md:pt-10">
         <div>
           <div className="flex items-start justify-between md:flex-col md:gap-4">
             <div>

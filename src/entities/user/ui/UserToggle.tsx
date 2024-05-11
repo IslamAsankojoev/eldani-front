@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 
-import { LogIn } from 'lucide-react'
+import { LogIn, UserRound } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 
@@ -28,16 +28,19 @@ interface UserToggleProps {
 type Route = {
   name: string
   href: string
+  icon?: JSX.Element
 }
 
 export const userToggleRoutes: Route[] = [
   {
     name: 'Профиль',
     href: '/profile',
+    icon: <UserRound />,
   },
   {
     name: 'Выйти',
     href: '/api/logout',
+    icon: <LogIn />,
   },
 ]
 
@@ -94,16 +97,15 @@ export const UserToggle = ({ className }: UserToggleProps) => {
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56">
-        <DropdownMenuLabel>{user?.username || user?.email}</DropdownMenuLabel>
-        <DropdownMenuSeparator />
+      <DropdownMenuContent className="">
         <div className="flex flex-col">
           {userToggleRoutes.map((item) => (
             <Button
               variant="ghost"
-              className="block text-left"
+              className="text-left flex flex-row justify-start gap-2 p-2"
               onClick={() => handleRouteChange(item)}
             >
+              {item.icon}
               {item.name}
             </Button>
           ))}

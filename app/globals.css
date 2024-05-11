@@ -68,7 +68,8 @@ body{
 }
 @media (max-width: 768px) {
   body{
-    background-size: cover;
+    background-size: 150%;
+    background-image: url('/images/bg-mobile-transition.png');
   }
 }
 

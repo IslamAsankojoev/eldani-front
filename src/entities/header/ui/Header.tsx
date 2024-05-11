@@ -8,15 +8,25 @@ import { UserToggle } from '@/src/entities/user'
 import { ModeToggle } from '@/src/shared'
 import { Menu } from '@/src/shared/ui/Menu'
 import { MenuToggle } from '@/src/shared/ui/MenuToggle'
+import { useMediaQuery } from '@mui/material'
 
 export const Header = () => {
+  const isDesktop = useMediaQuery('(min-width: 768px)')
   return (
     <>
       <br className="hidden border-none md:block" />
       <header className="fixed left-0 top-0 z-50 mx-auto flex w-full justify-center gap-2 p-0 md:p-4">
-        <Card className="flex w-full items-center justify-between gap-2 rounded-none border-[.7px] bg-white/60 p-3 px-4 md:static md:w-fit md:rounded-xl md:p-2  dark:bg-stone-950/60 md:dark:bg-stone-800/60 backdrop-blur-md">
+        <Card
+          className="flex w-full items-center justify-between gap-2 rounded-none border-[.7px] bg-white/60 p-3 px-4 backdrop-blur-md md:static md:w-fit md:rounded-xl  md:p-2 dark:bg-stone-950/60 md:dark:bg-stone-800/60"
+          // style={!isDesktop ? {
+          //   backgroundImage: 'url(/images/bg-transition.png)',
+          //   backgroundSize: '170%',
+          //   backgroundPosition: 'center',
+          //   backdropFilter: 'saturate(0px) blur(10px)',
+          // }: {}}
+        >
           <div className="flex items-center">
-            <MenuToggle className="md:hidden mr-2" />
+            <MenuToggle className="mr-2 md:hidden" />
             <Link href="/" className="text-xl font-extrabold md:mx-4">
               Eldani
             </Link>
@@ -27,7 +37,9 @@ export const Header = () => {
             <UserToggle className="md:hidden" />
           </div>
         </Card>
-        <Card className="hidden items-center justify-between gap-2 rounded-none border-[.7px] bg-white/60 px-4 md:static md:flex md:w-fit md:rounded-xl md:p-2 dark:bg-stone-800/60">
+        <Card
+          className="hidden items-center justify-between gap-2 rounded-none border-[.7px] bg-white/60 px-4 md:static md:flex md:w-fit md:rounded-xl md:p-2 dark:bg-stone-800/60"
+        >
           <UserToggle />
         </Card>
       </header>
