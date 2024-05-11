@@ -86,9 +86,6 @@ const Page = () => {
             <div className="flex flex-col gap-0">
               <p className="text-base font-bold">{user?.username}</p>
               <p className="text-sm">{user?.email}</p>
-              {/* <div className="flex w-full items-center gap-2 text-sm">
-                {user?.phone} <Phone width={15} height={15} />
-              </div> */}
             </div>
           </div>
           <Button

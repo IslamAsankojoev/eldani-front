@@ -45,10 +45,9 @@ export const userToggleRoutes: Route[] = [
 ]
 
 export const UserToggle = ({ className }: UserToggleProps) => {
-  const { data: user, isLoading, refetch } = useUser()
+  const { data: user, isLoading } = useUser()
   const [isOpen, setIsOpen] = useState(false)
   const router = useRouter()
-  const pathname = usePathname()
 
   const handleRouteChange = (item: Route) => {
     if (item.href === '/api/logout') {
@@ -59,10 +58,6 @@ export const UserToggle = ({ className }: UserToggleProps) => {
     router.push(item.href)
     setIsOpen(false)
   }
-
-  useEffect(() => {
-    refetch()
-  }, [pathname])
 
   if (isLoading) {
     return <Skeleton className={cn('h-10 w-10 rounded-full', className)} />

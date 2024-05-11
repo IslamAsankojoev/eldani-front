@@ -50,7 +50,7 @@ export const CommentInput = ({
   }
   if (!user)
     return (
-      <div className="bg-stone-100 p-2 md:rounded-xl dark:bg-stone-800">
+      <div className="bg-stone-100 p-2 md:rounded-xl dark:bg-stone-800 w-full">
         <p className="text-center text-sm text-stone-500 dark:text-stone-400">
           <Button asChild variant="link" className="p-0">
             <Link href="/login">Войдите</Link>

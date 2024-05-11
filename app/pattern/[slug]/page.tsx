@@ -54,7 +54,7 @@ const Pattern = ({
                   {isLoading ? (<Skeleton className='w-40 h-6 md:h-8'/>) : pattern?.name}
                 </h1>
                 <h2 className="text-3xl font-extrabold md:text-2xl">
-                  {isLoading ? (<Skeleton className='w-32 h-8 md:h-6 mt-2'/>) : pattern?.price + 'c'}
+                  {isLoading ? (<Skeleton className='w-32 h-10 md:h-6 md:mt-2'/>) : pattern?.price + 'c'}
                 </h2>
               </div>
               <div
@@ -63,7 +63,11 @@ const Pattern = ({
                 )}
               >
                 {isLoading ? (
-                    <Skeleton className="w-64 h-6 md:h-8" />
+                    <div className='flex flex-row'>
+                      <Skeleton className="w-10 h-10 mr-2 md:h-8" />
+                      <Skeleton className="w-10 h-10 mr-2 md:h-8" />
+                      <Skeleton className="w-24 h-10 md:h-8" />
+                    </div>
                 ) : (
                   <>
                   <PatternComments
@@ -99,7 +103,7 @@ const Pattern = ({
             </div>
             <hr className="mt-6 border-none" />
             <h1 className="visible mb-2 text-xl font-extrabold md:hidden md:text-3xl">
-              {isLoading ? (<Skeleton className='w-40 h-8'/>) : pattern?.name}
+              {isLoading ? (<Skeleton className='w-5/6 h-8'/>) : pattern?.name}
             </h1>
             {isLoading ? (
               <>
