@@ -1,6 +1,7 @@
 export { PatternCard } from './ui/PatternCard'
 export { PatternCardCarousel } from './ui/PatternCardCarousel'
 export { PatternCarousel } from './ui/PatternCarousel'
+export { PatternSkeletonCard } from './ui/PatternSkeletonCard'
 export { PatternSkeleton } from './ui/PatternSkeleton'
 export { Description } from './ui/Description'
 export { ProductService } from './api'

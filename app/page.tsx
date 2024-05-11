@@ -5,7 +5,7 @@ import { useQuery } from 'react-query'
 
 import {
   PatternCard,
-  PatternSkeleton,
+  PatternSkeletonCard,
   ProductService,
 } from '@/src/entities/pattern'
 import { cn } from '@/src/shared/libs/utils'
@@ -37,7 +37,7 @@ export default function Home() {
         {isLoading ? (
           <>
             {_.times(5, (i) => (
-              <PatternSkeleton key={i} />
+              <PatternSkeletonCard key={i} />
             ))}
           </>
         ) : (

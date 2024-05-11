@@ -17,6 +17,7 @@ import { type CarouselApi } from '@/shadcn/ui/carousel'
 
 import { cn } from '@/src/shared/libs/utils'
 import { imageLoader } from '@/src/shared/libs/imageLoader'
+import { Skeleton } from '@/shadcn/ui/skeleton'
 
 type CarouselDemoProps = {
   thumbnails: Media[]
@@ -34,6 +35,7 @@ export const PatternCardCarousel = ({
   dotsClassName,
 }: CarouselDemoProps) => {
   const [api, setApi] = useState<CarouselApi>()
+  const [imageLoading, setImageLoading] = useState(true)
   const { ref, inView, entry } = useInView({
     threshold: 0,
     trackVisibility: true,
@@ -66,25 +68,32 @@ export const PatternCardCarousel = ({
       opts={{ loop: true }}
     >
       <CarouselContent className="h-full">
-        {thumbnails?.map((image) => (
-          <CarouselItem key={image.id} className="h-full">
-            <Card
-              className={cn(
-                'relative h-full overflow-hidden bg-transparent md:h-full',
-                className,
-              )}
-            >
-              <Image
-                src={image.formats.medium.url}
-                loader={imageLoader}
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                fill
-                alt={`Pattern ${image?.name}`}
-                className="object-cover"
-              />
-            </Card>
-          </CarouselItem>
-        ))}
+          {thumbnails?.map((image, idx) => (
+            <CarouselItem key={image.id} className="h-full">
+              <Card
+                className={cn(
+                  'relative h-full overflow-hidden bg-transparent md:h-full',
+                  className,
+                )}
+              >
+                
+                <Image
+                  src={image.formats.medium.url}
+                  onLoad={() => {
+                      if(idx === 0){
+                        setImageLoading(false)
+                      }
+                  }}
+                  loader={imageLoader}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  fill
+                  alt={`Pattern ${image?.name}`}
+                  className="object-cover"
+                />
+                {imageLoading && <Skeleton className="h-full w-full" />}
+              </Card>
+            </CarouselItem>
+          ))}
       </CarouselContent>
       <div
         className={cn(

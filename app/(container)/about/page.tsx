@@ -2,7 +2,7 @@ import { Card } from '@/shadcn/ui/card'
 
 const Page = () => {
   return (
-    <Card className="dark:bg-stone-950/60 bg-slate-300/60 backdrop-blur-md flex flex-col justify-center p-5">
+    <Card className="dark:bg-stone-950/60 bg-slate-300/60 backdrop-blur-md flex flex-col justify-center p-5 my-5">
       <p className="text-balance text-base">
         <h1 className="ml-6 text-3xl">« Eldani »</h1>
         <hr className="my-1 w-0" />

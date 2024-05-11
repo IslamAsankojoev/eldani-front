@@ -26,6 +26,7 @@ type CarouselDemoProps = {
 
 export const PatternCarousel = ({ thumbnails, skeleton = false }: CarouselDemoProps) => {
   const [api, setApi] = useState<CarouselApi>()
+  const [imageLoading, setImageLoading] = useState(true)
 
   const [active, setActive] = useState(0)
 
@@ -73,6 +74,7 @@ export const PatternCarousel = ({ thumbnails, skeleton = false }: CarouselDemoPr
                     <Image
                       src={image.formats.small.url}
                       fill
+                      onLoad={() => setImageLoading(false)}
                       loader={imageLoader}
                       alt={`Pattern ${image.name}`}
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -81,6 +83,7 @@ export const PatternCarousel = ({ thumbnails, skeleton = false }: CarouselDemoPr
                         active === image.id && 'border-1 border-rose-500',
                       )}
                     />
+                    {imageLoading && <Skeleton className="h-full w-full" />}
                   </Card>
                 </CarouselItem>
               )) : _.times(4, (index) => (
@@ -121,11 +124,13 @@ export const PatternCarousel = ({ thumbnails, skeleton = false }: CarouselDemoPr
                     <Image
                       src={image.url}
                       loader={imageLoader}
+                      onLoad={() => setImageLoading(false)}
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       alt={`Pattern ${image.name}`}
                       className="select-none object-cover"
                     />
+                    {imageLoading && <Skeleton className="h-full w-full" />}
                   </Card>
                 </CarouselItem>
               )) : _.times(4, (index) => (
