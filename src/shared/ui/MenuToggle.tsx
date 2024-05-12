@@ -9,14 +9,10 @@ import {
   Sheet,
   SheetClose,
   SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
   SheetTrigger,
 } from '@/shadcn/ui/sheet'
 
-import { navigationList } from '../constants/navMenuRoutes'
+import { navigationList, policyNavigationList } from '../constants/navMenuRoutes'
 import { cn } from '../libs/utils'
 
 interface MenuToggleProps {
@@ -43,12 +39,13 @@ export function MenuToggle({ className }: MenuToggleProps) {
         </Button>
       </SheetTrigger>
       <SheetContent className="border-none bg-white/90 dark:bg-stone-950/60 backdrop-blur-md" side='left'>
-        <div className="px-6 pt-10">
+        <div className="px-6 pt-10 pb-20 h-full">
           <Link href="/" className="text-xl font-extrabold">
             Eldani
           </Link>
           <br />
           <br />
+          <div className='flex flex-col justify-between h-full'>
           <div className="flex flex-col">
             {navigationList.map((item) => (
               <Button
@@ -63,6 +60,23 @@ export function MenuToggle({ className }: MenuToggleProps) {
                 <Link href={item.href}>{item.name}</Link>
               </Button>
             ))}
+          </div>
+          <div className="flex flex-col">
+            {policyNavigationList.map((item) => (
+              <Button
+                key={item.name}
+                asChild
+                variant="link"
+                className={cn(
+                  'justify-start p-0 text-left text-base text-black dark:text-white',
+                  item.href === pathname ? 'underline underline-offset-4' : '',
+                )}
+              >
+                <Link href={item.href}>{item.name}</Link>
+              </Button>
+            ))}
+          </div>
+
           </div>
         </div>
       </SheetContent>
