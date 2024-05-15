@@ -1,6 +1,7 @@
 export { ModeToggle } from './ui/ModeToggle'
 export { Menu } from './ui/Menu'
 export { CalendarRange } from './ui/CalendarRange'
+export { MiniCart } from './ui/MiniCart'
 export { dayLater } from './libs/dayLater'
 export { cn } from './libs/utils'
 export { decode } from './libs/decode'

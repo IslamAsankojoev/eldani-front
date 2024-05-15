@@ -8,14 +8,14 @@ export function middleware(request: NextRequest) {
   url.searchParams.set('viewport', viewport)
 
   // routes guarded by this middleware
-  if(url.pathname.startsWith('/profile')) {
-    if(!cookie.has('eldani.session')) {
+  if (url.pathname.startsWith('/me')) {
+    if (!cookie.has('eldani.session')) {
       return NextResponse.redirect(new URL('/login', request.url))
     }
   }
-  if(url.pathname.startsWith('/login')) {
-    if(cookie.has('eldani.session')) {
-      return NextResponse.redirect(new URL('/profile', request.url))
+  if (url.pathname.startsWith('/login')) {
+    if (cookie.has('eldani.session')) {
+      return NextResponse.redirect(new URL('/me/profile', request.url))
     }
   }
 }

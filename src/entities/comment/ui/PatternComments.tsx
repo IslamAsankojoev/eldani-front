@@ -17,6 +17,7 @@ import {
 } from '@/shadcn/ui/dialog'
 import { ScrollArea } from '@/shadcn/ui/scroll-area'
 
+import { getAuthorFromUser } from '@/src/shared/libs/getAuthorFromUser'
 import { cn } from '@/src/shared/libs/utils'
 
 import { PatternCardCarousel } from '../../pattern'
@@ -26,7 +27,6 @@ import { CommentInput } from './CommentInput'
 import { CommentSkeleton } from './CommentSkeleton'
 import MuiBottomDrawer from './MuiBottomDrawer'
 import { PatternComment } from './PatternComment'
-import { getAuthorFromUser } from '@/src/shared/libs/getAuthorFromUser'
 
 export function PatternComments({
   id,
@@ -113,11 +113,10 @@ export function PatternComments({
         return old.length ? [...old, newComment] : [newComment]
       })
 
-      return mutateAsync(
-        {
-          author: getAuthorFromUser(user as User),
-          content: commentValue,
-        })
+      return mutateAsync({
+        author: getAuthorFromUser(user as User),
+        content: commentValue,
+      })
     }
     return updateCommentMutation({
       ...editingComment,
@@ -188,7 +187,7 @@ export function PatternComments({
                     )}
                   </div>
                 </ScrollArea>
-                <div className="pr-5 flex flex-col items-end">
+                <div className="flex flex-col items-end pr-5">
                   {commentMode === 'edit' && (
                     <Button
                       variant="link"
@@ -247,7 +246,7 @@ export function PatternComments({
         </div>
       }
     >
-      <div className="flex flex-col gap-6 px-4 py-3">
+      <div className="flex flex-col">
         {isLoading ? (
           <>
             {Array.from({ length: 7 }).map((_, index) => (

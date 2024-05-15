@@ -1,11 +1,10 @@
 'use client'
+
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { useMutation } from 'react-query'
 import { z } from 'zod'
-import { useRouter } from 'next/navigation'
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/shadcn/ui/avatar'
 import { Button } from '@/shadcn/ui/button'
 import { Card } from '@/shadcn/ui/card'
 import {
@@ -35,7 +34,6 @@ const formSchema = z.object({
 const Page = () => {
   const { data: user, refetch } = useUser()
   const { toast } = useToast()
-  const router = useRouter()
 
   const { mutateAsync } = useMutation(
     (data: Partial<User>) => UserService.updateMe(data),
@@ -70,34 +68,10 @@ const Page = () => {
     refetch()
   }
 
-  const onLogout = () => {
-    router.push('/api/logout')
-  }
-
   return (
-    <div className="relative flex flex-col justify-center gap-4">
-      <Card className="space-4 flex flex-col items-center gap-4 bg-white p-4 dark:bg-stone-920">
-        <div className="flex w-full justify-between">
-          <div className="flex gap-4">
-            <Avatar className="h-12 w-12">
-              <AvatarImage src={user?.avatar_google} alt="@shadcn" />
-              <AvatarFallback>{user?.email[0].toUpperCase()}</AvatarFallback>
-            </Avatar>
-            <div className="flex flex-col gap-0">
-              <p className="text-base font-bold">{user?.username}</p>
-              <p className="text-sm">{user?.email}</p>
-            </div>
-          </div>
-          <Button
-            className="h-[initial] self-center text-rose-600 hover:bg-rose-500/10 hover:text-rose-600"
-            variant="ghost"
-            onClick={onLogout}
-          >
-            Выйти
-          </Button>
-        </div>
-      </Card>
-      <Card className="bg-white p-4 dark:bg-stone-920">
+    <div className="flex flex-col items-start">
+      <h1 className="p-4 pt-2 text-2xl font-bold">Профиль</h1>
+      <Card className="w-full min-w-96 max-w-[500px] border-0 bg-white p-4 dark:bg-stone-950/60">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
@@ -142,25 +116,6 @@ const Page = () => {
                 </FormItem>
               )}
             />
-            {/* <FormField
-              control={form.control}
-              name="avatar"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <>
-                      <Input
-                        type="file"
-                        placeholder="File"
-                        {...field}
-                        className="inline-block cursor-pointer"
-                      />
-                    </>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            /> */}
             <Button className="px-20" type="submit">
               Обновить
             </Button>

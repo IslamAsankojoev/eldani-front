@@ -1,11 +1,6 @@
 'use client'
 
-import {
-  ArrowDownToLine,
-  ShoppingBag,
-  ShoppingBasket,
-  ShoppingCart,
-} from 'lucide-react'
+import { ArrowDownToLine, ShoppingBag, ShoppingBasket } from 'lucide-react'
 import { useQuery } from 'react-query'
 
 import { Button } from '@/shadcn/ui/button'
@@ -22,7 +17,7 @@ import {
 import { useUser } from '@/src/entities/user/query'
 import { cn } from '@/src/shared/libs/utils'
 
-const Pattern = ({
+export const Pattern = ({
   params,
   searchParams: { viewport },
 }: {
@@ -158,5 +153,3 @@ const Pattern = ({
     </div>
   )
 }
-
-export default Pattern

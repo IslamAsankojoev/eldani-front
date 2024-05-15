@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 
+import { Toaster } from '@/shadcn/ui/toaster'
+
 import {
   MainLayoutProvider,
   QueryClientProvider,
@@ -47,6 +49,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
               </main>
             </QueryClientProvider>
           </ThemeProvider>
+          <Toaster />
         </body>
       </html>
     </>
