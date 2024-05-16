@@ -1,5 +1,6 @@
 import { ShoppingBag } from 'lucide-react'
 import Link from 'next/link'
+import colors from 'tailwindcss/colors'
 
 import { Badge } from '@/shadcn/ui/badge'
 import { Button } from '@/shadcn/ui/button'
@@ -22,7 +23,11 @@ export const MiniCart = () => {
             {count}
           </Badge>
         )}
-        <ShoppingBag strokeWidth={1.2} />
+        <ShoppingBag
+          strokeWidth={1.2}
+          fill={!!count ? colors.rose[500] : 'none'}
+          className="text-white dark:text-white"
+        />
       </Link>
     </Button>
   )

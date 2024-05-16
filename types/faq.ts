@@ -4,9 +4,10 @@ interface FAQ {
   updatedAt: Date
   publishedAt?: Date
   questions: Question[]
-};
+}
 
 interface Question {
+  id: number
   question?: string
   answer?: any
 }

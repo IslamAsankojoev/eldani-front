@@ -62,7 +62,12 @@ export default function ProfileLayout({ children }: ProfileLayoutProps) {
               {profileNavigationList.map((link) => {
                 return (
                   <Button
-                    className="w-full dark:bg-stone-950/60 dark:hover:bg-stone-950/90"
+                    className={cn(
+                      'w-full bg-white hover:bg-slate-100 dark:bg-stone-950/60 dark:hover:bg-stone-950/90',
+                      link.href === '/api/logout'
+                        ? 'text-rose-500 hover:text-rose-600'
+                        : '',
+                    )}
                     variant="ghost"
                     onClick={() => router.push(link.href)}
                   >

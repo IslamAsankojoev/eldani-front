@@ -9,7 +9,7 @@ const Page = ({ params }: { params: { slug: string } }) => {
     PageService.findBySlug(params.slug, { populate: '*' }),
   )
   return (
-    <div>
+    <div className="py-5">
       <Content content={page?.content} />
     </div>
   )

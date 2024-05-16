@@ -1,18 +1,22 @@
 'use client'
-import { cn } from '@/src/shared/libs/utils'
-import { Button } from '@/shadcn/ui/button'
-import { Heart } from 'lucide-react'
+
 import React, { FC } from 'react'
+
+import { Heart } from 'lucide-react'
 import colors from 'tailwindcss/colors'
+
+import { Button } from '@/shadcn/ui/button'
+
 import { useFavouriteStore } from '@/src/app/store/favourite.zustand'
+import { cn } from '@/src/shared/libs/utils'
 
 interface PatternLikeProps {
   id?: number
 }
 
-export const PatternLike:FC<PatternLikeProps> = ({id}) => {
+export const PatternLike: FC<PatternLikeProps> = ({ id }) => {
   const [className, setClassName] = React.useState('')
-  const {addFavorite, favourites, removeFavorite} = useFavouriteStore()
+  const { addFavorite, favourites, removeFavorite } = useFavouriteStore()
   const liked = favourites.includes(id as number)
 
   const handleLike = () => {
@@ -25,7 +29,12 @@ export const PatternLike:FC<PatternLikeProps> = ({id}) => {
 
   React.useEffect(() => {
     setClassName((prev) =>
-      cn(prev, liked ? 'text-rose-500 dark:text-rose-500' : 'text-black dark:text-white'),
+      cn(
+        prev,
+        liked
+          ? 'text-rose-500 dark:text-rose-500'
+          : 'text-black dark:text-white',
+      ),
     )
   }, [liked])
 
@@ -33,12 +42,12 @@ export const PatternLike:FC<PatternLikeProps> = ({id}) => {
     <>
       <Button
         variant="ghost"
-        className="p-2 m-0 h-auto w-auto bg-transparent hover:bg-transparent active:animate-pulse active:scale-125 transition relative"
+        className="relative m-0 h-auto w-auto bg-transparent p-2 transition hover:bg-transparent active:scale-125 active:animate-pulse"
         onClick={handleLike}
       >
         <Heart
           size={25}
-          strokeWidth={1.30}
+          strokeWidth={1.3}
           fill={liked ? colors.rose[500] : 'none'}
           absoluteStrokeWidth
           className={cn(className)}

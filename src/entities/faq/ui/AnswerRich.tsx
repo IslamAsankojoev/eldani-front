@@ -7,7 +7,7 @@ import {
 
 import { Button } from '@/shadcn/ui/button'
 
-export const Content = ({ content }: { content: any }) => {
+export const AnswerRich = ({ content }: { content: any }) => {
   return content ? (
     <BlocksRenderer
       content={content}

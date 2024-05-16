@@ -4,6 +4,7 @@ import { useMediaQuery } from '@mui/material'
 import { Menu } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useQuery } from 'react-query'
 
 import { Button } from '@/shadcn/ui/button'
 import {
@@ -12,6 +13,8 @@ import {
   SheetContent,
   SheetTrigger,
 } from '@/shadcn/ui/sheet'
+
+import { PageService } from '@/src/entities/page'
 
 import {
   navigationList,
@@ -27,6 +30,9 @@ export function MenuToggle({ className }: MenuToggleProps) {
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
   const isVerySmall = useMediaQuery('(max-width: 440px)')
+  const { data: pages } = useQuery([PageService.entity], () =>
+    PageService.find(),
+  )
 
   const handleOpenChange = (open: boolean) => {
     setIsOpen(open)
@@ -74,20 +80,31 @@ export function MenuToggle({ className }: MenuToggleProps) {
               ))}
             </div>
             <div className={cn('flex flex-col')}>
-              {policyNavigationList.map((item) => (
+              <Button
+                asChild
+                variant="link"
+                className={cn(
+                  'justify-start p-0 text-left text-base text-black dark:text-white',
+                  isVerySmall ? 'h-8 text-sm' : 'text-base',
+                  `/faq` === pathname ? 'underline underline-offset-4' : '',
+                )}
+              >
+                <Link href={`/faq`}>Вопросы и ответы</Link>
+              </Button>
+              {pages?.map((item) => (
                 <Button
-                  key={item.name}
+                  key={item.id}
                   asChild
                   variant="link"
                   className={cn(
                     'justify-start p-0 text-left text-base text-black dark:text-white',
                     isVerySmall ? 'h-8 text-sm' : 'text-base',
-                    item.href === pathname
+                    `/policy/${item.slug}` === pathname
                       ? 'underline underline-offset-4'
                       : '',
                   )}
                 >
-                  <Link href={item.href}>{item.name}</Link>
+                  <Link href={`/policy/${item.slug}`}>{item.title}</Link>
                 </Button>
               ))}
             </div>
