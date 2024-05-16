@@ -34,7 +34,7 @@ type Route = {
 export const userToggleRoutes: Route[] = [
   {
     name: 'Профиль',
-    href: '/profile',
+    href: '/me/profile',
     icon: <UserRound />,
   },
   {

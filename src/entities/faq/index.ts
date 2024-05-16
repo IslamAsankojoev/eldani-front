@@ -1,0 +1,1 @@
+export { FAQService } from './api'

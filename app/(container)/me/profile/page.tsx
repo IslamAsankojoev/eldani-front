@@ -71,7 +71,7 @@ const Page = () => {
   return (
     <div className="flex flex-col items-start">
       <h1 className="p-4 pt-2 text-2xl font-bold">Профиль</h1>
-      <Card className="w-full min-w-96 max-w-[500px] border-0 bg-white p-4 dark:bg-stone-950/60">
+      <Card className="w-full max-w-[500px] border-0 bg-white p-4 dark:bg-stone-950/60">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}

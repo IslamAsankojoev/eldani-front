@@ -11,9 +11,12 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { policyNavigationList } from '@/src/shared/constants/navMenuRoutes'
 import useMediaQuery from '@mui/material/useMediaQuery'
+import { useQuery } from 'react-query'
+import { PageService } from '../../page'
 
 export const Footer = () => {
   const isDesktop = useMediaQuery('(min-width: 768px)')
+  const { data: pages } = useQuery([PageService.entity], () => PageService.find())
   return (
     <footer className="mt-4 border-t-2 bg-stone-950 p-4 py-6 text-center text-sm text-muted-foreground">
       <div className="container flex flex-col gap-4 justify-center md:flex-row md:justify-between">
@@ -40,9 +43,9 @@ export const Footer = () => {
          </div>
          {isDesktop && (
           <div className='flex flex-row gap-2'>
-          {policyNavigationList.map((item) => (
-            <Link key={item.name} href={item.href} className="hover:text-rose-500">
-              {item.name}
+          {pages?.map((item) => (
+            <Link key={item.id} href={`/policy/${item.slug}`} className="hover:text-rose-500">
+              {item.title}
             </Link>
           ))}
          </div>
