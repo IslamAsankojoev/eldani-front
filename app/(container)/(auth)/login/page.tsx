@@ -1,9 +1,8 @@
 'use client'
 
-import React, { useEffect } from 'react'
+import React from 'react'
 
 import Link from 'next/link'
-import { useQueryClient } from 'react-query'
 
 import { Avatar, AvatarImage } from '@/shadcn/ui/avatar'
 import { Button } from '@/shadcn/ui/button'

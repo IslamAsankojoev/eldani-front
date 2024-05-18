@@ -1,15 +1,14 @@
 'use client'
 
 import useMediaQuery from '@mui/material/useMediaQuery'
-import { LogOut } from 'lucide-react'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/shadcn/ui/avatar'
 import { Button } from '@/shadcn/ui/button'
 import { Card } from '@/shadcn/ui/card'
 
+import { profileNavigationList } from '@/src/app/routes/navigationRoutes'
 import { useUser } from '@/src/entities/user/query'
-import { profileNavigationList } from '@/src/shared/constants/navMenuRoutes'
 import { cn } from '@/src/shared/libs/utils'
 
 import '../../globals.css'
@@ -21,11 +20,8 @@ export interface ProfileLayoutProps {
 export default function ProfileLayout({ children }: ProfileLayoutProps) {
   const { data: user } = useUser()
   const router = useRouter()
+  const pathname = usePathname()
   const isSmall = useMediaQuery('(max-width: 640px)')
-
-  const onLogout = () => {
-    router.push('/api/logout')
-  }
 
   return (
     <>
@@ -37,22 +33,27 @@ export default function ProfileLayout({ children }: ProfileLayoutProps) {
               isSmall ? 'w-full gap-2' : 'sticky top-64 w-96 gap-2',
             )}
           >
-            <Card className="space-4 flex flex-col items-center gap-4 border-0 bg-white p-2 dark:bg-stone-950/60">
-              <div className="flex w-full justify-between">
-                <div className="flex gap-4">
-                  <Avatar className="h-12 w-12">
-                    <AvatarImage src={user?.avatar_google} alt="@shadcn" />
-                    <AvatarFallback>
-                      {user?.email[0].toUpperCase()}
-                    </AvatarFallback>
-                  </Avatar>
-                  <div className="flex flex-col gap-0">
-                    <p className="text-base font-bold">{user?.username}</p>
-                    <p className="text-sm">{user?.email}</p>
+            <div>
+              <h1 className="hidden p-4 pt-2 text-2xl font-bold md:block">
+                Меню
+              </h1>
+              <Card className="flex flex-col items-center gap-4 border-0 bg-white p-2 dark:bg-stone-950/60">
+                <div className="flex w-full justify-between">
+                  <div className="flex gap-4">
+                    <Avatar className="h-12 w-12">
+                      <AvatarImage src={user?.avatar_google} alt="@shadcn" />
+                      <AvatarFallback>
+                        {user?.email[0].toUpperCase()}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="flex flex-col gap-0">
+                      <p className="text-base font-bold">{user?.username}</p>
+                      <p className="text-sm">{user?.email}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </Card>
+              </Card>
+            </div>
             <div
               className={cn(
                 'grid grid-cols-2 gap-2 md:grid-cols-1',
@@ -63,10 +64,12 @@ export default function ProfileLayout({ children }: ProfileLayoutProps) {
                 return (
                   <Button
                     className={cn(
-                      'w-full bg-white hover:bg-slate-100 dark:bg-stone-950/60 dark:hover:bg-stone-950/90',
-                      link.href === '/api/logout'
-                        ? 'text-rose-500 hover:text-rose-600'
+                      'flex w-full bg-white hover:bg-white dark:bg-stone-950/60 dark:hover:bg-stone-950',
+                      link.href === '/api/logout' ? 'text-rose-500' : '',
+                      link.href === pathname
+                        ? 'pointer-events-none bg-rose-500 text-white dark:bg-rose-700'
                         : '',
+                      isSmall ? 'justify-center' : 'justify-start',
                     )}
                     variant="ghost"
                     onClick={() => router.push(link.href)}

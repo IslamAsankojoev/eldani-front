@@ -1,68 +1,80 @@
 'use client'
 
+import { useMediaQuery } from '@mui/material'
 import _ from 'lodash'
-import { Minus, X } from 'lucide-react'
-import { useQuery, useQueryClient } from 'react-query'
+import { useTheme } from 'next-themes'
+import Image from 'next/image'
+import { useQueryClient } from 'react-query'
 
 import { Button } from '@/shadcn/ui/button'
+import { Card } from '@/shadcn/ui/card'
 
 import { useCartStore } from '@/src/app/store/cart.zustand'
-import {
-  PatternCard,
-  PatternSkeletonCard,
-  ProductService,
-} from '@/src/entities/pattern'
+import { CartTable } from '@/src/features/cart'
+import { cn } from '@/src/shared'
+
+import emptyDark from '/public/emptyDark.png'
+import emptyLight from '/public/emptyLight.png'
 
 const Page = () => {
-  const { cart, removeFromCart } = useCartStore()
+  const { cart, clearCart } = useCartStore()
+  const { theme } = useTheme()
+  const isEmpty = _.isEmpty(cart)
   const queryClient = useQueryClient()
-  const { data, isLoading } = useQuery(
-    ['cart', cart],
-    () => ProductService.findByArrayIds(cart),
-    {
-      enabled: cart.length > 0,
-    },
-  )
-  const totalSumm = cart.length
-    ? data?.reduce((acc, pattern) => acc + Number(pattern.price), 0)
-    : 0
+  const isVerySmall = useMediaQuery('(max-width: 380px)')
 
-  const handleRemove = (id: number) => {
-    queryClient.setQueryData(['cart', cart], (old: any) => {
-      return old?.filter((pattern: Pattern) => pattern.id !== id)
+  const handleClearCart = () => {
+    clearCart()
+    queryClient.setQueryData(['cart'], () => {
+      return []
     })
-    removeFromCart(id)
   }
+
   return (
-    <div>
-      <h1 className="p-4 pt-2 text-2xl font-bold">
-        Корзина
-        <span className="text-xl text-rose-500">
-          {!!totalSumm && ` ${cart?.length} / ${totalSumm}c`}
-        </span>
-      </h1>
-      <div className="masonry grid grid-cols-2 gap-3 md:grid-cols-2 lg:grid-cols-4">
-        {isLoading ? (
-          <>
-            {_.times(2, (i) => (
-              <PatternSkeletonCard key={i} />
-            ))}
-          </>
+    <div className="flex flex-col">
+      <h1 className="p-4 pt-2 text-2xl font-bold">Корзина</h1>
+      <div
+        className={cn(
+          'flex flex-col items-center gap-3',
+          isEmpty && 'pointer-events-none',
+        )}
+      >
+        {isEmpty ? (
+          <div className="flex h-64 w-full max-w-64 flex-col items-center justify-center text-center opacity-70">
+            <Image
+              src={theme === 'dark' ? emptyDark : emptyLight}
+              alt="Empty cart"
+              width={50}
+              height={50}
+            />
+            <h2 className="text-lg font-bold">Корзина пуста</h2>
+            <p className="text-muted-foreground">
+              Добавьте товары в корзину, чтобы оформить заказ
+            </p>
+          </div>
         ) : (
           <>
-            {data?.map((pattern: Pattern) => (
-              <div className="relative">
-                <Button
-                  variant="destructive"
-                  size="icon"
-                  className="absolute right-0 top-0 z-10 h-6 w-6 -translate-y-1/2 translate-x-1/2 rounded-full"
-                  onClick={() => handleRemove(pattern.id)}
-                >
-                  <X size={16} />
-                </Button>
-                <PatternCard key={pattern.id} {...pattern} />
-              </div>
-            ))}
+            <Card className="w-full border-0 bg-white dark:bg-stone-950/60">
+              <CartTable />
+            </Card>
+            <div
+              className={cn(
+                'flex w-full gap-2 md:justify-end',
+                isVerySmall ? 'flex-col' : 'justify-between',
+              )}
+            >
+              <Button
+                size="lg"
+                className="flex-grow bg-white text-base dark:bg-stone-950/60 md:flex-grow-0"
+                variant="ghost"
+                onClick={handleClearCart}
+              >
+                Очистить корзину
+              </Button>
+              <Button size="lg" className="flex-grow text-base md:flex-grow-0">
+                Оформить заказ
+              </Button>
+            </div>
           </>
         )}
       </div>

@@ -1,9 +1,11 @@
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 
+interface CartItem extends Pattern {}
+
 interface CartStore {
-  cart: number[]
-  addToCart: (id: number) => void
+  cart: CartItem[]
+  addToCart: (pattern: CartItem) => void
   removeFromCart: (id: number) => void
   clearCart: () => void
 }
@@ -12,9 +14,9 @@ export const useCartStore = create<CartStore, any>(
   persist(
     (set, get) => ({
       cart: [],
-      addToCart: (id: number) => set({ cart: [...get().cart, id] }),
+      addToCart: (pattern: CartItem) => set({ cart: [...get().cart, pattern] }),
       removeFromCart: (id: number) =>
-        set({ cart: get().cart.filter((f: number) => f !== id) }),
+        set({ cart: get().cart.filter((f: CartItem) => f.id !== id) }),
       clearCart: () => set({ cart: [] }),
     }),
     {

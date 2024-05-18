@@ -11,7 +11,8 @@ import {
   AccordionTrigger,
 } from '@/shadcn/ui/accordion'
 
-import { AnswerRich, FAQService } from '@/src/entities/faq'
+import { FAQService } from '@/src/entities/faq'
+import { RichContent } from '@/src/shared'
 
 const Page = () => {
   const { data } = useQuery([FAQService.entity], () => FAQService.find())
@@ -24,7 +25,7 @@ const Page = () => {
             <AccordionItem key={question.id} value={`item-${question?.id}`}>
               <AccordionTrigger>{question.question}</AccordionTrigger>
               <AccordionContent>
-                <AnswerRich content={question.answer} />
+                <RichContent content={question.answer} />
               </AccordionContent>
             </AccordionItem>
           ))}

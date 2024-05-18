@@ -7,8 +7,8 @@ import {
   QueryClientProvider,
   ThemeProvider,
 } from '@/src/app/providers'
-import { Footer } from '@/src/entities/footer'
-import { Header } from '@/src/entities/header'
+import { Footer } from '@/src/widgets/footer'
+import { Header } from '@/src/widgets/header'
 
 import './globals.css'
 

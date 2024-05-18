@@ -7,7 +7,7 @@ import colors from 'tailwindcss/colors'
 import { Card } from '@/shadcn/ui/card'
 
 import { PatternComments } from '@/src/entities/comment'
-import { PatternLike } from '@/src/entities/like'
+import { PatternLike } from '@/src/entities/user'
 import { cn } from '@/src/shared/libs/utils'
 
 import { PatternCardCarousel } from './PatternCardCarousel'
@@ -19,6 +19,7 @@ export const PatternCard = ({
   price,
   thumbnails,
   slug,
+  category,
 }: Pattern) => {
   const patternLink = {
     href: `/pattern/${slug}?id=${id}`,
@@ -30,7 +31,7 @@ export const PatternCard = ({
       <Link {...patternLink}>
         <Card
           className={cn(
-            'relative cursor-pointer overflow-hidden rounded-lg border-2 border-none bg-transparent shadow-none h-[60vw] md:h-[40vh]',
+            'relative h-[60vw] cursor-pointer overflow-hidden rounded-lg border-2 border-none bg-transparent shadow-none md:h-[40vh]',
           )}
         >
           {thumbnails && <PatternCardCarousel thumbnails={thumbnails} />}
@@ -38,11 +39,11 @@ export const PatternCard = ({
       </Link>
 
       <div className="flex flex-col space-y-1.5 p-2 pt-0">
-        <div className="flex justify-between items-center">
+        <div className="flex items-center justify-between">
           <p className="text-xl font-extrabold capitalize">{price + 'c'}</p>
           <div className="flex items-center gap-0">
             <PatternComments id={id} thumbnails={thumbnails} />
-            <PatternLike id={id}/>
+            <PatternLike id={id} />
           </div>
         </div>
 
@@ -59,9 +60,17 @@ export const PatternCard = ({
           </div>
         </Link>
 
-        <div className="flex items-center space-x-1 text-sm">
-          <Star className="h-4 w-4 text-yellow-500" fill={colors.yellow[500]} />
-          4.5 <span className="text-muted-foreground">(89)</span>
+        <div className="flex justify-between">
+          <p className="text-sm capitalize text-muted-foreground">
+            {category?.name}
+          </p>
+          <div className="flex items-center space-x-1 text-sm">
+            <Star
+              className="h-4 w-4 text-yellow-500"
+              fill={colors.yellow[500]}
+            />
+            4.5 <span className="text-muted-foreground">(89)</span>
+          </div>
         </div>
       </div>
     </div>

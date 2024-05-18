@@ -5,13 +5,10 @@ import { MessageCircle } from 'lucide-react'
 import { Button } from '@/shadcn/ui/button'
 import {
   Drawer,
-  DrawerClose,
   DrawerContent,
-  DrawerDescription,
   DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
-  DrawerTitle,
   DrawerTrigger,
 } from '@/shadcn/ui/drawer'
 

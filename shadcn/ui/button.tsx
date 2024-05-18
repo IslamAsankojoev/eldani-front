@@ -1,6 +1,7 @@
+import * as React from 'react'
+
 import { Slot } from '@radix-ui/react-slot'
 import { type VariantProps, cva } from 'class-variance-authority'
-import * as React from 'react'
 
 import { cn } from '@/src/shared/libs/utils'
 
@@ -26,9 +27,10 @@ const buttonVariants = cva(
         icon: 'h-10 w-10',
       },
       ring: {
-        default: 'ring-offset-background focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-2',
+        default:
+          'ring-offset-background focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-2',
         none: '',
-      }
+      },
     },
     defaultVariants: {
       variant: 'default',

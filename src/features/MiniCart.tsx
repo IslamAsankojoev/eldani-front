@@ -26,7 +26,6 @@ export const MiniCart = () => {
         <ShoppingBag
           strokeWidth={1.2}
           fill={!!count ? colors.rose[500] : 'none'}
-          className="text-white dark:text-white"
         />
       </Link>
     </Button>

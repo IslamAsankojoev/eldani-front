@@ -1,5 +1,3 @@
-import { comment } from "postcss"
-
 const entity = '/comments'
 
 export const CommentService = {
@@ -36,7 +34,10 @@ export const CommentService = {
   async delete(id: number, commentId: number, authorId: number) {
     try {
       const data = await fetch(
-        process.env.API_URL + '/api' + entity + `/api::product.product:${id}/comment/${commentId}?authorId=${authorId}`,
+        process.env.API_URL +
+          '/api' +
+          entity +
+          `/api::product.product:${id}/comment/${commentId}?authorId=${authorId}`,
         {
           method: 'DELETE',
         },
@@ -49,7 +50,10 @@ export const CommentService = {
   async update(id: number, comment: IComment) {
     try {
       const data = await fetch(
-        process.env.API_URL + '/api' + entity + `/api::product.product:${id}/comment/${comment.id}`,
+        process.env.API_URL +
+          '/api' +
+          entity +
+          `/api::product.product:${id}/comment/${comment.id}`,
         {
           method: 'PUT',
           headers: {

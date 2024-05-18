@@ -5,8 +5,6 @@ import { Skeleton } from '@/shadcn/ui/skeleton'
 import { cn } from '@/src/shared/libs/utils'
 
 export const PatternSkeleton = () => {
-  const isDesktop = useMediaQuery('(min-width: 768px)')
-
   return (
     <>
       <div className="relative md:w-2/5">

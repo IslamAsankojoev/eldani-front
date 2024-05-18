@@ -14,13 +14,9 @@ import {
   SheetTrigger,
 } from '@/shadcn/ui/sheet'
 
+import { navigationList } from '@/src/app/routes/navigationRoutes'
 import { PageService } from '@/src/entities/page'
-
-import {
-  navigationList,
-  policyNavigationList,
-} from '../constants/navMenuRoutes'
-import { cn } from '../libs/utils'
+import { cn } from '@/src/shared'
 
 interface MenuToggleProps {
   className?: string

@@ -1,8 +1,8 @@
 'use client'
 
-import { SyntheticEvent, useEffect, useRef, useState } from 'react'
+import { SyntheticEvent, useRef } from 'react'
 
-import { Loader, Loader2, SendHorizonal } from 'lucide-react'
+import { SendHorizonal } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import Link from 'next/link'
 import TextareaAutosize from 'react-textarea-autosize'
@@ -19,7 +19,7 @@ export const CommentInput = ({
   handleSendComment,
   className,
   classNameInput,
-  handleChange, 
+  handleChange,
   value,
 }: {
   handleSendComment: any
@@ -50,7 +50,7 @@ export const CommentInput = ({
   }
   if (!user)
     return (
-      <div className="bg-stone-100 p-2 md:rounded-xl dark:bg-stone-800 w-full">
+      <div className="w-full bg-stone-100 p-2 dark:bg-stone-800 md:rounded-xl">
         <p className="text-center text-sm text-stone-500 dark:text-stone-400">
           <Button asChild variant="link" className="p-0">
             <Link href="/login">Войдите</Link>
@@ -93,10 +93,10 @@ export const CommentInput = ({
         />
         {!!value ? (
           <Button variant="ghost" className="self-end" type="submit">
-              <SendHorizonal
-                size={25}
-                color={theme === 'dark' ? colors.stone[100] : colors.stone[700]}
-              />
+            <SendHorizonal
+              size={25}
+              color={theme === 'dark' ? colors.stone[100] : colors.stone[700]}
+            />
           </Button>
         ) : null}
       </form>

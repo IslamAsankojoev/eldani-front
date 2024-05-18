@@ -7,12 +7,18 @@ interface Pattern {
   description?: any
   thumbnails?: Media[]
   price?: string
-  category?: { data: Category }
+  category?: Category
   slug?: any
   attribute: Property[]
   comments?: any
   locale: string
-  file:Media
+  file: Media
+  sizes: Size[]
+}
+
+interface Size {
+  id: number
+  value: string
 }
 
 interface MediaFormat {
@@ -34,7 +40,12 @@ interface Media {
   caption: string
   width: number
   height: number
-  formats: { thumbnail: MediaFormat; small: MediaFormat; medium: MediaFormat; large: MediaFormat }
+  formats: {
+    thumbnail: MediaFormat
+    small: MediaFormat
+    medium: MediaFormat
+    large: MediaFormat
+  }
   hash: string
   ext: string
   mime: string

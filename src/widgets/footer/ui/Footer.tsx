@@ -12,7 +12,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useQuery } from 'react-query'
 
-import { PageService } from '../../page'
+import { PageService } from '@/src/entities/page'
 
 export const Footer = () => {
   const isDesktop = useMediaQuery('(min-width: 768px)')

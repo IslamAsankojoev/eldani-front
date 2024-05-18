@@ -1,11 +1,6 @@
 'use client'
 
-import {
-  ArrowDownToLine,
-  ShoppingBag,
-  ShoppingBasket,
-  ShoppingCart,
-} from 'lucide-react'
+import { ArrowDownToLine, ShoppingBag } from 'lucide-react'
 import { useQuery } from 'react-query'
 
 import { Button } from '@/shadcn/ui/button'
@@ -13,12 +8,12 @@ import { Skeleton } from '@/shadcn/ui/skeleton'
 
 import { useCartStore } from '@/src/app/store/cart.zustand'
 import { PatternComments } from '@/src/entities/comment'
-import { PatternLike } from '@/src/entities/like'
 import {
   Description,
   PatternCarousel,
   ProductService,
 } from '@/src/entities/pattern'
+import { AddToCart, PatternLike } from '@/src/entities/user'
 import { useUser } from '@/src/entities/user/query'
 import { cn } from '@/src/shared/libs/utils'
 
@@ -36,11 +31,11 @@ const Pattern = ({
   const { addToCart, cart, removeFromCart } = useCartStore()
 
   const handleAddToCart = () => {
-    if (cart.find((id) => id === pattern?.id)) {
+    if (cart.find((cartItem) => cartItem.id === pattern?.id)) {
       removeFromCart(pattern?.id as number)
       return null
     }
-    addToCart(pattern?.id as number)
+    addToCart(pattern as Pattern)
   }
 
   return (
@@ -99,8 +94,8 @@ const Pattern = ({
                   <PatternLike id={pattern?.id} />
                   {user?.role?.type === 'admin' && (
                     <Button
-                      className="h-full flex-grow bg-stone-920/60  text-base text-white shadow-md hover:bg-stone-950/80"
-                      variant="secondary"
+                      className="mr-2 h-full flex-grow text-base hover:shadow-sm dark:hover:shadow-none"
+                      variant="ghost"
                       asChild
                       size="icon"
                     >
@@ -110,17 +105,7 @@ const Pattern = ({
                     </Button>
                   )}
 
-                  <Button
-                    className="ml-2 h-full flex-grow bg-rose-700 text-base text-white shadow-md hover:bg-rose-700/80"
-                    variant="secondary"
-                    onClick={handleAddToCart}
-                  >
-                    <ShoppingBag size={16} className="mr-2 h-4 w-4" />
-                    {cart.find((id) => id === pattern?.id)
-                      ? 'Убрать'
-                      : 'В корзину'}
-                    &nbsp;&nbsp;
-                  </Button>
+                  <AddToCart {...(pattern as Pattern)} />
                 </>
               )}
             </div>
@@ -148,12 +133,6 @@ const Pattern = ({
           )}
           <hr className="mt-4 border-none" />
         </div>
-        <div
-          className={cn(
-            'sticky bottom-0 left-0 -mt-20 hidden h-28 w-full md:block',
-            'bg-gradient-to-t from-slate-100 to-transparent dark:from-stone-900',
-          )}
-        />
       </div>
     </div>
   )

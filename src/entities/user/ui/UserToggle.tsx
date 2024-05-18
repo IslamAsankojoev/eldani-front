@@ -1,18 +1,16 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { LogIn, UserRound } from 'lucide-react'
 import Link from 'next/link'
-import { usePathname, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/shadcn/ui/avatar'
 import { Button } from '@/shadcn/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/shadcn/ui/dropdown-menu'
 import { Skeleton } from '@/shadcn/ui/skeleton'
@@ -97,7 +95,7 @@ export const UserToggle = ({ className }: UserToggleProps) => {
           {userToggleRoutes.map((item) => (
             <Button
               variant="ghost"
-              className="text-left flex flex-row justify-start gap-2 p-2"
+              className="flex flex-row justify-start gap-2 p-2 text-left"
               onClick={() => handleRouteChange(item)}
             >
               {item.icon}

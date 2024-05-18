@@ -2,15 +2,16 @@
 
 import { useQuery } from 'react-query'
 
-import { Content, PageService } from '@/src/entities/page'
+import { PageService } from '@/src/entities/page'
+import { RichContent } from '@/src/shared'
 
 const Page = ({ params }: { params: { slug: string } }) => {
-  const { data: page, isLoading } = useQuery(['page', params.slug], () =>
+  const { data: page } = useQuery(['page', params.slug], () =>
     PageService.findBySlug(params.slug, { populate: '*' }),
   )
   return (
     <div className="py-5">
-      <Content content={page?.content} />
+      <RichContent content={page?.content} />
     </div>
   )
 }

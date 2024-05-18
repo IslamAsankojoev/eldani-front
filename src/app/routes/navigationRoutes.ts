@@ -1,5 +1,3 @@
-import { ReactNode } from 'react'
-
 import { Heart, LogOut, ShoppingBag, Star, UserRound } from 'lucide-react'
 
 export const navigationList = [

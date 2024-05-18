@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import useMediaQuery from '@mui/material/useMediaQuery'
 import _ from 'lodash'
