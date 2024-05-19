@@ -151,8 +151,8 @@ export const PatternCarousel = ({
             <div className="absolute bottom-2 left-1/2 z-10 flex -translate-x-1/2 gap-2">
               {thumbnails?.map((image, index) => (
                 <div
-                  onClick={() => api?.scrollTo(index)}
                   key={image.id}
+                  onClick={() => api?.scrollTo(index)}
                   className={cn(
                     'h-1 w-1 cursor-pointer rounded-full bg-white/55 transition hover:scale-125',
                     active === index + 1 && 'scale-125 bg-white',

@@ -94,6 +94,7 @@ export const UserToggle = ({ className }: UserToggleProps) => {
         <div className="flex flex-col">
           {userToggleRoutes.map((item) => (
             <Button
+              key={item.name}
               variant="ghost"
               className="flex flex-row justify-start gap-2 p-2 text-left"
               onClick={() => handleRouteChange(item)}

@@ -68,9 +68,9 @@ export const AddToCart: FC<Pattern> = (pattern) => {
             >
               {pattern.sizes.map((size) => (
                 <ToggleGroupItem
+                  key={size.value}
                   value={size.value}
                   variant="outline"
-                  key={size.value}
                 >
                   {size.value}
                 </ToggleGroupItem>

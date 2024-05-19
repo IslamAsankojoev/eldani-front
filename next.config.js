@@ -1,8 +1,11 @@
 /** @type {import('next').NextConfig} */
-const SERVER_API_URL = process.env.REACT_APP_MODE === 'development' ? process.env.REACT_APP_SERVER_URL_DEV : process.env.REACT_APP_SERVER_URL_PROD
+const SERVER_API_URL =
+  process.env.REACT_APP_MODE === 'development'
+    ? process.env.REACT_APP_SERVER_URL_DEV
+    : process.env.REACT_APP_SERVER_URL_PROD
 const nextConfig = {
-  output: "standalone",
-  reactStrictMode: false,
+  output: 'standalone',
+  reactStrictMode: true,
   env: {
     API_URL: SERVER_API_URL,
     API_KEY: process.env.REACT_APP_SERVER_KEY,
@@ -21,7 +24,7 @@ const nextConfig = {
       'eldani-3333ab7cc275.herokuapp.com',
       '192.168.159.246',
       '192.168.0.106',
-      '192.168.58.246'
+      '192.168.58.246',
     ],
   },
   rewrites: async () => {

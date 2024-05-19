@@ -57,19 +57,19 @@ export const CartTable = () => {
                   height={25}
                   className="rounded-md"
                 />
-                {item.name}
+                {item?.name}
               </div>
             </TableCell>
             <TableCell>
-              {item.sizes
-                .map((size) => size.value)
-                .map((size) => (
+              {item?.sizes
+                ?.map((size) => size?.value)
+                ?.map((size) => (
                   <Badge key={size} variant="outline">
                     {size}
                   </Badge>
                 ))}
             </TableCell>
-            <TableCell className=" text-right">{item.price}c</TableCell>
+            <TableCell className=" text-right">{item?.price}c</TableCell>
             <TableCell>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>

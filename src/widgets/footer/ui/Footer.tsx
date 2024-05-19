@@ -61,10 +61,18 @@ export const Footer = () => {
           )}
         </div>
         <div className="flex flex-row justify-center gap-2 md:justify-end">
-          <Image src={maestro} alt="Telegram" height={22} />
-          <Image src={mastercard} alt="Telegram" height={22} />
-          <Image src={elkart} alt="Telegram" height={22} />
-          <Image src={visa} alt="Telegram" height={22} />
+          <span className="relative w-14">
+            <Image src={maestro} alt="Telegram" fill />
+          </span>
+          <span className="relative w-14">
+            <Image src={mastercard} alt="Telegram" fill />
+          </span>
+          <span className="relative w-14">
+            <Image src={elkart} alt="Telegram" fill />
+          </span>
+          <span className="relative w-14">
+            <Image src={visa} alt="Telegram" fill />
+          </span>
         </div>
       </div>
     </footer>

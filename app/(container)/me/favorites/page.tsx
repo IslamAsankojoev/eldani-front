@@ -65,7 +65,7 @@ const Page = () => {
           ) : (
             <>
               {data?.map((pattern: Pattern) => (
-                <div className="relative">
+                <div className="relative" key={pattern.id}>
                   <Button
                     variant="destructive"
                     size="icon"
