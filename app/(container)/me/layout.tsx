@@ -46,7 +46,7 @@ export default function ProfileLayout({ children }: ProfileLayoutProps) {
                         {user?.email[0].toUpperCase()}
                       </AvatarFallback>
                     </Avatar>
-                    <div className="flex flex-col gap-0">
+                    <div className="flex flex-col justify-center gap-0">
                       <p className="text-base font-bold">{user?.username}</p>
                       <p className="text-sm">{user?.email}</p>
                     </div>
@@ -65,14 +65,14 @@ export default function ProfileLayout({ children }: ProfileLayoutProps) {
                   <Button
                     key={link.href}
                     className={cn(
-                      'flex w-full bg-white hover:bg-white dark:bg-stone-950/60 dark:hover:bg-stone-950',
+                      'flex w-full text-black hover:text-white dark:text-white',
                       link.href === '/api/logout' ? 'text-rose-500' : '',
                       link.href === pathname
-                        ? 'pointer-events-none bg-rose-500 text-white dark:bg-rose-700'
-                        : '',
+                        ? 'text-white'
+                        : 'bg-white dark:bg-stone-950/60',
                       isSmall ? 'justify-center' : 'justify-start',
                     )}
-                    variant="ghost"
+                    variant="default"
                     onClick={() => router.push(link.href)}
                   >
                     <link.icon className="mr-2 h-5 w-5" /> {link.name}

@@ -61,16 +61,16 @@ export const Footer = () => {
           )}
         </div>
         <div className="flex flex-row justify-center gap-2 md:justify-end">
-          <span className="relative w-14">
+          <span className="relative h-8 w-14">
             <Image src={maestro} alt="Telegram" fill />
           </span>
-          <span className="relative w-14">
+          <span className="relative h-8 w-14">
             <Image src={mastercard} alt="Telegram" fill />
           </span>
-          <span className="relative w-14">
+          <span className="relative h-8 w-14">
             <Image src={elkart} alt="Telegram" fill />
           </span>
-          <span className="relative w-14">
+          <span className="relative h-8 w-14">
             <Image src={visa} alt="Telegram" fill />
           </span>
         </div>

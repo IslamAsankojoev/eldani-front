@@ -1,4 +1,11 @@
-import { Heart, LogOut, ShoppingBag, Star, UserRound } from 'lucide-react'
+import {
+  Heart,
+  LogOut,
+  Package,
+  ShoppingBag,
+  Star,
+  UserRound,
+} from 'lucide-react'
 
 export const navigationList = [
   { name: 'Каталог', href: '/' },
@@ -23,7 +30,7 @@ interface ProfileNavigationItem {
 
 export const profileNavigationList: ProfileNavigationItem[] = [
   { name: 'Профиль', href: '/me/profile', icon: UserRound },
-  { name: 'Корзина', href: '/me/cart', icon: ShoppingBag },
   { name: 'Сохраненные', href: '/me/favorites', icon: Heart },
-  { name: 'Выйти', href: '/api/logout', icon: LogOut },
+  { name: 'Корзина', href: '/me/cart', icon: ShoppingBag },
+  { name: 'Заказы', href: '/me/orders', icon: Package },
 ]

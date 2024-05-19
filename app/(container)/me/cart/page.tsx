@@ -21,7 +21,7 @@ const Page = () => {
   const { theme } = useTheme()
   const isEmpty = _.isEmpty(cart)
   const queryClient = useQueryClient()
-  const isVerySmall = useMediaQuery('(max-width: 380px)')
+  const isVerySmall = useMediaQuery('(max-width: 400px)')
 
   const handleClearCart = () => {
     clearCart()

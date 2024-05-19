@@ -1,3 +1,4 @@
+import { useMediaQuery } from '@mui/material'
 import _ from 'lodash'
 import { MoreHorizontal } from 'lucide-react'
 import Image from 'next/image'
@@ -28,6 +29,7 @@ import PDF from '/public/pdf.svg'
 export const CartTable = () => {
   const { cart, removeFromCart } = useCartStore()
   const router = useRouter()
+  const isVerySmall = useMediaQuery('(max-width: 500px)')
   const isEmpty = _.isEmpty(cart)
 
   const total = cart?.reduce((acc, item) => acc + Number(item?.price), 0)
@@ -40,8 +42,8 @@ export const CartTable = () => {
       <TableHeader>
         <TableRow>
           <TableHead>Паттерн</TableHead>
-          <TableHead>Размер</TableHead>
-          <TableHead className=" text-right">Цена</TableHead>
+          {!isVerySmall && <TableHead>Размер</TableHead>}
+          {!isVerySmall && <TableHead className="text-right">Цена</TableHead>}
           <TableHead></TableHead>
         </TableRow>
       </TableHeader>
@@ -49,7 +51,7 @@ export const CartTable = () => {
         {cart?.map((item) => (
           <TableRow key={item.id}>
             <TableCell>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center justify-start gap-2">
                 <Image
                   src={PDF}
                   alt={item.name || 'PDF'}
@@ -57,19 +59,41 @@ export const CartTable = () => {
                   height={25}
                   className="rounded-md"
                 />
-                {item?.name}
+                <div className="flex flex-col gap-2">
+                  <div className="text-balance">
+                    {item?.name}{' '}
+                    {isVerySmall && (
+                      <span className="font-bold">{item?.price}c</span>
+                    )}
+                  </div>
+                  {isVerySmall && (
+                    <div>
+                      {item?.sizes
+                        ?.map((size) => size?.value)
+                        ?.map((size) => (
+                          <Badge key={size} variant="outline">
+                            {size}
+                          </Badge>
+                        ))}
+                    </div>
+                  )}
+                </div>
               </div>
             </TableCell>
-            <TableCell>
-              {item?.sizes
-                ?.map((size) => size?.value)
-                ?.map((size) => (
-                  <Badge key={size} variant="outline">
-                    {size}
-                  </Badge>
-                ))}
-            </TableCell>
-            <TableCell className=" text-right">{item?.price}c</TableCell>
+            {!isVerySmall && (
+              <TableCell>
+                {item?.sizes
+                  ?.map((size) => size?.value)
+                  ?.map((size) => (
+                    <Badge key={size} variant="outline">
+                      {size}
+                    </Badge>
+                  ))}
+              </TableCell>
+            )}
+            {!isVerySmall && (
+              <TableCell className="text-right">{item?.price}c</TableCell>
+            )}
             <TableCell>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -102,11 +126,14 @@ export const CartTable = () => {
       <TableFooter>
         <TableRow>
           {isEmpty ? null : (
-            <TableCell className="w-full text-right font-bold" colSpan={3}>
+            <TableCell
+              className="w-full p-4 text-right font-bold"
+              colSpan={isVerySmall ? 2 : 3}
+            >
               Итого: {total}c
             </TableCell>
           )}
-          <TableCell></TableCell>
+          {/* <TableCell></TableCell> */}
         </TableRow>
       </TableFooter>
     </Table>
