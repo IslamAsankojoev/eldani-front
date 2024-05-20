@@ -65,11 +65,11 @@ export default function ProfileLayout({ children }: ProfileLayoutProps) {
                   <Button
                     key={link.href}
                     className={cn(
-                      'flex w-full text-black hover:text-white dark:text-white',
+                      'flex w-full text-black hover:text-white dark:text-white md:hover:bg-stone-950',
                       link.href === '/api/logout' ? 'text-rose-500' : '',
                       link.href === pathname
-                        ? 'text-white'
-                        : 'bg-white dark:bg-stone-950/60',
+                        ? 'text-white md:hover:bg-rose-500'
+                        : 'bg-white dark:bg-stone-950/60 ',
                       isSmall ? 'justify-center' : 'justify-start',
                     )}
                     variant="default"

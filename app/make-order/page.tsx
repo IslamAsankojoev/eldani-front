@@ -53,7 +53,7 @@ const Page = () => {
   }
 
   return (
-    <Card className="border-none p-5 backdrop-blur-md dark:bg-stone-950/60">
+    <Card className="border-none p-5 backdrop-blur-md dark:bg-stone-950/60 w-full">
       <Form {...form}>
         <h1 className="mb-4 text-center text-xl font-extrabold md:text-xl">
           Заказать пошив одежды
@@ -133,7 +133,7 @@ const Page = () => {
             )}
           />
           <hr className="mt-6 border-none" />
-          <Button className="px-20" type="submit">
+          <Button type="submit">
             Отправить
           </Button>
         </form>
