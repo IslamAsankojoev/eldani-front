@@ -34,6 +34,8 @@ export const AddToCart: FC<Pattern> = (pattern) => {
       sizes: pattern?.sizes?.filter((size) =>
         selectedSize.includes(size.value),
       ),
+      thumbnails: null,
+      description: null,
     })
     setOpen(false)
   }

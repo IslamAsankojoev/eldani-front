@@ -19,9 +19,17 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"],
+      "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/entities/comment/model"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/entities/comment/model",
+    "types/**/*.d.ts",
+    "src/**/*"
+  ],
   "exclude": ["node_modules"]
 }

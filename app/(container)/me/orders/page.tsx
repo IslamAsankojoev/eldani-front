@@ -1,44 +1,54 @@
 'use client'
 
 import _ from 'lodash'
-import { Minus, X } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import Image from 'next/image'
-import { useQuery, useQueryClient } from 'react-query'
+import { useQuery } from 'react-query'
 
-import { Button } from '@/shadcn/ui/button'
+import { Card } from '@/shadcn/ui/card'
 
-import { useFavouriteStore } from '@/src/app/store/favourite.zustand'
-import {
-  PatternCard,
-  PatternSkeletonCard,
-  ProductService,
-} from '@/src/entities/pattern'
+import { OrderService } from '@/src/entities/order'
+import { OrderTable } from '@/src/features/order'
+import { cn } from '@/src/shared'
 
 import emptyDark from '/public/emptyDark.png'
 import emptyLight from '/public/emptyLight.png'
 
 const Page = () => {
-  const { favourites, removeFavorite } = useFavouriteStore()
   const { theme } = useTheme()
-  const queryClient = useQueryClient()
-  const { data, isLoading } = useQuery(
-    ['favourites', favourites],
-    () => ProductService.findByArrayIds(favourites),
-    {
-      enabled: !!favourites.length,
-    },
-  )
+  const { data } = useQuery('orders', () => OrderService.find())
+  const isEmpty = _.isEmpty(data)
 
-  const handleRemove = (id: number) => {
-    queryClient.setQueryData(['favourites', favourites], (old: any) => {
-      return old?.filter((pattern: Pattern) => pattern.id !== id)
-    })
-    removeFavorite(id)
-  }
   return (
-    <div>
+    <div className="flex flex-col">
       <h1 className="p-4 pt-2 text-2xl font-bold">Заказы</h1>
+      <div
+        className={cn(
+          'flex flex-col items-center gap-3',
+          isEmpty && 'pointer-events-none',
+        )}
+      >
+        {isEmpty ? (
+          <div className="flex h-64 w-full max-w-64 flex-col items-center justify-center text-center opacity-70">
+            <Image
+              src={theme === 'dark' ? emptyDark : emptyLight}
+              alt="Empty cart"
+              width={50}
+              height={50}
+            />
+            <h2 className="text-lg font-bold">Заказов нет</h2>
+            <p className="text-muted-foreground">
+              Вы еще ничего не заказали? (╯°□°）╯︵ ┻━┻)
+            </p>
+          </div>
+        ) : (
+          <>
+            <Card className="w-full border-0 bg-white dark:bg-stone-950/60">
+              <OrderTable orders={data} />
+            </Card>
+          </>
+        )}
+      </div>
     </div>
   )
 }

@@ -94,7 +94,7 @@ export const CartTable = () => {
             {!isVerySmall && (
               <TableCell className="text-right">{item?.price}c</TableCell>
             )}
-            <TableCell>
+            <TableCell className="flex p-2 md:table-cell">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="h-8 w-8 p-0">

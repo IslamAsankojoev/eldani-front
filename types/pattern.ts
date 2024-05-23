@@ -5,7 +5,7 @@ interface Pattern {
   publishedAt?: Date
   name?: string
   description?: any
-  thumbnails?: Media[]
+  thumbnails?: Media[] | null
   price?: string
   category?: Category
   slug?: any
