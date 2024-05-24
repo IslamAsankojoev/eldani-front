@@ -49,7 +49,7 @@ const Pattern = ({
       <div className="relative md:w-2/5">
         <div className="md:sticky md:top-36">
           <PatternCarousel
-            thumbnails={pattern?.thumbnails}
+            thumbnails={pattern?.thumbnails as Media[]}
             skeleton={isLoading}
           />
         </div>

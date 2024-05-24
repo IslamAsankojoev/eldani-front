@@ -29,8 +29,7 @@ export default function ProfileLayout({ children }: ProfileLayoutProps) {
         <div className="relative flex h-full flex-col gap-4 md:flex-row">
           <div
             className={cn(
-              'flex flex-grow-0 flex-col ',
-              isSmall ? 'w-full gap-2' : 'sticky top-64 w-96 gap-2',
+              'flex flex-grow-0 flex-col w-full gap-2 md:sticky md:top-64 md:w-96 md:gap-2',
             )}
           >
             <div>

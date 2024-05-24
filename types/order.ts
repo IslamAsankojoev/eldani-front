@@ -6,7 +6,7 @@ interface Order {
   note?: string
   status?: Status
   products?: any
-  file?: { data: Media }
-  user?: { data: User }
+  file?: Media
+  user?: User
   uuid?: string
 }

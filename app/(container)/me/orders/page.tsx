@@ -16,7 +16,9 @@ import emptyLight from '/public/emptyLight.png'
 
 const Page = () => {
   const { theme } = useTheme()
-  const { data } = useQuery('orders', () => OrderService.find())
+  const { data } = useQuery('orders', () => OrderService.find({
+    populate: '*',
+  }))
   const isEmpty = _.isEmpty(data)
 
   return (

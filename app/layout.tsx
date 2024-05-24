@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { Jost } from 'next/font/google'
 
 import { Toaster } from '@/shadcn/ui/toaster'
 
@@ -23,6 +24,11 @@ export const metadata: Metadata = {
   },
 }
 
+const jost = Jost({
+  subsets: ['latin'],
+  display: 'swap',
+})
+
 export interface RootLayoutProps {
   children: React.ReactNode
 }
@@ -30,7 +36,7 @@ export interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <>
-      <html lang="en" suppressHydrationWarning translate="no">
+      <html lang="en" suppressHydrationWarning translate="no" className={jost.className}>
         <head />
         <body className="bg-slate-100 dark:bg-stone-900">
           <ThemeProvider

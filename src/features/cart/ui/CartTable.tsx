@@ -50,7 +50,9 @@ export const CartTable = () => {
       <TableBody>
         {cart?.map((item) => (
           <TableRow key={item.id}>
-            <TableCell>
+            <TableCell className={
+              isVerySmall ? 'pr-0' : ''
+            }>
               <div className="flex items-center justify-start gap-2">
                 <Image
                   src={PDF}
@@ -60,7 +62,7 @@ export const CartTable = () => {
                   className="rounded-md"
                 />
                 <div className="flex flex-col gap-2">
-                  <div className="text-balance">
+                  <div className="text-pretty">
                     {item?.name}{' '}
                     {isVerySmall && (
                       <span className="font-bold">{item?.price}c</span>
