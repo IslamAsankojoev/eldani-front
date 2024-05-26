@@ -38,7 +38,7 @@ const Page = ({ params }: { params: { id: string } }) => {
         <Card className="mt-2 flex flex-col gap-4 border-none p-4 dark:bg-stone-950/60">
           <div className="">
             <div className="mb-2 text-sm text-muted-foreground">
-              {new Date(order?.createdAt).toLocaleString([], {
+              {new Date(order?.createdAt as string).toLocaleString([], {
                 year: 'numeric',
                 month: 'numeric',
                 day: 'numeric',

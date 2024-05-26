@@ -76,7 +76,7 @@ export const OrderTable: FC<OrderTableProps> = ({ orders, isLoading }) => {
                 <div className="flex flex-col gap-2">
                   {isVerySmall && (
                     <div className="text-muted-foreground">
-                      {new Date(item?.createdAt).toLocaleString([], {
+                      {new Date(item?.createdAt as string).toLocaleString([], {
                         year: 'numeric',
                         month: 'numeric',
                         day: 'numeric',
@@ -137,7 +137,7 @@ export const OrderTable: FC<OrderTableProps> = ({ orders, isLoading }) => {
                   colSpan={isVerySmall ? 2 : 1}
                   className="text-muted-foreground"
                 >
-                  {new Date(item?.createdAt).toLocaleString([], {
+                  {new Date(item?.createdAt as string).toLocaleString([], {
                     year: 'numeric',
                     month: 'numeric',
                     day: 'numeric',

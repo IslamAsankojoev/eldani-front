@@ -1,7 +1,7 @@
 interface Order {
   id?: number
-  createdAt?: Date
-  updatedAt?: Date
+  createdAt?: string
+  updatedAt?: string
   publishedAt?: Date
   note?: string
   status?: Status
