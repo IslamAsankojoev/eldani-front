@@ -16,12 +16,12 @@ import emptyLight from '/public/emptyLight.png'
 
 const Page = () => {
   const { theme } = useTheme()
-  const { data } = useQuery('orders', () =>
+  const { data, isLoading } = useQuery('orders', () =>
     UserService.findOrders({
       populate: 'orders',
     }),
   )
-  const isEmpty = _.isEmpty(data)
+  const isEmpty = data?.length === 0
 
   return (
     <div className="flex h-full flex-col">
@@ -48,7 +48,7 @@ const Page = () => {
         ) : (
           <>
             <Card className="w-full border-0 bg-white dark:bg-stone-950/60">
-              <OrderTable orders={data} />
+              <OrderTable orders={data} isLoading={isLoading} />
             </Card>
           </>
         )}

@@ -1,3 +1,5 @@
 export { OrderTable } from './ui/OrderTable'
 export { OrderModal } from './ui/OrderModal'
 export { requiredSchema as orderSchema } from './ui/OrderModal'
+export { OrderTableSkeleton } from './ui/OrderTableSkeleton'
+export { OrderScreenSkeleton } from './ui/OrderScreenSkeleton'
