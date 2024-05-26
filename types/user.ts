@@ -11,6 +11,7 @@ interface User {
   phone: string
   avatar: string | null | File
   role?: UserRole
+  orders?: Order[]
 }
 
 interface UserWithToken {
@@ -22,7 +23,7 @@ interface UserRole {
   id: number
   name: string
   description: string
-  type: "public" | "authenticated" | "admin"
+  type: 'public' | 'authenticated' | 'admin'
   createdAt: string
   updatedAt: string
 }

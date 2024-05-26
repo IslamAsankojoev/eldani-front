@@ -20,6 +20,7 @@ import { Textarea } from '@/shadcn/ui/textarea'
 import { useToast } from '@/shadcn/ui/use-toast'
 
 import { BotService, requiredSchema } from '@/src/entities/telegram'
+import { isFieldRequired } from '@/src/shared'
 
 const Page = () => {
   const { toast } = useToast()
@@ -53,7 +54,7 @@ const Page = () => {
   }
 
   return (
-    <Card className="border-none p-5 backdrop-blur-md dark:bg-stone-950/60 w-full">
+    <Card className="w-full border-none p-5 backdrop-blur-md dark:bg-stone-950/60">
       <Form {...form}>
         <h1 className="mb-4 text-center text-xl font-extrabold md:text-xl">
           Заказать пошив одежды
@@ -68,7 +69,11 @@ const Page = () => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input placeholder="Имя" {...field} />
+                  <Input
+                    placeholder="Имя"
+                    required={isFieldRequired(requiredSchema, 'username')}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -80,7 +85,11 @@ const Page = () => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input placeholder="Номер телефона" {...field} />
+                  <Input
+                    placeholder="Номер телефона"
+                    required={isFieldRequired(requiredSchema, 'phone')}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -92,7 +101,11 @@ const Page = () => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input placeholder="Telegram @nickname" {...field} />
+                  <Input
+                    placeholder="Telegram @nickname"
+                    required={isFieldRequired(requiredSchema, 'telegram')}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -104,7 +117,11 @@ const Page = () => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Textarea placeholder="Сообщение" {...field} />
+                  <Textarea
+                    placeholder="Сообщение"
+                    required={isFieldRequired(requiredSchema, 'message')}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -120,6 +137,7 @@ const Page = () => {
                     <Input
                       type="file"
                       placeholder="File"
+                      required={isFieldRequired(requiredSchema, 'file')}
                       {...form.register('file')}
                       className="inline-block cursor-pointer"
                     />
@@ -133,9 +151,7 @@ const Page = () => {
             )}
           />
           <hr className="mt-6 border-none" />
-          <Button type="submit">
-            Отправить
-          </Button>
+          <Button type="submit">Отправить</Button>
         </form>
       </Form>
     </Card>

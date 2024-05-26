@@ -14,7 +14,6 @@ import {
   ProductService,
 } from '@/src/entities/pattern'
 import { AddToCart, PatternLike } from '@/src/entities/user'
-import { useUser } from '@/src/entities/user/query'
 import { cn } from '@/src/shared/libs/utils'
 
 const Pattern = ({
@@ -24,19 +23,11 @@ const Pattern = ({
   params: { slug: string }
   searchParams: { viewport: string }
 }) => {
-  const { data: user } = useUser()
   const { data: pattern, isLoading } = useQuery(['pattern', params.slug], () =>
-    ProductService.findBySlug(params.slug, { populate: '*' }),
+    ProductService.findBySlug(params.slug, {
+      populate: 'thumbnails,category,sizes,sizes.file',
+    }),
   )
-  const { addToCart, cart, removeFromCart } = useCartStore()
-
-  const handleAddToCart = () => {
-    if (cart.find((cartItem) => cartItem.id === pattern?.id)) {
-      removeFromCart(pattern?.id as number)
-      return null
-    }
-    addToCart(pattern as Pattern)
-  }
 
   return (
     <div
@@ -59,14 +50,14 @@ const Pattern = ({
         <div>
           <div className="flex items-start justify-between md:flex-col md:gap-4">
             <div>
-              <h1 className="hidden text-xl font-extrabold md:block md:text-3xl">
+              <h1 className="hidden text-pretty text-xl font-extrabold md:block md:text-3xl">
                 {isLoading ? (
                   <Skeleton className="h-6 w-40 md:h-8" />
                 ) : (
                   pattern?.name
                 )}
               </h1>
-              <h2 className="text-3xl font-extrabold md:text-2xl">
+              <h2 className="mt-2 text-3xl font-extrabold md:text-2xl">
                 {isLoading ? (
                   <Skeleton className="h-10 w-32 md:mt-2 md:h-6" />
                 ) : (
@@ -92,26 +83,13 @@ const Pattern = ({
                     thumbnails={pattern?.thumbnails}
                   />
                   <PatternLike id={pattern?.id} />
-                  {user?.role?.type === 'admin' && (
-                    <Button
-                      className="mr-2 h-full flex-grow text-base hover:shadow-sm dark:hover:shadow-none"
-                      variant="ghost"
-                      asChild
-                      size="icon"
-                    >
-                      <a href={pattern?.file?.url} target="_blank">
-                        <ArrowDownToLine />
-                      </a>
-                    </Button>
-                  )}
-
                   <AddToCart {...(pattern as Pattern)} />
                 </>
               )}
             </div>
           </div>
           <hr className="mt-6 border-none" />
-          <h1 className="visible mb-2 text-xl font-extrabold md:hidden md:text-3xl">
+          <h1 className="visible mb-2 text-pretty text-2xl font-extrabold md:hidden md:text-3xl">
             {isLoading ? <Skeleton className="h-8 w-5/6" /> : pattern?.name}
           </h1>
           {isLoading ? (

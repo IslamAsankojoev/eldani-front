@@ -1,6 +1,8 @@
 import ky from 'ky'
 import { z } from 'zod'
 
+import { orderSchema } from '@/src/features/order'
+
 const TOKEN = '6866594369:AAG8w9icAHHJcAMHIz9Crv4EsG_R27UvgNc'
 const CHAT_ID = '-4093106829'
 const SEND_MESSAGE_URI = `https://api.telegram.org/bot${TOKEN}/sendMessage`
@@ -35,29 +37,60 @@ export const BotService = {
   },
   async sendDocument(data: z.infer<typeof requiredSchema>) {
     const formData = new FormData()
-    if(data.file) formData.append('document', data.file[0])
+    if (data.file) formData.append('document', data.file[0])
     formData.append('chat_id', CHAT_ID)
-    formData.append('caption', `
+    formData.append(
+      'caption',
+      `
 Новая заявка на сайте
 Имя: ${data.username}
 Телефон: ${data.phone}
 Telegram: ${data.telegram}
 Сообщение: ${data.message}
-`)
+`,
+    )
 
     try {
-      if(data.file) {
+      if (data.file) {
         const res = await ky.post(SEND_DOCUMENT_URI, {
           body: formData,
         })
         return res
       }
       const res = await ky.post(SEND_MESSAGE_URI, {
-        body: formData,
+        json: {
+          chat_id: CHAT_ID,
+          text: `
+Новая заявка на сайте
+Имя: ${data.username}
+Телефон: ${data.phone}
+Telegram: ${data.telegram}
+Сообщение: ${data.message}
+`,
+        },
       })
       return res
     } catch (e) {
       throw e
     }
-  }
+  },
+  async sendOrderMessage(data: { id: string } & z.infer<typeof orderSchema>) {
+    try {
+      const res = await ky.post(SEND_MESSAGE_URI, {
+        json: {
+          chat_id: CHAT_ID,
+          text: `
+<b>Новый заказ на сайте</b> 📦
+<blockquote>${data.id}</blockquote>
+Имя: ${data.username}
+Телефон: <code>${data.phone}</code>
+Telegram: ${data.telegram}
+`,
+          parse_mode: 'HTML',
+        },
+      })
+    } catch (e) {
+      throw e
+    }
+  },
 }

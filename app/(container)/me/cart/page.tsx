@@ -11,6 +11,7 @@ import { Card } from '@/shadcn/ui/card'
 
 import { useCartStore } from '@/src/app/store/cart.zustand'
 import { CartTable } from '@/src/features/cart'
+import { OrderModal } from '@/src/features/order'
 import { cn } from '@/src/shared'
 
 import emptyDark from '/public/emptyDark.png'
@@ -31,16 +32,16 @@ const Page = () => {
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="flex h-full flex-col">
       <h1 className="p-4 pt-2 text-2xl font-bold">Корзина</h1>
       <div
         className={cn(
-          'flex flex-col items-center gap-3',
-          isEmpty && 'pointer-events-none',
+          'flex flex-grow flex-col items-center gap-3',
+          isEmpty && 'pointer-events-none justify-center',
         )}
       >
         {isEmpty ? (
-          <div className="flex h-64 w-full max-w-64 flex-col items-center justify-center text-center opacity-70">
+          <div className="flex w-full max-w-64 flex-col items-center justify-center text-center opacity-70">
             <Image
               src={theme === 'dark' ? emptyDark : emptyLight}
               alt="Empty cart"
@@ -65,15 +66,13 @@ const Page = () => {
             >
               <Button
                 size="lg"
-                className="flex-grow bg-white text-base dark:bg-stone-950/60 md:flex-grow-0"
+                className="flex-grow bg-white text-base md:flex-grow-0 dark:bg-stone-950/60"
                 variant="ghost"
                 onClick={handleClearCart}
               >
                 Очистить корзину
               </Button>
-              <Button size="lg" className="flex-grow text-base md:flex-grow-0">
-                Оформить заказ
-              </Button>
+              <OrderModal patterns={cart} />
             </div>
           </>
         )}

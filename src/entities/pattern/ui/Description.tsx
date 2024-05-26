@@ -40,7 +40,7 @@ export const Description = ({ content }: { content: any }) => {
           if (props.children[0].props.text === '') {
             return <hr className="mt-4 border-none" />
           } else {
-            return <p>{props.children}</p>
+            return <p className="leading-snug">{props.children}</p>
           }
         },
         link: ({ children, url }) => {

@@ -19,6 +19,7 @@ interface Pattern {
 interface Size {
   id: number
   value: string
+  file?: Media
 }
 
 interface MediaFormat {

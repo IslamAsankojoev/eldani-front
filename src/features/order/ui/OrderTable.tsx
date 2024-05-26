@@ -3,13 +3,7 @@ import { FC } from 'react'
 import { Status } from '@/types/global.exports'
 import { useMediaQuery } from '@mui/material'
 import _ from 'lodash'
-import {
-  ArrowBigDownDash,
-  ArrowDownToLine,
-  CircleHelp,
-  MoreHorizontal,
-} from 'lucide-react'
-import Link from 'next/link'
+import { ArrowDownToLine, CircleHelp, MoreHorizontal } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
 import { Badge } from '@/shadcn/ui/badge'
@@ -18,7 +12,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/shadcn/ui/dropdown-menu'
 import {
@@ -34,6 +27,7 @@ import {
   statusColor,
   translateStatus,
 } from '@/src/app/constants/order.statuses'
+import { cn } from '@/src/shared'
 
 interface OrderTableProps {
   orders: Order[] | undefined
@@ -42,6 +36,11 @@ interface OrderTableProps {
 export const OrderTable: FC<OrderTableProps> = ({ orders }) => {
   const router = useRouter()
   const isVerySmall = useMediaQuery('(max-width: 900px)')
+
+  const handleClickOrder = (id: string) => {
+    router.push(`/me/orders/${id}`)
+  }
+
   return (
     <Table>
       <TableHeader>
@@ -54,7 +53,16 @@ export const OrderTable: FC<OrderTableProps> = ({ orders }) => {
       </TableHeader>
       <TableBody>
         {orders?.map((item) => (
-          <TableRow key={item.id}>
+          <TableRow
+            key={item.id}
+            className={cn(
+              'cursor-pointer',
+              item?.status === Status.Paid ? '' : 'pointer-events-none',
+            )}
+            onClick={() => {
+              handleClickOrder(String(item.id) as string)
+            }}
+          >
             <TableCell
               colSpan={isVerySmall && item?.status !== Status.Paid ? 3 : 1}
             >
@@ -103,11 +111,11 @@ export const OrderTable: FC<OrderTableProps> = ({ orders }) => {
                   <DropdownMenuContent align="end">
                     <DropdownMenuItem
                       className="flex items-center gap-2"
-                      asChild
+                      onClick={() => {
+                        router.push(`/me/orders/${item.id}`)
+                      }}
                     >
-                      <a href={item?.file?.url} target="_blank">
-                        <ArrowDownToLine className="h-4 w-4" /> Загрузить макет
-                      </a>
+                      <ArrowDownToLine className="h-4 w-4" /> Загрузить макет
                     </DropdownMenuItem>
                     <DropdownMenuItem className="flex items-center gap-2">
                       <CircleHelp className="h-4 w-4" />

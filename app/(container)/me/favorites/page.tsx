@@ -1,7 +1,7 @@
 'use client'
 
 import _ from 'lodash'
-import { Minus, X } from 'lucide-react'
+import { X } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import Image from 'next/image'
 import { useQuery, useQueryClient } from 'react-query'
@@ -37,11 +37,11 @@ const Page = () => {
     removeFavorite(id)
   }
   return (
-    <div>
+    <div className="flex h-full flex-col">
       <h1 className="p-4 pt-2 text-2xl font-bold">Сохраненные</h1>
       {_.isEmpty(favourites) ? (
-        <div className="flex justify-center">
-          <div className="flex h-64 w-full max-w-64 flex-col items-center justify-center text-center opacity-70">
+        <div className="flex h-full flex-grow flex-col items-center justify-center">
+          <div className="flex w-full max-w-64 flex-col items-center justify-center text-center opacity-70">
             <Image
               src={theme === 'dark' ? emptyDark : emptyLight}
               alt="Empty cart"

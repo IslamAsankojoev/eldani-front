@@ -154,15 +154,10 @@ export function PatternComments({
               <div className="flex h-full w-1/5 flex-grow flex-col justify-between gap-2">
                 <DialogTitle className="pl-5 text-sm">Комментарии</DialogTitle>
                 <ScrollArea className="h-full pr-2">
-                  <div
-                    className={cn(
-                      'flex h-full flex-col gap-4 px-4 py-4',
-                      isLoading ? 'py-7' : '',
-                    )}
-                  >
+                  <div className={cn('flex h-full flex-col gap-2')}>
                     {isLoading ? (
                       <>
-                        {Array.from({ length: 7 }).map((_, index) => (
+                        {Array.from({ length: 6 }).map((_, index) => (
                           <CommentSkeleton key={index} />
                         ))}
                       </>

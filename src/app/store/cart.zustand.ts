@@ -14,7 +14,11 @@ export const useCartStore = create<CartStore, any>(
   persist(
     (set, get) => ({
       cart: [],
-      addToCart: (pattern: CartItem) => set({ cart: [...get().cart, pattern] }),
+      addToCart: (pattern: CartItem) => {
+        set({
+          cart: [...get().cart, pattern],
+        })
+      },
       removeFromCart: (id: number) =>
         set({ cart: get().cart.filter((f: CartItem) => f.id !== id) }),
       clearCart: () => set({ cart: [] }),

@@ -1,5 +1,5 @@
 import { useMediaQuery } from '@mui/material'
-import _ from 'lodash'
+import _, { size } from 'lodash'
 import { MoreHorizontal } from 'lucide-react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
@@ -32,7 +32,9 @@ export const CartTable = () => {
   const isVerySmall = useMediaQuery('(max-width: 500px)')
   const isEmpty = _.isEmpty(cart)
 
-  const total = cart?.reduce((acc, item) => acc + Number(item?.price), 0)
+  const total = cart
+    ?.map((pattern) => Number(pattern?.price) * pattern?.sizes?.length)
+    .reduce((a, b) => a + b, 0)
 
   const handleDelete = (id: number) => {
     removeFromCart(id)
@@ -50,9 +52,7 @@ export const CartTable = () => {
       <TableBody>
         {cart?.map((item) => (
           <TableRow key={item.id}>
-            <TableCell className={
-              isVerySmall ? 'pr-0' : ''
-            }>
+            <TableCell className={isVerySmall ? 'pr-0' : ''}>
               <div className="flex items-center justify-start gap-2">
                 <Image
                   src={PDF}
@@ -96,7 +96,7 @@ export const CartTable = () => {
             {!isVerySmall && (
               <TableCell className="text-right">{item?.price}c</TableCell>
             )}
-            <TableCell className="flex p-2 md:table-cell">
+            <TableCell className="flex justify-end p-2 md:table-cell">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="h-8 w-8 p-0">

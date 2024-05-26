@@ -4,6 +4,7 @@ import { Star } from 'lucide-react'
 import Link from 'next/link'
 import colors from 'tailwindcss/colors'
 
+import { Badge } from '@/shadcn/ui/badge'
 import { Card } from '@/shadcn/ui/card'
 
 import { PatternComments } from '@/src/entities/comment'
@@ -61,9 +62,12 @@ export const PatternCard = ({
         </Link>
 
         <div className="flex justify-between">
-          <p className="text-sm capitalize text-muted-foreground">
+          <Badge
+            className=" text-sm capitalize text-muted-foreground"
+            variant="secondary"
+          >
             {category?.name}
-          </p>
+          </Badge>
           <div className="flex items-center space-x-1 text-sm">
             <Star
               className="h-4 w-4 text-yellow-500"

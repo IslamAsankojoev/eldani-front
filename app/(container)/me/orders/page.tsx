@@ -7,7 +7,7 @@ import { useQuery } from 'react-query'
 
 import { Card } from '@/shadcn/ui/card'
 
-import { OrderService } from '@/src/entities/order'
+import { UserService } from '@/src/entities/user'
 import { OrderTable } from '@/src/features/order'
 import { cn } from '@/src/shared'
 
@@ -16,18 +16,20 @@ import emptyLight from '/public/emptyLight.png'
 
 const Page = () => {
   const { theme } = useTheme()
-  const { data } = useQuery('orders', () => OrderService.find({
-    populate: '*',
-  }))
+  const { data } = useQuery('orders', () =>
+    UserService.findOrders({
+      populate: 'orders',
+    }),
+  )
   const isEmpty = _.isEmpty(data)
 
   return (
-    <div className="flex flex-col">
+    <div className="flex h-full flex-col">
       <h1 className="p-4 pt-2 text-2xl font-bold">Заказы</h1>
       <div
         className={cn(
-          'flex flex-col items-center gap-3',
-          isEmpty && 'pointer-events-none',
+          'flex flex-grow flex-col items-center gap-3',
+          isEmpty && 'pointer-events-none justify-center',
         )}
       >
         {isEmpty ? (

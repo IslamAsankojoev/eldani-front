@@ -41,10 +41,12 @@ export const OrderService = {
   },
   async create(data: Order) {
     try {
-      const response = await ky.post(this.entity, {
-        json: data,
-      })
-      return response
+      const resData = await ky
+        .post(this.entity, {
+          json: data,
+        })
+        .json()
+      return resData as Order
     } catch (e) {
       throw e
     }

@@ -1,4 +1,4 @@
-import { Options } from 'ky'
+import { Options, SearchParamsOption } from 'ky'
 
 import { ky } from '@/src/app/config'
 
@@ -18,6 +18,18 @@ export const UserService = {
         .put(`${this.entity}/${data.id}`, { json: data, ...options })
         .json()
       return user as User
+    } catch (e) {
+      throw e
+    }
+  },
+  async findOrders(searchParams?: SearchParamsOption) {
+    try {
+      const data: User = await ky
+        .get(`${this.entity}/me`, {
+          searchParams,
+        })
+        .json()
+      return data.orders as Order[]
     } catch (e) {
       throw e
     }
