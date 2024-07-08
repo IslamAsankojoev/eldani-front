@@ -33,7 +33,7 @@ export default function Home() {
       <h1 className={cn('my-6 text-center text-2xl font-extrabold md:my-10')}>
         Коллекция Eldani
       </h1>
-      <div className="masonry mt-4 grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-5">
+      <div className="masonry mt-4 grid grid-cols-2 gap-5 gap-y-10 md:grid-cols-3 lg:grid-cols-5">
         {isLoading ? (
           <>
             {_.times(5, (i) => (

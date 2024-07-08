@@ -152,9 +152,9 @@ export function PatternComments({
                 </Card>
               </div>
               <div className="flex h-full w-1/5 flex-grow flex-col justify-between gap-2">
-                <DialogTitle className="pl-5 text-sm">Комментарии</DialogTitle>
+                <DialogTitle className="pl-5 pt-2 text-base">Комментарии</DialogTitle>
                 <ScrollArea className="h-full pr-2">
-                  <div className={cn('flex h-full flex-col gap-2')}>
+                  <div className={cn('flex h-full flex-col gap-5 p-5 pt-3')}>
                     {isLoading ? (
                       <>
                         {Array.from({ length: 6 }).map((_, index) => (

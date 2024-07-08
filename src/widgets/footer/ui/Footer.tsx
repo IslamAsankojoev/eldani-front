@@ -60,18 +60,18 @@ export const Footer = () => {
             </div>
           )}
         </div>
-        <div className="flex flex-row justify-center gap-2 md:justify-end">
-          <span className="relative h-8 w-14">
+        <div className="flex flex-row justify-center gap-1 md:justify-end items-center">
+        <span className="relative h-5 w-14">
+            <Image src={visa} alt="Telegram" fill />
+          </span>
+          <span className="relative h-5 w-20">
             <Image src={maestro} alt="Telegram" fill />
           </span>
-          <span className="relative h-8 w-14">
+          <span className="relative h-5 w-20">
             <Image src={mastercard} alt="Telegram" fill />
           </span>
-          <span className="relative h-8 w-14">
+          <span className="relative h-5 w-20">
             <Image src={elkart} alt="Telegram" fill />
-          </span>
-          <span className="relative h-8 w-14">
-            <Image src={visa} alt="Telegram" fill />
           </span>
         </div>
       </div>

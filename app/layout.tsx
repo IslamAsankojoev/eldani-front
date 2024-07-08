@@ -22,6 +22,9 @@ export const metadata: Metadata = {
     maximumScale: 1,
     userScalable: true,
   },
+  icons: {
+    icon: '/icon.png',
+  }
 }
 
 const jost = Jost({
@@ -37,7 +40,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <>
       <html lang="en" suppressHydrationWarning translate="no" className={jost.className}>
-        <head />
+        <head>
+          <link rel="icon" href="/icon.png" />
+        </head>
         <body className="bg-slate-100 dark:bg-stone-900">
           <ThemeProvider
             attribute="class"

@@ -41,7 +41,7 @@ export const PatternCard = ({
 
       <div className="flex flex-col space-y-1.5 p-2 pt-0">
         <div className="flex items-center justify-between">
-          <p className="text-xl font-extrabold capitalize">{price + 'c'}</p>
+          <p className="text-xl font-extrabold capitalize text-slate-500 dark:text-white">{price + 'c'}</p>
           <div className="flex items-center gap-0">
             <PatternComments id={id} thumbnails={thumbnails} />
             <PatternLike id={id} />

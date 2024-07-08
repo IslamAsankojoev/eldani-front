@@ -64,7 +64,7 @@ export const PatternComment = ({
                   <p className="font-semibold text-stone-500 dark:text-stone-400">
                     {author.email}
                   </p>
-                  <p className="font-bold text-muted-foreground">
+                  <p className="text-muted-foreground">
                     {dayLater(createdAt as string)}
                     {createdAt !== updatedAt ? (
                       <span className="text-xs font-light text-muted-foreground">
