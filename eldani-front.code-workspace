@@ -1,0 +1,28 @@
+{
+  "folders": [
+    {
+      "path": "./src/app"
+    },
+    {
+      "path": "./src/widgets"
+    },
+    {
+      "path": "./src/features"
+    },
+    {
+      "path": "./src/entities"
+    },
+    {
+      "path": "./src/shared"
+    }
+  ],
+  "settings": {
+    "explorerSort.sortOrder": [
+      "app",
+      "widgets",
+      "features",
+      "entities",
+      "shared",
+    ]
+  }
+}

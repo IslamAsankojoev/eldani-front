@@ -27,3 +27,10 @@ interface UserRole {
   createdAt: string
   updatedAt: string
 }
+
+interface Author {
+  id: number
+  name: string
+  email: string
+  avatar: string
+}

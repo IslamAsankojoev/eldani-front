@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { Status } from '@/types/global.exports'
+import { Status } from '@/src/shared/types/global.exports'
 import { useMediaQuery } from '@mui/material'
 import _ from 'lodash'
 import { ArrowDownToLine, CircleHelp, MoreHorizontal } from 'lucide-react'

@@ -28,7 +28,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/entities/comment/model",
-    "types/**/*.d.ts",
+    "src/shared/types/**/*.d.ts",
     "src/**/*"
   ],
   "exclude": ["node_modules"]

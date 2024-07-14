@@ -57,3 +57,21 @@ interface Media {
   createdAt: Date
   updatedAt: Date
 }
+
+interface Category {
+  id: number
+  createdAt: Date
+  updatedAt: Date
+  publishedAt?: Date
+  name?: string
+  preview?: { data: Media }
+  products: { data: Pattern[] }
+  children: { data: Category[] }
+  parent?: { data: Category }
+  locale: string
+}
+
+interface Property {
+  name?: string
+  value?: string
+}

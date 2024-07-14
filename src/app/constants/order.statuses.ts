@@ -1,4 +1,4 @@
-import { Status } from '@/types/global.exports'
+import { Status } from '@/src/shared/types/global.exports'
 import colors from 'tailwindcss/colors'
 
 export const StatusTranslations: { [key in Status]: string } = {
